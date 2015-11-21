@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+   <div class="row mbot">
+		<div class="content col-md-8 col-md-offset-2">
+
+		<h1>FreeGeo API: Making Requests -> Reset API Credentials</h1>
+
+		<p>The FreeGeo API is still young, so we do not currently have a dashboard to enable developers easy management of their apps. We plan to create one, but need to focus on overal API development for now. Until we are able to build an interface for developers, you can easily reset your app API credentials by making a request to this endpoint with an authenticated session token.</p>
+
+		<p><b>Method:</b> POST | <b>Response:</b> JSON | Endpoint: <b><i>/api/credentials/reset</i></b></p>
+
+		<h4>Parameters</h4>
+
+		<p>The following parameter is <b><i>required</i></b> to make a successful request.</p>
+
+		<p>
+			<ul>
+				<li><b>session</b> - The session token generated when your app was authenticated.</li>
+			</ul>
+		</p>
+
+		<hr/>
+
+		<h4>API Key Reset - Example</h4>
+
+		<div id="tabs-container">
+		    <ul class="tabs-menu">
+		        <li class="current"><a href="#php">PHP</a></li>
+		        <li><a href="#python">Python</a></li>
+		        <li><a href="#response">Response</a></li>
+		    </ul>
+		    <div class="tab">
+		        <div id="php" class="tab-content">
+		            <script src="https://gist.github.com/YupItsZac/dbff2b7e5d54621d6117.js"></script>
+		        </div>
+		        <div id="python" class="tab-content">
+		            <script src="https://gist.github.com/YupItsZac/6f932d24c550ec488def.js"></script>
+		        
+		        </div>
+
+		        <div id="response" class="tab-content">
+		        	<script src="https://gist.github.com/YupItsZac/3eece191ddb21e7a036d.js"></script>
+		        </div>
+		        
+		    </div>
+		</div>
+
+		<hr/>
+
+		<div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+	</div>
+
+
+{% endblock %}

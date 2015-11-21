@@ -35,3 +35,21 @@
 
 # Composer PHAR
 /composer.phar
+
+#Symfony2 Stuffs
+
+/app/bootstrap.php.cache
+/app/cache/*
+!app/cache/.gitkeep
+/app/config/parameters.yml
+/app/logs/*
+!app/logs/.gitkeep
+/app/phpunit.xml
+/bin/
+/composer.phar
+/vendor/
+/web/bundles/
+
+#Vagrant
+Vagrantfile
+.vagrant
