@@ -1,0 +1,3 @@
+yup_its_zac_free_geo:
+    resource: "@YupItsZacFreeGeoBundle/Resources/config/routing.php"
+    prefix:   /

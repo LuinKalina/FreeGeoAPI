@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+   <div class="row mbot">
+		<div class="content col-md-8 col-md-offset-2">
+
+		<h1>FreeGeo API: Authenticate</h1>
+
+		<p>The FreeGeo API is free, but requires applications to be identified before consuming any geo data. This document assumes you have already registered your application and received your API key set via email.</p>
+
+		<h3>Request Token</h3>
+
+		<p>The first step is to request a session token. This token is formulated based on your public/private keyset.</p>
+
+		<p><b>Method:</b> POST | <b>Response:</b> JSON | Endpoint: <b><i>/api/authenticate/session</i></b></p>
+
+		<h4>Parameters</h4>
+
+		<p>The following parameters are <b><i>required</i></b> to authenticate your application with the FreeGeoDB API.</p>
+
+		<p>
+			<ul>
+				<li><b>public</b> - This is the PUBLIC key generated when you register your application.</li>
+				<li><b>private</b> - This is the PRIVATE key generated when you register your application.</li>
+			</ul>
+		</p>
+
+		<hr/>
+
+		<h4>Authenticate - Example</h4>
+
+		<div id="tabs-container">
+		    <ul class="tabs-menu">
+		        <li class="current"><a href="#php">PHP</a></li>
+		        <li><a href="#python">Python</a></li>
+		        <li><a href="#response">Response</a></li>
+		    </ul>
+		    <div class="tab">
+		        <div id="php" class="tab-content">
+		            <script src="https://gist.github.com/YupItsZac/872f63980ba1494209cf.js"></script>
+		        </div>
+		        <div id="python" class="tab-content">
+		            <script src="https://gist.github.com/YupItsZac/2936dba8a36628397d91.js"></script>
+		        
+		        </div>
+
+		        <div id="response" class="tab-content">
+		        	<script src="https://gist.github.com/YupItsZac/80f77ecb032cf36b35b9.js"></script>
+		        </div>
+		        
+		    </div>
+		</div>
+
+		<hr/>
+
+		<div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+	</div>
+
+
+{% endblock %}
