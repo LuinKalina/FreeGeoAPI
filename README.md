@@ -48,6 +48,10 @@ This is a HUGE area for the project. We need clear usage documentation so develo
 
 Currently, usage examples are provided for each endpoint in PHP and Python. We would like to expand this to include more languages to make API access possible for most projects. 
 
+**Translations**
+
+Right now, the FreeGeo API is only available in English. I'd like to expand this offering to as many languages as possible, but I need help! [This website](http://freegeo.yupitszac.com) and the API responses would need translation. Interested in contributing here? Open an issue and we can discuss the best way to accomplish this.
+
 
 **Other Stuff**
 
@@ -63,7 +67,7 @@ Your new code will be reviwed again, tested again, then if it makes sense to mov
 Local Dev
 ===
 
-[@nater1067](http://github.com/nater1067) has put together a quick guide to getting setup with [Symfony2](https://symfony.com/doc/current/index.html) (that's what the FreeGeo API is based on) and [Vagrant](http://www.vagrantup.com), using [puppet](https://puppetlabs.com/puppet/). You can, of course, use whatever configuration you'd like, but I strongly reccommend setting up your local dev like I have for contributions to the FreeGeo API. 
+[@nater1067](http://github.com/nater1067) has put together a [quick guide to getting setup](http://nater1067.github.io/blog/2014/08/25/spinning-up-symfony-2-development-environments-with-vagrant/) with [Symfony2](https://symfony.com/doc/current/index.html) (that's what the FreeGeo API is based on) and [Vagrant](http://www.vagrantup.com), using [puppet](https://puppetlabs.com/puppet/). You can, of course, use whatever configuration you'd like, but I strongly reccommend setting up your local dev like I have for contributions to the FreeGeo API. 
 
 
 
