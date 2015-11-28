@@ -14,6 +14,7 @@ Things To Do
 ===
 
 - [Priority: High] Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion. 
+- [Priority: Medium] Translate the FreeGeo website and API responses to other languages. 
 - [Priority: Low] Develop some sort of caching mechanism to improve performance.
 - [Priority: Medium] Add usage examples for more development languages (Java, JS, etc).
 - [Priority: High] Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
@@ -47,6 +48,10 @@ This is a HUGE area for the project. We need clear usage documentation so develo
 
 Currently, usage examples are provided for each endpoint in PHP and Python. We would like to expand this to include more languages to make API access possible for most projects. 
 
+**Translations**
+
+Right now, the FreeGeo API is only available in English. I'd like to expand this offering to as many languages as possible, but I need help! [This website](http://freegeo.yupitszac.com) and the API responses would need translation. Interested in contributing here? Open an issue and we can discuss the best way to accomplish this.
+
 
 **Other Stuff**
 
@@ -62,29 +67,7 @@ Your new code will be reviwed again, tested again, then if it makes sense to mov
 Local Dev
 ===
 
-You'll of course need to run a local dev to develop for the FreeGeo API. Just use whatever tools you're used to. Below is a basic guideline to ensure FreeGeo will run on your local machine. 
-
-**Vagrant** 
-
-We use [Vagrant](http://www.vagrantup.com). It makes it easy to build and deploy local development environments through the use of VMs. You'll need to meet the requirements for Vagrant. 
-
-An example Vagrantfile can be found in [this gist](https://gist.github.com/YupItsZac/ac6967d90eaed9966941)
-
-**Database**
-
-Currently, FreeGo uses a MySQL DB to store the geospatial data. You can find the DB info we use on dev (for local only) in the project config file. DB changes are handled via [migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
-
-The DB migrations are just structure of the DB for now. (I know, it's a crappy way to do it. Wanna fix it? :)) I've included SQL dumps with the data and a demo app you can use for development. I would like to (and we really need to) change from MySQL to a more appropriate DB, so I don't want to spend a lot of time on this yet. Migrations will be greatly improved when a DB is chosen and we transition to that.
-
-**Dependency**
-
-We use [composer](http://www.getcomposer.org) to include all of the required plugins, etc. This is a requirement. If you want to make a change that required an external plugin, it MUST be installed using composer. You'll need to run the composer install command at the root of the project once it's cloned from your fork.
-
-```
-  composer install
-```
-
-This will install all of the required packages we use. 
+[@nater1067](http://github.com/nater1067) has put together a [quick guide to getting setup](http://nater1067.github.io/blog/2014/08/25/spinning-up-symfony-2-development-environments-with-vagrant/) with [Symfony2](https://symfony.com/doc/current/index.html) (that's what the FreeGeo API is based on) and [Vagrant](http://www.vagrantup.com), using [puppet](https://puppetlabs.com/puppet/). You can, of course, use whatever configuration you'd like, but I strongly reccommend setting up your local dev like I have for contributions to the FreeGeo API. 
 
 
 
