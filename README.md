@@ -1,3 +1,12 @@
+WE NEED HELP
+===
+
+The current hosting company has informed me that the FreeGeo API is utilizing too many of their resources and I need to move it to a VPS or dedicated account. This is very sad because we have worked hard to build a functional API that provides geo-abilities to app developers for free. 
+
+I have requested a sponsored VPS or dedicated account from a well known (and totally reliable) hosting company but won't hear back from them until at least next week. 
+
+If you (or someone you know) works for a hosting company that might be able to provide a home for the FreeGeo API, please let me know! You can contact me on twitter [@YupItsZac](http://twitter.com/yupitszac) or via my website [yupitszac.com](http://www.yupitszac.com). 
+
 FreeGeo API
 ===
 
@@ -21,6 +30,7 @@ Things To Do
 - [Priority: Low] Figure out a better way to provide DB data other than .sql dumps.
 - [Priority: Medium] Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested. 
 - [Priority: High] Move logic for generating emails to separate controller. Also separate Mailgun creds.
+- [Priority: High] Develop a dashboard for app creators to manage credentials, register new apps, etc. 
 
 
 Contribute
