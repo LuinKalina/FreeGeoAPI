@@ -1,13 +1,13 @@
 FreeGeo API
 ===
 
-[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)](#) [![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)]()
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v0.0.1-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
 
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API si absolutely free to use, and completely open source. 
 
-The project by @YupItsZac is currently live in a test phase and is available at [freegeo.yupitszac.com](http://freegeo.yupitszac.com). All docs, etc can be found there.
+The project by [@YupItsZac](http://www.github.com/YupItsZac) is currently live in a test phase and is available at [freegeo.yupitszac.com](http://freegeo.yupitszac.com). All docs, etc can be found there.
 
-**Current Version:** 0.01
+**Current Version:** 0.0.1
 
 **Release Date:** November 1, 2015
 
@@ -17,16 +17,24 @@ Currently, we are preparing for the December 31st, 2015 release of version 1 on 
 Things To Do
 ===
 
-- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
-- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Move logic for generating emails to separate controller. Also separate Mailgun creds.
-- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Develop a dashboard for app creators to manage credentials, register new apps, etc.
-- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
-- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Translate the FreeGeo website and API responses to other languages.
-- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Add usage examples for more development languages (Java, JS, etc).
-- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
-- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](#) Develop some sort of caching mechanism to improve performance.
-- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](#) Figure out a better way to provide DB data other than .sql dumps.
-- [
+[![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](http://www.freegeoapi.org/to-do/priority-high)
+
+- Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
+- Move logic for generating emails to separate controller. Also separate Mailgun creds.
+- Develop a dashboard for app creators to manage credentials, register new apps, etc.
+- Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
+- Separate credentials/api keys from standard logic.
+
+[![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](http://www.freegeoapi.org/to-do/priority-medium)
+
+- Translate the FreeGeo website and API responses to other languages.
+- Add usage examples for more development languages (Java, JS, etc).
+- Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
+
+- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
+
+- Develop some sort of caching mechanism to improve performance.
+- Figure out a better way to provide DB data other than .sql dumps.
 
 Contribute
 ===
