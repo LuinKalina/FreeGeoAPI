@@ -31,7 +31,7 @@ Things To Do
 - Add usage examples for more development languages (Java, JS, etc).
 - Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
 
-- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
+[![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
 
 - Develop some sort of caching mechanism to improve performance.
 - Figure out a better way to provide DB data other than .sql dumps.
