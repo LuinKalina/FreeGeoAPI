@@ -17,7 +17,7 @@ Currently, we are preparing for the December 31st, 2015 release of version 1 on 
 Things To Do
 ===
 
-[![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](http://www.freegeoapi.org/to-do/priority-high)
+[![Github priority](https://img.shields.io/badge/Priority-HIGH__-red.svg)](http://www.freegeoapi.org/to-do/priority-high)
 
 - Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
 - Move logic for generating emails to separate controller. Also separate Mailgun creds.
@@ -32,7 +32,7 @@ Things To Do
 - Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
 - Add logic to check status of API services on /status page
 
-[![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
+[![Github priority](https://img.shields.io/badge/Priority-LOW___-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
 
 - Develop some sort of caching mechanism to improve performance.
 - Figure out a better way to provide DB data other than .sql dumps.
