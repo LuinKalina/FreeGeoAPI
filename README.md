@@ -30,6 +30,7 @@ Things To Do
 - Translate the FreeGeo website and API responses to other languages.
 - Add usage examples for more development languages (Java, JS, etc).
 - Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
+- Add logic to check status of API services on /status page
 
 [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
 
