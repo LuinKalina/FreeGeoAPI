@@ -1,14 +1,7 @@
-WE NEED HELP
-===
-
-The current hosting company has informed me that the FreeGeo API is utilizing too many of their resources and I need to move it to a VPS or dedicated account. This is very sad because we have worked hard to build a functional API that provides geo-abilities to app developers for free. 
-
-I have requested a sponsored VPS or dedicated account from a well known (and totally reliable) hosting company but won't hear back from them until at least next week. 
-
-If you (or someone you know) works for a hosting company that might be able to provide a home for the FreeGeo API, please let me know! You can contact me on twitter [@YupItsZac](http://twitter.com/yupitszac) or via my website [yupitszac.com](http://www.yupitszac.com). 
-
 FreeGeo API
 ===
+
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)](#) [![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)]()
 
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API si absolutely free to use, and completely open source. 
 
@@ -18,20 +11,22 @@ The project by @YupItsZac is currently live in a test phase and is available at 
 
 **Release Date:** November 1, 2015
 
+Currently, we are preparing for the December 31st, 2015 release of version 1 on the new VPS hosting provided free of charge by [DigitalOcean](http://www.digitalocean.com).
+
 
 Things To Do
 ===
 
-- [Priority: High] Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion. 
-- [Priority: Medium] Translate the FreeGeo website and API responses to other languages. 
-- [Priority: Low] Develop some sort of caching mechanism to improve performance.
-- [Priority: Medium] Add usage examples for more development languages (Java, JS, etc).
-- [Priority: High] Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
-- [Priority: Low] Figure out a better way to provide DB data other than .sql dumps.
-- [Priority: Medium] Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested. 
-- [Priority: High] Move logic for generating emails to separate controller. Also separate Mailgun creds.
-- [Priority: High] Develop a dashboard for app creators to manage credentials, register new apps, etc. 
-
+- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
+- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Move logic for generating emails to separate controller. Also separate Mailgun creds.
+- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Develop a dashboard for app creators to manage credentials, register new apps, etc.
+- [![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](#) Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
+- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Translate the FreeGeo website and API responses to other languages.
+- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Add usage examples for more development languages (Java, JS, etc).
+- [![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](#) Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
+- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](#) Develop some sort of caching mechanism to improve performance.
+- [![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](#) Figure out a better way to provide DB data other than .sql dumps.
+- [
 
 Contribute
 ===
@@ -44,7 +39,7 @@ There are three areas of primary interest on this project. Each area presents it
 
 **Backend** 
 
-The API is built on the [Symfony2 framework](https://symfony.com/doc/current/index.html). This means that the bulk f the project is written in PHP. Interested in contributing on the backend? Great! We need your help. Experience with PHP, MVC structures, routing, etc would be ideal.
+The API is built on the [Symfony2 framework](https://symfony.com/doc/current/index.html). This means that the bulk of the project is written in PHP. Interested in contributing on the backend? Great! We need your help. Experience with PHP, MVC structures, routing, etc would be ideal.
 
 **Frontend**
 
@@ -72,7 +67,7 @@ Don't want to help out in one of the areas above? No worries! The beauty of open
 
 Fork the repo! That way you can play around with whatever changes you want to make without affecting this repo. After your changes have been made, tested and reviewed, submit a pull request to the staging branch. 
 
-Your new code will be reviwed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release. 
+Your new code will be reviewed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release.
 
 Local Dev
 ===
