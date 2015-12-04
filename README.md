@@ -1,26 +1,41 @@
 FreeGeo API
 ===
 
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v0.0.1-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
+
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API si absolutely free to use, and completely open source. 
 
-The project by @YupItsZac is currently live in a test phase and is available at [freegeo.yupitszac.com](http://freegeo.yupitszac.com). All docs, etc can be found there.
+The project by [@YupItsZac](http://www.github.com/YupItsZac) is currently live in a test phase and is available at [freegeo.yupitszac.com](http://freegeo.yupitszac.com). All docs, etc can be found there.
 
-**Current Version:** 0.01
+**Current Version:** 0.0.1
 
 **Release Date:** November 1, 2015
+
+Currently, we are preparing for the December 31st, 2015 release of version 1 on the new VPS hosting provided free of charge by [DigitalOcean](http://www.digitalocean.com).
 
 
 Things To Do
 ===
 
-- [Priority: High] Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion. 
-- [Priority: Low] Develop some sort of caching mechanism to improve performance.
-- [Priority: Medium] Add usage examples for more development languages (Java, JS, etc).
-- [Priority: High] Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
-- [Priority: Low] Figure out a better way to provide DB data other than .sql dumps.
-- [Priority: Medium] Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested. 
-- [Priority: High] Move logic for generating emails to separate controller. Also separate Mailgun creds.
+[![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](http://www.freegeoapi.org/to-do/priority-high)
 
+- Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
+- Move logic for generating emails to separate controller. Also separate Mailgun creds.
+- Develop a dashboard for app creators to manage credentials, register new apps, etc.
+- Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
+- Separate credentials/api keys from standard logic.
+
+[![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](http://www.freegeoapi.org/to-do/priority-medium)
+
+- Translate the FreeGeo website and API responses to other languages.
+- Add usage examples for more development languages (Java, JS, etc).
+- Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
+- Add logic to check status of API services on /status page
+
+[![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
+
+- Develop some sort of caching mechanism to improve performance.
+- Figure out a better way to provide DB data other than .sql dumps.
 
 Contribute
 ===
@@ -33,7 +48,7 @@ There are three areas of primary interest on this project. Each area presents it
 
 **Backend** 
 
-The API is built on the [Symfony2 framework](https://symfony.com/doc/current/index.html). This means that the bulk f the project is written in PHP. Interested in contributing on the backend? Great! We need your help. Experience with PHP, MVC structures, routing, etc would be ideal.
+The API is built on the [Symfony2 framework](https://symfony.com/doc/current/index.html). This means that the bulk of the project is written in PHP. Interested in contributing on the backend? Great! We need your help. Experience with PHP, MVC structures, routing, etc would be ideal.
 
 **Frontend**
 
@@ -47,6 +62,10 @@ This is a HUGE area for the project. We need clear usage documentation so develo
 
 Currently, usage examples are provided for each endpoint in PHP and Python. We would like to expand this to include more languages to make API access possible for most projects. 
 
+**Translations**
+
+Right now, the FreeGeo API is only available in English. I'd like to expand this offering to as many languages as possible, but I need help! [This website](http://freegeo.yupitszac.com) and the API responses would need translation. Interested in contributing here? Open an issue and we can discuss the best way to accomplish this.
+
 
 **Other Stuff**
 
@@ -57,34 +76,12 @@ Don't want to help out in one of the areas above? No worries! The beauty of open
 
 Fork the repo! That way you can play around with whatever changes you want to make without affecting this repo. After your changes have been made, tested and reviewed, submit a pull request to the staging branch. 
 
-Your new code will be reviwed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release. 
+Your new code will be reviewed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release.
 
 Local Dev
 ===
 
-You'll of course need to run a local dev to develop for the FreeGeo API. Just use whatever tools you're used to. Below is a basic guideline to ensure FreeGeo will run on your local machine. 
-
-**Vagrant** 
-
-We use [Vagrant](http://www.vagrantup.com). It makes it easy to build and deploy local development environments through the use of VMs. You'll need to meet the requirements for Vagrant. 
-
-An example Vagrantfile can be found in [this gist](https://gist.github.com/YupItsZac/ac6967d90eaed9966941)
-
-**Database**
-
-Currently, FreeGo uses a MySQL DB to store the geospatial data. You can find the DB info we use on dev (for local only) in the project config file. DB changes are handled via [migrations](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
-
-The DB migrations are just structure of the DB for now. (I know, it's a crappy way to do it. Wanna fix it? :)) I've included SQL dumps with the data and a demo app you can use for development. I would like to (and we really need to) change from MySQL to a more appropriate DB, so I don't want to spend a lot of time on this yet. Migrations will be greatly improved when a DB is chosen and we transition to that.
-
-**Dependency**
-
-We use [composer](http://www.getcomposer.org) to include all of the required plugins, etc. This is a requirement. If you want to make a change that required an external plugin, it MUST be installed using composer. You'll need to run the composer install command at the root of the project once it's cloned from your fork.
-
-```
-  composer install
-```
-
-This will install all of the required packages we use. 
+[@nater1067](http://github.com/nater1067) has put together a [quick guide to getting setup](http://nater1067.github.io/blog/2014/08/25/spinning-up-symfony-2-development-environments-with-vagrant/) with [Symfony2](https://symfony.com/doc/current/index.html) (that's what the FreeGeo API is based on) and [Vagrant](http://www.vagrantup.com), using [puppet](https://puppetlabs.com/puppet/). You can, of course, use whatever configuration you'd like, but I strongly reccommend setting up your local dev like I have for contributions to the FreeGeo API. 
 
 
 

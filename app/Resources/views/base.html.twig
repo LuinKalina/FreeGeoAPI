@@ -14,6 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/yupitszacfreegeo/css/main.css') }}">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,178 +23,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <style type="text/css">
-
-            body {
-                /*font-family: 'Slabo 27px', serif;*/
-                font-family: "helvetica neue",helvetica,arial,"lucida grande",sans-serif;
-                color: #141823;
-                background-color: #e9eaed;
-            }
-
-            h1 {
-                font-size: 24px;
-                font-weight: normal;
-                line-height: 32px;
-                margin-bottom: 20px;
-                color: #4e5665;
-            }
-
-            .content {
-                background-color: #fff;
-                padding: 32px;
-            }
-
-            h3 {
-                color: #4e5665;
-                font-size: 18px;
-                line-height: 26px;
-                margin-bottom: 10px;
-            }
-
-            .mbot {
-                margin-top: 70px;
-            }
-
-            h4 {
-                margin-top: 35px;
-                margin-bottom: 20px;
-            }
-
-            .tabs-menu {
-                height: 30px;
-                float: left;
-                clear: both;
-                list-style-type: none;
-            }
-
-            .tabs-menu li {
-                height: 30px;
-                line-height: 30px;
-                float: left;
-                margin-right: 10px;
-                background-color: #0000ff;
-                border-top: 1px solid #d4d4d1;
-                border-right: 1px solid #d4d4d1;
-                border-left: 1px solid #d4d4d1;
-            }
-
-            .tabs-menu li.current {
-                position: relative;
-                background-color: #fff;
-                border-bottom: 1px solid #fff;
-                z-index: 5;
-            }
-
-            .tabs-menu li a {
-                padding: 10px;
-                text-transform: uppercase;
-                color: #fff;
-                text-decoration: none; 
-            }
-
-            .tabs-menu .current a {
-                color: #2e7da3;
-            }
-
-            .tab {
-                border: 1px solid #d4d4d1;
-                background-color: #fff;
-                float: left;
-                margin-bottom: 20px;
-                width: auto;
-            }
-
-            .tab-content {
-                width: 660px;
-                padding: 20px;
-                display: none;
-            }
-
-            #tab-1 {
-             display: block;   
-            }
-
-            form{
-                font: 95% Arial, Helvetica, sans-serif;
-                max-width: 400px;
-                margin: 10px auto;
-                padding: 16px;
-                background: #F7F7F7;
-            }
-            form h1{
-                background: #43D1AF;
-                padding: 20px 0;
-                font-size: 140%;
-                font-weight: 300;
-                text-align: center;
-                color: #fff;
-                margin: -16px -16px 16px -16px;
-            }
-            form input[type="text"],
-            form input[type="date"],
-            form input[type="datetime"],
-            form input[type="email"],
-            form input[type="number"],
-            form input[type="search"],
-            form input[type="time"],
-            form input[type="url"],
-            form textarea,
-            form select
-            {
-                -webkit-transition: all 0.30s ease-in-out;
-                -moz-transition: all 0.30s ease-in-out;
-                -ms-transition: all 0.30s ease-in-out;
-                -o-transition: all 0.30s ease-in-out;
-                outline: none;
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                width: 100%;
-                background: #fff;
-                margin-bottom: 4%;
-                border: 1px solid #ccc;
-                padding: 3%;
-                color: #555;
-                font: 95% Arial, Helvetica, sans-serif;
-            }
-            form input[type="text"]:focus,
-            form input[type="date"]:focus,
-            form input[type="datetime"]:focus,
-            form input[type="email"]:focus,
-            form input[type="number"]:focus,
-            form input[type="search"]:focus,
-            form input[type="time"]:focus,
-            form input[type="url"]:focus,
-            form textarea:focus,
-            form select:focus
-            {
-                box-shadow: 0 0 5px #43D1AF;
-                padding: 3%;
-                border: 1px solid #43D1AF;
-            }
-
-            form input[type="submit"],
-            form input[type="button"], button{
-                box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                width: 100%;
-                padding: 3%;
-                background: #43D1AF;
-                border-bottom: 2px solid #30C29E;
-                border-top-style: none;
-                border-right-style: none;
-                border-left-style: none;   
-                color: #fff;
-            }
-            form input[type="submit"]:hover,
-            form input[type="button"]:hover{
-                background: #2EBC99;
-            }
-
-
-        </style>
 
     </head>
     <body>
@@ -217,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="{{ url('free_geo_homepage') }}" class="navbar-brand">FreeGeo API</a>
+          <a href="{{ url('free_geo_homepage') }}" class="navbar-brand"><img class="freelogo" src="{{ asset('bundles/yupitszacfreegeo/images/freegeologo.png') }}" alt="FreeGeo API by YupItsZac"></a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav">
@@ -232,6 +61,7 @@
                 <li class="divider" role="separator"></li>
                 <li class="dropdown-header">Other Tasks</li>
                 <li><a href="{{ url('free_geo_reset') }}">Reset API Keys</a></li>
+                <li><a href="https://github.com/YupItsZac/FreeGeoAPI" target="_blank">FreeGeo on Github</a></li>
               </ul>
             </li>
 
@@ -248,7 +78,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="http://www.yupitszac.com" target="_blank">Zac's Website</a></li>
-            <li><a href="https://github.com/delight-im/FreeGeoDB" target="_blank">Geo Repo</a></li>
+            <li><a href="https://github.com/YupItsZac/FreeGeoAPI" target="_blank">Git Repo</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -278,6 +108,21 @@
         });
 
     </script>
+
+    <div class="footer navbar navbar-fixed-bottom">
+      <div class="container">
+
+        <div class="col-md-6">
+            <p class="text-muted">&copy; 2015 FreeGeo API. All rights reserved.</p>
+        </div>
+
+        <div class="col-md-6">
+            <p class="pull-right">
+                <a href="http://www.digitalocean.com" target="_blank"><img class="do" src="https://www.digitalocean.com/assets/images/logos-badges/png/DO_Proudly_Hosted_Badge_White-0f0151a4.png"></a>
+            </p>
+        </div>
+      </div>
+    </div>
 
     </body>
 </html>
