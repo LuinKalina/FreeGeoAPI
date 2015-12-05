@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row mbot">
+    <div class="content col-md-8 col-md-offset-2">
+
+        <h1>To-Do List: High Priority</h1>
+
+        <p>The following is a list of the highest priority changes/additions to the FreeGeo API. Feel free to contribute any of these at the <a href="http://www.github.com/YupItsZac/FreeGeoAPI" target="_blank">Github repo</a>.</p>
+
+        <p>
+            <ul>
+                <li><b>1). Change DB</b> - This requires some discussion. Currently, the FreeGeo API is utilizing MySQL for all DB needs. The problem with this is that the geospatial functions in MySQL are limited, and not as easily used as those in PostgreSQL or MongoDB. This change affects the entire API and web services, so will probably be slated for a later release.<br></li>
+                <li><b>2). Adjust email logic</b> to be more fluid, and resuable in a separate class. This task also includes moving the mailgun API keys to a better location within the application.<br></li>
+                <li><b>3). Developer Dashboard</b> so developers can manage apps and credentials.<br></li>
+                <li><b>4). Remove all raw SQL</b> and use some sort of DB ORM. (This is blocked by #1)<br></li>
+                <li><b>4). Move credentials</b> to a better, central location.<br></li>
+            </ul>
+        </p>
+
+
+        <hr/>
+
+        <div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+    </div>
+
+
+    {% endblock %}

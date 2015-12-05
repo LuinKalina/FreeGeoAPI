@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row mbot">
+    <div class="content col-md-8 col-md-offset-2">
+
+        <h1>Contribute</h1>
+
+        <p>The FreeGeo API is never done! Like most open sourced projects, we need as much help as we can get. There are specific areas where we need help more than others, but any contribution from anyone is greatly appreciated. Each area presents it's own unique challenges and opportunity for contribution.</p>
+
+        <h3>Backend: PHP</h3>
+
+        <p>This covers the backend controllers/models that handle the API requests. This includes interaction with the DB, performing distance calculations, etc. The API is built on the <a href="https://symfony.com/">Symfony2</a> framework. This means that the bulk of the project is written in PHP with an MVC architecture. Backend contributors should have knwoledge of basic PHP principles, security concerns and development lifecycle, knowledge of basic to advanced SQL queries, etc.</p>
+
+        <h3>Frontend</h3>
+
+        <p>This area is everything related to the client facing portion of the FreeGeo API website. This includes all views, design, layouts, templates, etc. Contributors should have basic PHP knowledge, HTML, CSS, Javascript, twig, and other frontend tools that might be added later on.</p>
+
+        <h3>Documentation</h3>
+
+        <p>This is a HUGE area for the project. We need clear usage documentation so developers know how to use the API and can see which endpoints are available. This documentation would be rather technical, so it might be useful if you have a background in technical writing but that is not required.</p>
+
+        <h3>Usage Examples</h3>
+
+        <p>Currently, usage examples are provided for each endpoint in PHP and Python. We would like to expand this to include more languages to make API access possible for as many developers as possible.</p>
+
+        <h3>Translations</h3>
+
+        <p>We want to make this API accessible and usable for as many developers as possible, in as many geogaphic locations as possible. Our goal is to translate the information displayed on the main website and API response messages into as many langauges as we can.</p>
+
+        <h3>Other Stuffs</h3>
+
+        <p>Don't want to help out in one of the areas above? No worries! The beauty of open source projects is that you can work on whatever you're good at (or want to be good at). Think another area should be added? Let me know!</p>
+
+        <h3>How to Contribute</h3>
+
+        <p>Fork the repo! That way you can play around with whatever changes you want to make without affecting this repo. After your changes have been made, tested and reviewed, submit a pull request to the staging branch.</p>
+
+        <p>Your new code will be reviewed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release.</p>
+
+
+        <hr/>
+
+        <div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+    </div>
+
+
+    {% endblock %}
