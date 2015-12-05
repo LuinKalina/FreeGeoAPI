@@ -13,90 +13,17 @@ use YupItsZac\FreeGeoBundle\Entity\Strings;
 
 class WebController extends Controller {
 
+    public function staticRenderAction($dir, $action) {
+
+        return $this->render('YupItsZacFreeGeoBundle:'.$dir.':'.$action.'.html.twig');
+    }
+
     public function indexAction() {
 
         return $this->render('YupItsZacFreeGeoBundle:Web:index.html.twig');
     }
 
-    public function statusAction() {
 
-    	return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig');
-    }
-
-    public function authenticateAction() {
-
-    	return $this->render('YupItsZacFreeGeoBundle:Docs:authenticate.html.twig');
-    }
-
-    public function findNearAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnear.html.twig');
-    }
-
-    public function findNearAirportsAction() {
-
-    	return $this->render('YupItsZacFreeGeoBundle:Docs:findnearairport.html.twig');
-    }
-
-    public function findnearCitiesAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnearcities.html.twig');
-    }
-
-    public function findnearPortsAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnearports.html.twig');
-    }
-
-    public function findnearLakesAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnearlakes.html.twig');
-    }
-
-    public function findnearRoadsAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnearroads.html.twig');
-    }
-
-    public function findnearRailroadsAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:findnearrailroads.html.twig');
-    }
-
-    public function detectTimeZoneAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:detecttimezone.html.twig');
-    }
-
-    public function calculateDistanceAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:calculatedistance.html.twig');
-    }
-
-    public function resetKeysAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:Docs:resetkeys.html.twig');
-    }
-
-    public function highTodoAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:todo:high.html.twig');
-    }
-
-    public function mediumTodoAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:todo:medium.html.twig');
-    }
-
-    public function lowTodoAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:todo:low.html.twig');
-    }
-
-    public function contributeAction() {
-
-        return $this->render('YupItsZacFreeGeoBundle:contribute:index.html.twig');
-    }
     public function appRegisterAction(Request $request) {
 
         $app = new Apps();
@@ -144,16 +71,16 @@ class WebController extends Controller {
             $em->flush();
 
             $message = array();
-            $message['from'] = "FreeGeo API <".Config::FROM_EMAIL_ADDRESS.">";
+            $message['from'] = Config::PROJECT_NAME." <".Config::FROM_EMAIL_ADDRESS.">";
             $message['to'] = $email;
             $message['h:Reply-To'] = Config::FROM_EMAIL_ADDRESS;
             $message['subject'] = Strings::APP_REGISTER_EMAIL_SUBJECT;
-            $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:email.standard.html.twig', array('fname' => $fname, 'emailHeader' => 'Your App API Keys', 'emailBody' => $body));
+            $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:registration.completed.html.twig', array('appTitle' => $title, 'privateKey' => $private, 'publicKey' => $pub, 'projectName' => Config::PROJECT_NAME, 'githubUrl' => Config::GITHUB_MAIN_REPO, 'twitterUrl' => Strings::TWITTER_URL, 'twitterUser' => Strings::TWITTER_USER, 'baseUrl' => Config::BASE_URL_PROD, 'fname' => $fname, 'emailHeader' => Strings::APP_REGISTER_EMAIL_SUBJECT));
          
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, Config::MAILGUN_API_URL);
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            curl_setopt($ch, CURLOPT_USERPWD, "api:{".Config::MAILGUN_API_KEY."}");
+            curl_setopt($ch, CURLOPT_USERPWD, 'api:'.Config::MAILGUN_API_KEY);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -165,7 +92,7 @@ class WebController extends Controller {
          
             curl_close($ch);
          
-            return $this->render('YupItsZacFreeGeoBundle:Web:appregistered.html.twig', array('projectName' => Config::PROJECT_NAME, 'githubUrl' => Config::GITHUB_MAIN_REPO, 'twitterUrl' => Strings::TWITTER_URL, 'twitterUser' => Strings::TWITTER_USER, 'baseUrl' => Config::BASE_URL_PROD, 'appName' => $title, 'email' => $email));
+            return $this->render('YupItsZacFreeGeoBundle:Web:appregistered.html.twig', array('projectName' => Config::PROJECT_NAME, 'twitterUrl' => Strings::TWITTER_URL, 'twitterUser' => Strings::TWITTER_USER, 'baseUrl' => Config::BASE_URL_PROD, 'appName' => $title, 'email' => $email));
 
 
         }
