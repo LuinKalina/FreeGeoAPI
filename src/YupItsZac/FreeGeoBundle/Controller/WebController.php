@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use YupItsZac\FreeGeoBundle\Entity\Apps;
 use Symfony\Component\HttpFoundation\Response;
 use YupItsZac\FreeGeoBundle\Entity\Config;
+use YupItsZac\FreeGeoBundle\Entity\Strings;
 
 
 class WebController extends Controller {
@@ -142,24 +143,17 @@ class WebController extends Controller {
             $em->persist($app);
             $em->flush();
 
-
-            $body = 'Your app has been registered with the FreeGeo API and is ready to go! Your app API keys are listed below, along with some helpful links.<br><br>If you have any questions about the API or how to interact with the data, just shoot me a tweet ( <a href="http://www.twitter.com/YupItsZac">@YupItsZac</a> or visit the FreeGeo API website at <a href="http://freegeo.yupitszac.com">http://freegeo.yupitszac.com</a> for docs and code samples.<br><br><b>App Name:</b> '.$title.'<br><b>Private Key:</b> '.$private.'<br><b>Public Key:</b> '.$pub.'<br><br>The keys listed above are what you will use to authenticate your app against the FreeGeo API so you can request and manipulate data. BOTH keys are required to generate your session token. For mroe information on authenticating, please see the <a href="http://freegeo.yupitszac.com/docs/authenticate/session">Session Authentication Manual</a>.<br><br>All geospatial points provided by the FreeGeo API are based on the work of the <a href="https://github.com/delight-im/FreeGeoDB">FreeGeo DB</a> Github project. Feel free to contribute geospatial information to that repository!';
-
-            $config = array();
-            $config['api_key'] = Config::MAILGUN_API_KEY;
-            $config['api_url'] = Config::MAILGUN_API_URL;
-         
             $message = array();
             $message['from'] = "FreeGeo API <".Config::FROM_EMAIL_ADDRESS.">";
             $message['to'] = $email;
             $message['h:Reply-To'] = Config::FROM_EMAIL_ADDRESS;
-            $message['subject'] = "FreeGeo API Keys";
+            $message['subject'] = Strings::APP_REGISTER_EMAIL_SUBJECT;
             $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:email.standard.html.twig', array('fname' => $fname, 'emailHeader' => 'Your App API Keys', 'emailBody' => $body));
          
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $config['api_url']);
+            curl_setopt($ch, CURLOPT_URL, Config::MAILGUN_API_URL);
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            curl_setopt($ch, CURLOPT_USERPWD, "api:{$config['api_key']}");
+            curl_setopt($ch, CURLOPT_USERPWD, "api:{".Config::MAILGUN_API_KEY."}");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -171,7 +165,7 @@ class WebController extends Controller {
          
             curl_close($ch);
          
-            return $this->render('YupItsZacFreeGeoBundle:Web:appregistered.html.twig', array('appName' => $title, 'email' => $email));
+            return $this->render('YupItsZacFreeGeoBundle:Web:appregistered.html.twig', array('projectName' => Config::PROJECT_NAME, 'githubUrl' => Config::GITHUB_MAIN_REPO, 'twitterUrl' => Strings::TWITTER_URL, 'twitterUser' => Strings::TWITTER_USER, 'baseUrl' => Config::BASE_URL_PROD, 'appName' => $title, 'email' => $email));
 
 
         }
