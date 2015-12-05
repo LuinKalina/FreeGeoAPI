@@ -76,6 +76,25 @@ class WebController extends Controller {
         return $this->render('YupItsZacFreeGeoBundle:Docs:resetkeys.html.twig');
     }
 
+    public function highTodoAction() {
+
+        return $this->render('YupItsZacFreeGeoBundle:todo:high.html.twig');
+    }
+
+    public function mediumTodoAction() {
+
+        return $this->render('YupItsZacFreeGeoBundle:todo:medium.html.twig');
+    }
+
+    public function lowTodoAction() {
+
+        return $this->render('YupItsZacFreeGeoBundle:todo:low.html.twig');
+    }
+
+    public function contributeAction() {
+
+        return $this->render('YupItsZacFreeGeoBundle:contribute:index.html.twig');
+    }
     public function appRegisterAction(Request $request) {
 
         $app = new Apps();

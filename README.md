@@ -84,7 +84,14 @@ Local Dev
 [@nater1067](http://github.com/nater1067) has put together a [quick guide to getting setup](http://nater1067.github.io/blog/2014/08/25/spinning-up-symfony-2-development-environments-with-vagrant/) with [Symfony2](https://symfony.com/doc/current/index.html) (that's what the FreeGeo API is based on) and [Vagrant](http://www.vagrantup.com), using [puppet](https://puppetlabs.com/puppet/). You can, of course, use whatever configuration you'd like, but I strongly reccommend setting up your local dev like I have for contributions to the FreeGeo API. 
 
 
+Special Thanks
+===
 
+Special thanks to these company/people that have helped make FreeGeo API happen!
+
+- [DigitalOcean](http://www.digitalocean.com) has generously provided the hosting needed at no cost to us.
+- [GlobalSign](http://www.globalsign.com) helped us secure requests to the API with a free SSL certificate for a year.
+- [@HaxxonHax](http://www.github.com/HaxxonHax) assisted with SSL installation and configuration.
 
 
 

@@ -80,6 +80,22 @@ $collection->add('free_geo_calculate_distance', new Route('/docs/requests/calcul
 	'_controller' => 'YupItsZacFreeGeoBundle:Web:calculateDistance'
 )));
 
+$collection->add('free_geo_todo_high', new Route('/to-do/priority-high', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Web:highTodo'
+)));
+
+$collection->add('free_geo_todo_medium', new Route('/to-do/priority-medium', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Web:mediumTodo'
+)));
+
+$collection->add('free_geo_todo_low', new Route('/to-do/priority-low', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Web:lowTodo'
+)));
+
+$collection->add('free_geo_contribute', new Route('/contribute', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Web:contribute'
+)));
+
 //API Routes
 
 $collection->add('api_auth', new Route('/api/authenticate/session', array(
