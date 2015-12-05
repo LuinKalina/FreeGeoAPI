@@ -821,7 +821,7 @@
                         <td class="emb-logo-padding-box" style="padding: 0;vertical-align: top;padding-bottom: 24px;padding-top: 24px;text-align: right;width: 280px;letter-spacing: 0.01em;line-height: 17px;font-weight: 400;font-size: 11px;color: #b9b9b9">
                             <div class="spacer" style="font-size: 1px;line-height: 2px;width: 100%">&nbsp;</div>
                             <div class="title" style='font-family: "Open Sans",sans-serif'>Developer: <a href="http://www.yupitszac.com/?ref=freegeo&type=email">Zac Brown</a><br>
-                                <a href="https://github.com/delight-im/FreeGeoDB">Contribute Geo Data</a></div>
+                                <a href="https://github.com/YupItsZac/FreeGeoAPI">Contribute</a></div>
 
                         </td>
                     </tr>
@@ -850,7 +850,7 @@
                         <td class="column" style="padding: 0;vertical-align: top;text-align: left">
 
                             <div class="image" style='font-size: 12px;Margin-bottom: 24px;mso-line-height-rule: at-least;font-style: normal;font-weight: 400;font-family: "Open Sans",sans-serif;color: #60666d' align="center">
-                                <img class="gnd-corner-image gnd-corner-image-center gnd-corner-image-top" style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 900px" src="http://www.geocachingsupplies.net/wp-content/uploads/2009/05/gps_satellite_575.jpg" alt="" width="600" height="338">
+                                <img class="gnd-corner-image gnd-corner-image-center gnd-corner-image-top" style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 900px" src="https://freegeoapi.org/bundles/yupitszacfreegeo/images/banner.jpg" alt="" width="600" height="250">
                             </div>
 
                             <table class="contents" style="border-collapse: collapse;border-spacing: 0;table-layout: fixed;width: 100%">
@@ -874,11 +874,11 @@
 
                                             <p style='Margin-top: 0;font-style: normal;font-weight: 400;font-size: 15px;line-height: 24px;Margin-bottom: 24px;font-family: "Open Sans",sans-serif;color: #60666d;text-align: left'>Your app has been registered with the {{ projectName }} and is ready to go! Your app API keys are listed below, along with some helpful links.</p>
 
-                                            <p>If you have any questions about the API or how to interact with the data, just tweet ( <a href="{{ twitterUrl }}">{{ twitterUser }}</a> or visit the {{ projectName }} website at <a href="{{ baseUrl }}">{{ baseUrl }}</a> for docs and code samples.</p>
+                                            <p>If you have any questions about the API or how to interact with the data, just tweet <a href="{{ twitterUrl }}">{{ twitterUser }}</a> or visit the {{ projectName }} website at <a href="{{ baseUrl }}">{{ baseUrl }}</a> for docs and code samples.</p>
 
-                                            <p><b>App Name:</b> '.$title.'<br><b>Private Key:</b> '.$private.'<br><b>Public Key:</b> '.$pub.'</p>
+                                            <p><b>App Name:</b> {{ appTitle }} <br><b>Private Key:</b> {{ privateKey }}<br><b>Public Key:</b> {{ publicKey }}</p>
 
-                                            <p>The keys listed above are what you will use to authenticate your app against the {{ projectName }} so you can request and manipulate data. BOTH keys are required to generate your session token. For mroe information on authenticating, please see the <a href="{{ baseUrl }}/docs/authenticate/session">Session Authentication Manual</a>.</p>
+                                            <p>The keys listed above are what you will use to authenticate your app against the {{ projectName }} so you can request and manipulate data. BOTH keys are required to generate your session token. For more information on authenticating, please see the <a href="{{ baseUrl }}/docs/authenticate/session">Session Authentication Manual</a>.</p>
 
                                             <p>The {{ projectName }} is completely open source, and totally free to use. This means that we are always looking for help. Interested in contributing? Visit the <a href="{{ githubUrl }}">Github repo</a> and start coding!</p>
 
@@ -912,7 +912,7 @@
 
                         </tr>
                         </tbody></table>
-                    <div class="address" style='font-family: "Open Sans",sans-serif;Margin-bottom: 19px'>This email was automatically generated and sent upon new app registration on the FreeGeo API platform.</div>
+                    <div class="address" style='font-family: "Open Sans",sans-serif;Margin-bottom: 19px'>This email was automatically generated and sent upon new app registration on the {{ projectName }} platform.</div>
                     <div class="permission" style='font-family: "Open Sans",sans-serif;Margin-bottom: 10px'>
 
                     </div>
