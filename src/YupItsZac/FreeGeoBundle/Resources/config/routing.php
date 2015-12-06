@@ -13,88 +13,111 @@ $collection->add('free_geo_homepage', new Route('/', array(
 )));
 
 $collection->add('free_geo_status', new Route('/status', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:status',
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'status',
+    'dir' => 'Web'
 )));
 
 $collection->add('free_geo_app_register', new Route('/apps/register', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:appRegister',
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:appRegister'
 )));
 
 $collection->add('free_geo_authenticate', new Route('/docs/authenticate', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:authenticate'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'authenticate',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_authenticate_session', new Route('/docs/authenticate/session', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:authenticate'
-)));
-
-$collection->add('free_geo_requests', new Route('/docs/making-requests', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:requests'
-)));
-
-$collection->add('free_geo_errors', new Route('/docs/request-errors', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:errors'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'authenticate',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_reset', new Route('/docs/reset-api-keys', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:resetKeys'
-)));
-
-$collection->add('free_geo_usage', new Route('/docs/usage-limits', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:usage'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'resetkeys',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near', new Route('/docs/requests/find-near', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNear'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnear',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_airports', new Route('/docs/requests/find-near/airports', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearAirports'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearairport',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_cities', new Route('/docs/requests/find-near/cities', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearCities'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearcities',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_ports', new Route('/docs/requests/find-near/ports', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearPorts'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearports',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_lakes', new Route('/docs/requests/find-near/lakes', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearLakes'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearlakes',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_roads', new Route('/docs/requests/find-near/roads', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearRoads'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearroads',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_find_near_railroads', new Route('/docs/requests/find-near/railroads', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:findNearRailroads'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'findnearrailroads',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_detect_time_zone', new Route('/docs/requests/detect/timezone', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:detectTimeZone'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'detecttimezone',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_calculate_distance', new Route('/docs/requests/calculate/distance', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:calculateDistance'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'calculatedistance',
+    'dir' => 'Docs'
 )));
 
 $collection->add('free_geo_todo_high', new Route('/to-do/priority-high', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:highTodo'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'high',
+    'dir' => 'Todo'
 )));
 
 $collection->add('free_geo_todo_medium', new Route('/to-do/priority-medium', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:mediumTodo'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'medium',
+    'dir' => 'Todo'
 )));
 
 $collection->add('free_geo_todo_low', new Route('/to-do/priority-low', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:lowTodo'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'low',
+    'dir' => 'Todo'
 )));
 
 $collection->add('free_geo_contribute', new Route('/contribute', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Web:contribute'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+    'action' => 'index',
+    'dir' => 'Contribute'
 )));
+
 
 //API Routes
 
