@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<form class="form-signin" name='register_form' id='register_form' method='post' action='{{path('free_geo_user_register_process')}}'>
+
+    <h3>Developer Registration</h3>
+
+    <p>Register as a developer for <b>FREE</b> access to the {{ projectName }}!</p>
+
+    {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder':'First Name'}}) }}
+
+    {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder': 'Last Name'}}) }}
+
+    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+
+    {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder':'Password'}}) }}
+
+    {{ form_widget(form.confirm, {'attr': {'class': 'form-control', 'placeholder':'Confirm Password'}}) }}
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" value="remember-me" required checked>I accept the {{ projectName }} Terms of Use and Privacy Policy.
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+</form>
+
+{% endblock %}
