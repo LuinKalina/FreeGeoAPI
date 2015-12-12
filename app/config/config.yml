@@ -78,3 +78,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+#TwigError
+services:
+   twig.exception_listener:
+     class: DateTime #or another dummy class
