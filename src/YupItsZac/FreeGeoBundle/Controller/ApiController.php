@@ -11,6 +11,7 @@ use YupItsZac\FreeGeoBundle\Entity\Session;
 use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
 use \DateTime;
+use YupItsZac\FreeGeoBundle\Helpers\ResponseHelper;
 
 class ApiController extends Controller {
 
@@ -18,16 +19,8 @@ class ApiController extends Controller {
 
     	if($request->request->has('public') === false || $request->request->has('secret') === false) {
 
-	    	$resp = array(
-	    		'status' => 'fatal',
-	    		'reason' => 'Unauthorized',
-	    		'message' => 'Provide app API credentials.',
-                'request' => $request->request->all()
-	    	);
-
-	    	return new JsonResponse($resp);
-
-    	}
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
+        }
 
         $public = $request->request->get('public');
         $secret = $request->request->get('secret');
@@ -36,13 +29,7 @@ class ApiController extends Controller {
 
         if($app === null) {
 
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthroized',
-                'message' => 'The supplied API credentials are invalid, or revoked.'
-            );
-
-            return new JsonResponse($resp);
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
         }
 
         $appId = $app->getId();
@@ -51,13 +38,7 @@ class ApiController extends Controller {
         
         if($appStatus != 'Active') {
 
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'Unauthorized',
-                'message' => 'App for public key '.$public.' is no longer active. The status is '.$appStatus.'. For questions, contact support online at freegeo.yupitszac.com'
-            );
-
-            return new JsonResponse($resp);
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_REVOKED_CREDENTIALS);
         }
 
         $sessionKey = md5(time().$public.time().$secret.time().$appId);
@@ -74,16 +55,11 @@ class ApiController extends Controller {
         $em->persist($session);
         $em->flush();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'authorized',
-            'payload' => array('session' => $sessionKey)
-        );
+        $payload = array('session' => $sessionKey);
+
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $payload);
 
 
-
-    	return new JsonResponse($resp);
-        
     }
 
     public function findNearAirportAction(Request $request) {
@@ -94,22 +70,8 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        // $lat = '-112.01363529772982';
-        // $lon = '33.43586076394977';
-        // $limit = 30;
-        // $max = 2500;
-
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -121,17 +83,10 @@ class ApiController extends Controller {
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
         $q->bindValue('max', $max);
-        // $q->bindValue('lim', $limit);
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
 
     }
 
@@ -143,17 +98,8 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-       $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -168,13 +114,7 @@ class ApiController extends Controller {
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
 
     }
 
@@ -186,22 +126,8 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        // $lat = '-112.01363529772982';
-        // $lon = '33.43586076394977';
-        // $limit = 30;
-        // $max = 2500;
-
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -217,13 +143,7 @@ class ApiController extends Controller {
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
 
     }
 
@@ -235,25 +155,9 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        // $lat = '-112.01363529772982';
-        // $lon = '33.43586076394977';
-        // $limit = 30;
-        // $max = 2500;
-
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
-
-//        $this->verifyAppSession($session);
 
         $em = $this->getDoctrine()->getEntityManager();
 
@@ -264,17 +168,10 @@ class ApiController extends Controller {
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
         $q->bindValue('max', $max);
-        // $q->bindValue('lim', $limit);
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
 
     }
 
@@ -284,9 +181,8 @@ class ApiController extends Controller {
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
 
-        if($this->verifyAppSession($session) === false) {
-
-            die('false');
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -299,13 +195,7 @@ class ApiController extends Controller {
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
     }
 
     public function detectCountryAction(Request $request) {
@@ -314,17 +204,8 @@ class ApiController extends Controller {
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -337,14 +218,7 @@ class ApiController extends Controller {
 
         $q->execute();
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'alert' => 'This section of the API is NOT fully developed and is not yet production ready. Not all country boundaries have been added. Contribute at github.com/delight-im/FreeGeoDB',
-            'payload' => $q->fetchAll()
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
 
     }
 
@@ -361,17 +235,8 @@ class ApiController extends Controller {
 
         $round = $request->request->get('round');
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
         $theta = $lona - $lonb;
@@ -398,32 +263,20 @@ class ApiController extends Controller {
             $final = $distance;
         }
 
-        $resp = array(
-            'status' => 'success',
-            'reason' => 'completed action',
-            'note' => 'Please note, this distance calculation does not take into account roads.',
-            'payload' => array('distance' => $final, 'metric' => strtoupper($metric), 'fullMetric' => $name)
-        );
+        $payload = array('distance' => $final, 'metric' => strtoupper($metric), 'fullMetric' => $name);
 
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $payload);
     }
 
     public function resetKeysAction(Request $request) {
 
         $session = $request->request->get('session');
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+        if(!$this->verifyAppSession($session)) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
+
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
 
         $public = md5(time().$app->getPublic().time());
         $private = md5(time().time().$app->getSecret().time());
@@ -447,41 +300,15 @@ class ApiController extends Controller {
         $title = $app->getApptitle();
         $fname = $app->getFirstname();
 
-        $body = 'Your app API credentials for <b>'.$title.'</b> have been successfully reset. Your new credentials are listed below.<br><br>If you have any questions or need any help, tweet <a href="http://twitter.com/FreeGeoAPI">@FreeGeoAPI</a> and <a href="http://twitter.com/YupItsZac">@YupItsZac</a>.<br><br><b>App Name:</b> '.$title.'<br><b>New Private:</b> '.$private.'<br><b>New Public:</b> '.$public.'<br><br><b>NOTE:</b> Any currently active session tokens for your app have been removed. You must re-authenticate with your new keyset before making any other requests.';
-
-        $config = array();
-        $config['api_key'] = "key-46cb002424c2a5f4dc6c4c18b6a07303";
-        $config['api_url'] = "https://api.mailgun.net/v3/yupitszac.com/messages";
-     
         $message = array();
-        $message['from'] = "Zac @ FreeGeo API <me@yupitszac.com>";
+        $message['from'] = 'FreeGeo API <'.Config::FROM_EMAIL_ADDRESS.'>';
         $message['to'] = $email;
-        $message['h:Reply-To'] = "me@yupitszac.com";
-        $message['subject'] = "New FreeGeo API Keys";
-        $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:email.standard.html.twig', array('fname' => $fname, 'emailHeader' => 'Your New App API Keys', 'emailBody' => $body));
+        $message['subject'] = Strings::API_KEY_RESET_EMAIL_SUBJECT;
+        $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:apikeys.reset.html.twig', array('firstName' => $fname, 'emailHeader' => Strings::API_MSG_KEY_RESET_SUCCESS, 'appTitle' => $title, 'publicKey' => $public, 'privateKey' => $private, 'projectName' => Config::PROJECT_NAME, 'githubUrl' => Config::GITHUB_MAIN_REPO));
      
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $config['api_url']);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, "api:{$config['api_key']}");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_POST, true); 
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$message);
-     
-        $result = curl_exec($ch);
-     
-        curl_close($ch);
+        $this->sendEmailWithMailgun($message);
 
-        $resp = array(
-            'status' => 'success',
-            'reason' =>  'completed action',
-            'message' => 'The API keys have been reset for the '.$title.' app. We have sent an email to the address registered with your app containing your new API credentials.'
-        );
-
-        return new JsonResponse($resp);
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_KEY_RESET_SUCCESS);
 
     }
 
@@ -498,48 +325,21 @@ class ApiController extends Controller {
         }
     }
 
-    private function jsonBuilder($status, $reason, $message, $payload) {
+    private function sendEmailWithMailgun($message) {
 
-        if($status == 'fatal') {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, Config::MAILGUN_API_URL);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'api:{'.Config::MAILGUN_API_KEY.'}');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,$message);
 
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => $reason,
-                'message' => $message
-            );
+        $result = curl_exec($ch);
 
-            return new JsonResponse($resp);
-
-        } else {
-
-            echo 'done';
-
-            $resp = array(
-                'status' => $status,
-                'reason' => $reason,
-                'message' => $message,
-                'payload' => $payload
-            );
-
-            return new JsonResponse($resp);
-        }
+        curl_close($ch);
     }
 }
-
-
-// SET @startlat = '-112.01363529772982';
-// SET @startlng = '33.43586076394977';
-// SET @max = '2500';
-// SET @limit = '20';
-
-// SET @lat = '-73.03392986299986'
-
-// SET @lon = '21.15673149000004'
-
-
-// SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT(
-//     POW(69.1 * (X(GeomFromText(coordinates_wkt)) - @startlat), 2) +
-//     POW(69.1 * (@startlng - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance
-// FROM cities HAVING distance < @max ORDER BY distance
-
-//SELECT * FROM time_zones WHERE ST_CONTAINS(polygons.geom, POINT('-142.46507296504296', '74.90013915357542'))
