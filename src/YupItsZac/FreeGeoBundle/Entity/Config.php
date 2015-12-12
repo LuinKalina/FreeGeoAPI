@@ -13,8 +13,8 @@ class Config {
 
     const PROJECT_NAME = 'FreeGeo API';
 
-    const MAILGUN_API_KEY = '...';
-    const MAILGUN_API_URL = '...';
+    const MAILGUN_API_KEY = 'key-78cb2ed8a825cd58ad869a766a16389f';
+    const MAILGUN_API_URL = 'https://api.mailgun.net/v3/mailer.freegeoapi.org';
 
     const FROM_EMAIL_ADDRESS = 'noreply@freegeoapi.org';
     const ENVIRONMENT = 'dev';

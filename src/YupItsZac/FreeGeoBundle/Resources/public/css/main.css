@@ -199,3 +199,7 @@ ul.nav a:hover { color: #fff !important; }
     color: #fff;
     padding: 10px;
 }
+
+#register_form {
+    margin-top: 80px;
+}
