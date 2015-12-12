@@ -112,7 +112,7 @@ $collection->add('free_geo_todo_low', new Route('/to-do/priority-low', array(
     'dir' => 'Todo'
 )));
 
-$collection->add('free_geo_contribute', new Route('/contribute', array(
+$collection->add('free_geo_contribute', new Route('/Contribute', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'index',
     'dir' => 'Contribute'

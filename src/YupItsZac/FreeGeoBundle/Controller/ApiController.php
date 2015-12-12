@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use YupItsZac\FreeGeoBundle\Entity\Session;
+use YupItsZac\FreeGeoBundle\Entity\Config;
+use YupItsZac\FreeGeoBundle\Entity\Strings;
 use \DateTime;
 
 class ApiController extends Controller {
@@ -251,6 +253,8 @@ class ApiController extends Controller {
             return new JsonResponse($resp);
         }
 
+//        $this->verifyAppSession($session);
+
         $em = $this->getDoctrine()->getEntityManager();
 
         $con = $em->getConnection();
@@ -280,17 +284,9 @@ class ApiController extends Controller {
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
+        if($this->verifyAppSession($session) === false) {
 
-        if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+            die('false');
         }
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -496,14 +492,9 @@ class ApiController extends Controller {
         $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
 
         if($app === null) {
-
-            $resp = array(
-                'status' => 'fatal',
-                'reason' => 'unauthorized',
-                'message' => 'Invalid session key '.$session.'. Please authenticate your app. More info at freegeo.yupitszac.com/docs/authenticate'
-            );
-
-            return new JsonResponse($resp);
+            return false;
+        } else {
+            return true;
         }
     }
 
