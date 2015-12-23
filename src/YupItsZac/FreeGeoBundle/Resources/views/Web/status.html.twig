@@ -7,7 +7,12 @@
 
 		<h1>API Status Report</h1>
 
-		<b>All services online and operating.</b>
+			{% for key,value in servicesStatus %}
+				<b>Service</b>: {{ key }}
+				<b>Status</b> : {{ value.Status }}
+				<b>Endpoint</b>: {{ value.Endpoint }}
+				<br><br>
+			{% endfor %}
 
 		</div>
 

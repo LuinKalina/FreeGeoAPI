@@ -9,9 +9,17 @@ use YupItsZac\FreeGeoBundle\Entity\Apps;
 use Symfony\Component\HttpFoundation\Response;
 use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
+use YupItsZac\FreeGeoBundle\Helpers\dataHelper;
 
 
 class WebController extends Controller {
+
+    private $dataHelper;
+
+    public function __construct() {
+
+        $this->dataHelper = new dataHelper();
+    }
 
     public function staticRenderAction($dir, $action) {
 
@@ -23,6 +31,15 @@ class WebController extends Controller {
         return $this->render('YupItsZacFreeGeoBundle:Web:index.html.twig');
     }
 
+    public function statusCheckAction() {
+
+        $statusArray = array();
+
+        $serviceStatus = $this->dataHelper->checkStatusServices();
+
+        return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig', array('servicesStatus' => $statusArray));
+
+    }
 
     public function appRegisterAction(Request $request) {
 

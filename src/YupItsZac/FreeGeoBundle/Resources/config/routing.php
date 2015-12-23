@@ -13,9 +13,7 @@ $collection->add('free_geo_homepage', new Route('/', array(
 )));
 
 $collection->add('free_geo_status', new Route('/status', array(
-    '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
-    'action' => 'status',
-    'dir' => 'Web'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:statusCheck'
 )));
 
 $collection->add('free_geo_app_register', new Route('/apps/register', array(

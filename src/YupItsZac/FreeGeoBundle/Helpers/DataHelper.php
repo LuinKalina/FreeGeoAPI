@@ -205,6 +205,22 @@ class DataHelper extends Controller {
         return md5(time().time());
     }
 
+    public function checkStatusServices() {
+
+        $currentStatus = array();
+
+        foreach(Config::API_SERVICE_LIST_ARRAY as $key => $val) {
+
+            $currentStatus[$key] = array(
+                'Status' => $this->makeStatusRequest($val)['message'],
+                'Endpoint' => $val
+            );
+        }
+
+        return $currentStatus;
+
+    }
+
     public function getSessionType($sessionToken, $publicKey = null) {
 
         //2 = Normal API requests, 1 = API Status Check
@@ -214,5 +230,27 @@ class DataHelper extends Controller {
         } else {
             return '2';
         }
+    }
+
+    private function makeStatusRequest($url) {
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'https://freegeoapi.org'.$url,
+            CURLOPT_USERAGENT => 'FreeGeo::API::StatusChecker',
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS => array(
+                'session' => Config::API_STATUS_CHECK_SESSION_TOKEN,
+                'public' => Config::API_STATUS_CHECK_PUBLIC_KEY
+            )
+        ));
+
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        $status = array();
+
+        return $resp;
     }
 }
