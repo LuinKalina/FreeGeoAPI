@@ -136,4 +136,38 @@ class DataHelper extends Controller {
             return true;
         }
     }
+
+    public function calculateDistance($longitudeFirst, $latitudeFirst, $longitudeSecond, $latitudeSecond, $unit, $round) {
+
+        $payload = array();
+
+        $theta = $longitudeFirst - $longitudeSecond;
+        $dist = sin(deg2rad($latitudeFirst)) * sin(deg2rad($latitudeSecond)) +  cos(deg2rad($latitudeFirst)) * cos(deg2rad($latitudeSecond)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtolower($unit);
+
+        if($unit == 'k') {
+            $distance = $miles * 1.609344;
+            $payload['unitName'] = 'kilometers';
+        } else if($unit == 'n') {
+            $distance = $miles * 0.8684;
+            $payload['unitName'] = 'nautical miles';
+        } else {
+            $distance = $miles;
+            $payload['unitName'] = 'miles';
+        }
+
+        if(!empty($round)) {
+            $final = round($distance, $round);
+        } else {
+            $final = $distance;
+        }
+
+        $payload['distance'] = $final;
+
+        return $payload;
+
+    }
 }

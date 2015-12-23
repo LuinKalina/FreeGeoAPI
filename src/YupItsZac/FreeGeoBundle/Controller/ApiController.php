@@ -180,11 +180,11 @@ class ApiController extends Controller {
     public function calculateDistanceAction(Request $request) {
 
         $session = $request->request->get('session');
-        $lata = $request->request->get('lata');
-        $lona = $request->request->get('lona');
+        $latitudeFirst = $request->request->get('lata');
+        $longitudeFirst = $request->request->get('lona');
 
-        $latb = $request->request->get('latb');
-        $lonb = $request->request->get('lonb');
+        $latitudeSecond = $request->request->get('latb');
+        $longitudeSecond = $request->request->get('lonb');
 
         $metric = $request->request->get('metric');
 
@@ -194,31 +194,9 @@ class ApiController extends Controller {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $theta = $lona - $lonb;
-        $dist = sin(deg2rad($lata)) * sin(deg2rad($latb)) +  cos(deg2rad($lata)) * cos(deg2rad($latb)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $unit = strtolower($metric);
+        $calculation = $this->dataHelper->calculateDistance($longitudeFirst, $latitudeFirst, $longitudeSecond, $latitudeSecond, $metric, $round);
 
-        if($unit == 'k') {
-            $distance = $miles * 1.609344;
-            $name = 'kilometers';
-        } else if($unit == 'n') {
-            $distance = $miles * 0.8684;
-            $name = 'nautical miles';
-        } else {
-            $distance = $miles;
-            $name = 'miles';
-        }
-
-        if(!empty($round)) {
-            $final = round($distance, $round);
-        } else {
-            $final = $distance;
-        }
-
-        $payload = array('distance' => $final, 'metric' => strtoupper($metric), 'fullMetric' => $name);
+        $payload = array('distance' => $calculation['distance'], 'metric' => strtoupper($metric), 'fullMetric' => $calculation['unitName']);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $payload);
     }
