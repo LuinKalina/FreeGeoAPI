@@ -25,18 +25,23 @@ class ApiController extends Controller {
 
     public function authAction(Request $request) {
 
+
     	if($request->request->has('public') === false || $request->request->has('secret') === false) {
 
-            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
+            if($this->dataHelper->getSessionType(null, $request->request->get('public')) == 1) {
+                //This is just a status check
+                return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+            } else {
+                return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
+            }
         }
 
-        $public = $request->request->get('public');
-        $secret = $request->request->get('secret');
+        $publicKey = $request->request->get('public');
+        $privateKey = $request->request->get('secret');
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $public));
+        $app = $this->dataHelper->fetchAppByPublicKey($publicKey);
 
         if($app === null) {
-
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
         }
 
@@ -49,21 +54,9 @@ class ApiController extends Controller {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_REVOKED_CREDENTIALS);
         }
 
-        $sessionKey = md5(time().$public.time().$secret.time().$appId);
+        $sessionToken = $this->dataHelper->persistNewSession($publicKey, $privateKey, $appId);
 
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $session = new Session();
-        $session->setSession($sessionKey);
-        $session->setPublic($public);
-        $session->setSecret($secret);
-        $session->setAppid($appId);
-        $now = new DateTime('now');
-        $session->setTimestamp($now);
-        $em->persist($session);
-        $em->flush();
-
-        $payload = array('session' => $sessionKey);
+        $payload = array('session' => $sessionToken);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $payload);
 
@@ -77,6 +70,11 @@ class ApiController extends Controller {
         $lon = $request->request->get('lon');
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
+
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
 
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
@@ -96,6 +94,11 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
+
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
@@ -113,6 +116,11 @@ class ApiController extends Controller {
         $lon = $request->request->get('lon');
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
+
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
 
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
@@ -132,6 +140,11 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
+
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
@@ -147,6 +160,11 @@ class ApiController extends Controller {
         $session = $request->request->get('session');
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
+
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
 
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
@@ -166,6 +184,11 @@ class ApiController extends Controller {
         $session = $request->request->get('session');
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
+
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
 
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
@@ -190,6 +213,11 @@ class ApiController extends Controller {
 
         $round = $request->request->get('round');
 
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
+
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
@@ -204,6 +232,11 @@ class ApiController extends Controller {
     public function resetKeysAction(Request $request) {
 
         $session = $request->request->get('session');
+
+        if($this->dataHelper->getSessionType($session) == 1) {
+            //This is just a status check
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
+        }
 
         if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);

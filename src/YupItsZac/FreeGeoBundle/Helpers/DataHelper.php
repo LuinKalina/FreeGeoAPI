@@ -15,14 +15,15 @@ use \DateTime;
 class DataHelper extends Controller {
 
     private $dbConnection;
+    private $entityManager;
 
     public function __construct() {
 
         if(isset($this->dbConnection)) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $qb = $em->createQueryBuilder();
+            $this->entityManager = $this->getDoctrine()->getEntityManager();
+            $this->queryBuilder = $this->entityManager->createQueryBuilder();
 
-            $this->dbConnection = $em->getConnection();
+            $this->dbConnection = $this->entityManager->getConnection();
         }
     }
 
@@ -115,6 +116,13 @@ class DataHelper extends Controller {
         return $app;
     }
 
+    public function fetchAppByPublicKey($publicKey) {
+
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('public' => $publicKey));
+
+        return $app;
+    }
+
     public function prepareMessage($contactEmail, $contactFirstName, $appTitle, $publicKey, $privateKey) {
 
         $message = array();
@@ -130,11 +138,16 @@ class DataHelper extends Controller {
 
         $app = $this->fetchAppSession($session);
 
+        $sessionStatus = array();
+
         if($app === null) {
-            return false;
+            $sessionStatus['validSession'] = false;
         } else {
-            return true;
+            $sessionStatus['validSession'] = true;
+            $sessionStatus['sessionType'] = $this->getSessionType();
         }
+
+        return $sessionStatus;
     }
 
     public function calculateDistance($longitudeFirst, $latitudeFirst, $longitudeSecond, $latitudeSecond, $unit, $round) {
@@ -169,5 +182,37 @@ class DataHelper extends Controller {
 
         return $payload;
 
+    }
+
+    public function persistNewSession($publicKey, $privateKey, $appId) {
+
+        $sessionToken = $this->generateSessionToken();
+
+        $session = new Session();
+        $session->setSession($sessionToken);
+        $session->setPublic($publicKey);
+        $session->setSecret($privateKey);
+        $session->setAppid($appId);
+        $now = new DateTime('now');
+        $session->setTimestamp($now);
+        $this->entityManager->persist($session);
+        $this->entityManager->flush();
+
+    }
+
+    public function generateSessionToken() {
+
+        return md5(time().time());
+    }
+
+    public function getSessionType($sessionToken, $publicKey = null) {
+
+        //2 = Normal API requests, 1 = API Status Check
+
+        if($sessionToken == Config::API_STATUS_CHECK_SESSION_TOKEN || $publicKey == Config::API_STATUS_CHECK_PUBLIC_KEY) {
+            return '1';
+        } else {
+            return '2';
+        }
     }
 }
