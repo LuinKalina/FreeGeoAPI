@@ -86,10 +86,11 @@ Local Dev
 Special Thanks
 ===
 
-Special thanks to these company/people that have helped make FreeGeo API happen!
+Special thanks to these guys for their help on the project!
 
 - [DigitalOcean](http://www.digitalocean.com) has generously provided the hosting needed at no cost to us.
 - [GlobalSign](http://www.globalsign.com) helped us secure requests to the API with a free SSL certificate for a year.
+- [@arabek](http://www.github.com/arabek) setup and configured our SSL with the appropriate rewrite for non-SSL requests.
 - [@HaxxonHax](http://www.github.com/HaxxonHax) assisted with SSL installation and configuration.
 
 
