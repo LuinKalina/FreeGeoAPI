@@ -12,8 +12,16 @@ use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
 use \DateTime;
 use YupItsZac\FreeGeoBundle\Helpers\ResponseHelper;
+use YupItsZac\FreeGeoBundle\Helpers\DataHelper;
 
 class ApiController extends Controller {
+
+    private $dataHelper;
+
+    public function __construct() {
+
+        $this->dataHelper = new DataHelper();
+    }
 
     public function authAction(Request $request) {
 
@@ -70,23 +78,13 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $dataAirports = $this->dataHelper->findNearAirport($lat, $lon, $limit, $max);
 
-        $con = $em->getConnection();
-
-        $q = $con->prepare('SELECT name, type, icao_code, iata_code, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM airports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
-
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
-
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataAirports);
 
     }
 
@@ -98,23 +96,13 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $dataCities = $this->dataHelper->findNearCity($lat, $lon, $limit, $max);
 
-        $con = $em->getConnection();
-
-        $q = $con->prepare('SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM cities HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
-
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
-
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataCities);
 
     }
 
@@ -126,24 +114,13 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $dataLakes = $this->dataHelper->findNearLake($lat, $lon, $limit, $max);
 
-        $con = $em->getConnection();
-
-        $q = $con->prepare('SELECT name, name_alt, dam_name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM lakes HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
-
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
-        // $q->bindValue('lim', $limit);
-
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataLakes);
 
     }
 
@@ -155,23 +132,13 @@ class ApiController extends Controller {
         $limit = $request->request->get('limit');
         $max = $request->request->get('max');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $dataPorts = $this->dataHelper->findNearPort($lat, $lon, $limit, $max);
 
-        $con = $em->getConnection();
-
-        $q = $con->prepare('SELECT name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM ports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
-
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
-
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataPorts);
 
     }
 
@@ -181,7 +148,7 @@ class ApiController extends Controller {
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
@@ -189,13 +156,9 @@ class ApiController extends Controller {
 
         $con = $em->getConnection();
 
-        $q = $con->prepare('SELECT name, offset, places, dst_places, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM time_zones HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
+        $dataTimeZone = $this->dataHelper->timeZone($lat, $lon);
 
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataTimeZone);
     }
 
     public function detectCountryAction(Request $request) {
@@ -204,21 +167,13 @@ class ApiController extends Controller {
         $lat = $request->request->get('lat');
         $lon = $request->request->get('lon');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $dataCountry = $this->dataHelper->detectCountry($lat, $lon);
 
-        $con = $em->getConnection();
- 
-        $q = $con->prepare('SELECT name AS country, sovereign, formal, economy_level AS economy, income_level AS income, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM countries HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-
-        $q->execute();
-
-        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $q->fetchAll());
+        return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataCountry);
 
     }
 
@@ -235,7 +190,7 @@ class ApiController extends Controller {
 
         $round = $request->request->get('round');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
@@ -272,57 +227,36 @@ class ApiController extends Controller {
 
         $session = $request->request->get('session');
 
-        if(!$this->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($session)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
+        $appSession = $this->dataHelper->fetchAppSession($session);
 
-        $public = md5(time().$app->getPublic().time());
-        $private = md5(time().time().$app->getSecret().time());
-        $appid = $app->getAppid();
+        if(!$appSession) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_ERROR_LOCATING_SESSION);
+        }
 
+        $publicKey = md5(time().$appSession->getPublic().time());
+        $privateKey = md5(time().time().$appSession->getSecret().time());
+        $appId = $appSession->getAppid();
 
-        $em = $this->getDoctrine()->getEntityManager();
+        if($this->dataHelper->resetKeys($publicKey, $privateKey, $appId) === false) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_DB_ERROR, Strings::API_MSG_KEY_RESET_FAILED_DB);
+        }
 
-        $con = $em->getConnection();
- 
-        $q = $con->prepare('UPDATE Apps SET PublicKey=:pub, SecretKey=:priv WHERE id=:aid');
-        $q->bindValue('pub', $public);
-        $q->bindValue('priv', $private);
-        $q->bindvalue('aid', $appid);
+        $app = $this->dataHelper->fetchAppById($appId);
 
-        $q->execute();
+        $contactEmail = $app->getEmail();
+        $appTitle = $app->getApptitle();
+        $contactFirstName = $app->getFirstname();
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('id' => $appid));
+        $message = $this->dataHelper->prepareMessage($contactEmail, $contactFirstName, $appTitle, $publicKey, $privateKey);
 
-        $email = $app->getEmail();
-        $title = $app->getApptitle();
-        $fname = $app->getFirstname();
-
-        $message = array();
-        $message['from'] = 'FreeGeo API <'.Config::FROM_EMAIL_ADDRESS.'>';
-        $message['to'] = $email;
-        $message['subject'] = Strings::API_KEY_RESET_EMAIL_SUBJECT;
-        $message['html'] = $this->renderView('YupItsZacFreeGeoBundle:Email:apikeys.reset.html.twig', array('firstName' => $fname, 'emailHeader' => Strings::API_MSG_KEY_RESET_SUCCESS, 'appTitle' => $title, 'publicKey' => $public, 'privateKey' => $private, 'projectName' => Config::PROJECT_NAME, 'githubUrl' => Config::GITHUB_MAIN_REPO));
-     
         $this->sendEmailWithMailgun($message);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_KEY_RESET_SUCCESS);
 
-    }
-
-    //Private API functions
-
-    private function verifyAppSession($session) {
-
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
-
-        if($app === null) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     private function sendEmailWithMailgun($message) {
