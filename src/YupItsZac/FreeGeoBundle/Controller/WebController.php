@@ -33,11 +33,15 @@ class WebController extends Controller {
 
     public function statusCheckAction() {
 
-        $statusArray = array();
-
         $serviceStatus = $this->dataHelper->checkStatusServices();
 
-        return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig', array('servicesStatus' => $statusArray));
+        if($this->dataHelper->checkForOfflineStatus($serviceStatus) == 'offline') {
+            $serviceNote = Strings::API_MSG_SOME_SERVICES_OFFLINE;
+        } else {
+            $serviceNote = Strings::API_MSG_ALL_SERVICES_ONLINE;
+        }
+
+        return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig', array('servicesStatus' => $serviceStatus, 'serviceNote' => $serviceNote));
 
     }
 

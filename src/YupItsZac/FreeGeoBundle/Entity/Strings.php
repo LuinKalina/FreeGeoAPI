@@ -30,6 +30,8 @@ class Strings {
     const API_MSG_KEY_RESET_FAILED_DB = 'Unable to save new keyset to DB.';
     const API_MSG_ERROR_LOCATING_SESSION = 'Unable to locate app information from session token.';
     const API_MSG_STATUS_ONLINE = 'Online';
+    const API_MSG_SOME_SERVICES_OFFLINE = 'One or more FreeGEO API services are currently offline. :(';
+    const API_MSG_ALL_SERVICES_ONLINE = 'All FreeGeo API services are online and operating normally. :)';
 
     const API_REASON_INVALID_SESSION = 'Invalid session.';
     const API_REASON_SUCCESS = 'completed action';

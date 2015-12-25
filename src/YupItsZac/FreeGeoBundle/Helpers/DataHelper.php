@@ -208,12 +208,31 @@ class DataHelper extends Controller {
     public function checkStatusServices() {
 
         $currentStatus = array();
+        $serviceList = array(
+            'Authenticate - POST' => '/api/authenticate/session',
+            'findNearAirport - POST' => '/api/location/near/airport',
+            'findNearCity - POST' => '/api/location/near/city',
+            'findNearPort -POST' => '/api/location/near/port',
+            'Timezone Detection - POST' => '/api/detect/timezone',
+            'Distance Calculation - POST' => '/api/calculate/distance',
+            'Country Detection - POST' => '/api/detect/country',
+            'API Credential Reset - POST' => '/api/credentials/reset'
+        );
 
-        foreach(Config::API_SERVICE_LIST_ARRAY as $key => $val) {
+        foreach($serviceList as $key => $val) {
+
+            $status = $this->makeStatusRequest($val)['message'];
+            if($status == 'Online') {
+                $class = 'serviceOnline';
+            } else {
+                $class = 'serviceOffline';
+                $status = 'Offline';
+            }
 
             $currentStatus[$key] = array(
-                'Status' => $this->makeStatusRequest($val)['message'],
-                'Endpoint' => $val
+                'Status' => $status,
+                'Endpoint' => $val,
+                'Class' => $class
             );
         }
 
@@ -237,7 +256,7 @@ class DataHelper extends Controller {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://freegeoapi.org'.$url,
+            CURLOPT_URL => Config::BASE_URL_PROD.$url,
             CURLOPT_USERAGENT => 'FreeGeo::API::StatusChecker',
             CURLOPT_POST => 1,
             CURLOPT_POSTFIELDS => array(
@@ -249,8 +268,18 @@ class DataHelper extends Controller {
         $resp = curl_exec($curl);
         curl_close($curl);
 
-        $status = array();
+        return json_decode($resp, true);
+    }
 
-        return $resp;
+    public function checkForOfflineStatus($serviceStatus) {
+
+        foreach($serviceStatus as $key => $val) {
+
+            if(in_array('Offline', $val)) {
+                return 'offline';
+            } else {
+                return 'online';
+            }
+        }
     }
 }

@@ -27,19 +27,8 @@ class Config {
 
     const WEB_ADDRESS_LOCAL = 'http://freegeo.dev';
 
-    const BASE_URL_PROD = 'https://freegeoapi.org';
+    const BASE_URL_PROD = 'https://www.freegeoapi.org';
 
     const GITHUB_MAIN_REPO = 'http://www.github.com/YupItsZac/FreeGeoAPI';
-
-    const API_SERVICE_LIST_ARRAY = array(
-        'Authenticate - POST' => '/api/authenticate/session',
-        'findNearAirport - POST' => '/api/location/near/airport',
-        'findNearCity - POST' => '/api/location/near/city',
-        'findNearPort -POST' => '/api/location/near/port',
-        'Timezone Detection - POST' => '/api/detect/timezone',
-        'Distance Calculation - POST' => '/api/calculate/distance',
-        'Country Detection - POST' => '/api/detect/country',
-        'API Credential Reset - POST' => '/api/credentials/reset'
-    );
 
 }
