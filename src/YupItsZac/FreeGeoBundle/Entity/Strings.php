@@ -27,10 +27,16 @@ class Strings {
     const API_MSG_REVOKED_CREDENTIALS = 'The credentials provided have been revoked.';
     const API_MSG_SUCCESS = 'Completed without errors.';
     const API_MSG_KEY_RESET_SUCCESS = 'Your API credentials have been reset. Please check your email for the new keyset.';
+    const API_MSG_KEY_RESET_FAILED_DB = 'Unable to save new keyset to DB.';
+    const API_MSG_ERROR_LOCATING_SESSION = 'Unable to locate app information from session token.';
+    const API_MSG_STATUS_ONLINE = 'Online';
+    const API_MSG_SOME_SERVICES_OFFLINE = 'One or more FreeGEO API services are currently offline. :(';
+    const API_MSG_ALL_SERVICES_ONLINE = 'All FreeGeo API services are online and operating normally. :)';
 
     const API_REASON_INVALID_SESSION = 'Invalid session.';
     const API_REASON_SUCCESS = 'completed action';
     const API_REASON_FORBIDDEN = 'Unauthorized.';
+    const API_REASON_DB_ERROR = 'db-error';
 
     const API_STATUS_FATAL = 'fatal';
     const API_STATUS_SUCCESS = 'success';
