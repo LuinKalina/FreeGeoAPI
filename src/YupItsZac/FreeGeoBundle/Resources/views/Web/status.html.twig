@@ -5,9 +5,31 @@
    <div class="row mbot">
 		<div class="content col-md-8 col-md-offset-2">
 
-		<h1>API Status Report</h1>
+			<h1>API Status Report</h1>
 
-		<b>All services online and operating.</b>
+			<p>{{ serviceNote }}</p>
+
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Service</th>
+					<th>Endpoint</th>
+					<th>Status</th>
+				</tr>
+				</thead>
+				<tbody>
+
+				{% for key,value in servicesStatus %}
+
+					<tr class="{{ value.Class }}">
+						<td>{{ key }}</td>
+						<td>{{ value.Endpoint }}</td>
+						<td>{{ value.Status }}</td>
+					</tr>
+				{% endfor %}
+
+				</tbody>
+			</table>
 
 		</div>
 

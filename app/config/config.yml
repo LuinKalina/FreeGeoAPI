@@ -80,6 +80,6 @@ swiftmailer:
     spool:     { type: memory }
 
 #TwigError
-services:
-   twig.exception_listener:
-     class: DateTime #or another dummy class
+#services:
+#   twig.exception_listener:
+#     class: DateTime #or another dummy class

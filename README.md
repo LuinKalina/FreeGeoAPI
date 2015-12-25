@@ -3,16 +3,15 @@ FreeGeo API
 
 [![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v0.0.1-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
 
-The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API si absolutely free to use, and completely open source. 
+The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API is absolutely free to use, and completely open source.
 
-The project by [@YupItsZac](http://www.github.com/YupItsZac) is currently live in a test phase and is available at [freegeo.yupitszac.com](http://freegeo.yupitszac.com). All docs, etc can be found there.
+This project is generously hosted by [DigitalOcean](http://www.digitalocean.com) at [https://freegeoapi.org](https://freegeoapi.org). You can find API docs, usage examples and details on contributing to the project there.
 
 **Current Version:** 0.0.1
 
 **Release Date:** November 1, 2015
 
-Currently, we are preparing for the December 31st, 2015 release of version 1 on the new VPS hosting provided free of charge by [DigitalOcean](http://www.digitalocean.com).
-
+**Next Release:** 31 December, 2015 - Version 1.0.0
 
 Things To Do
 ===
@@ -87,10 +86,11 @@ Local Dev
 Special Thanks
 ===
 
-Special thanks to these company/people that have helped make FreeGeo API happen!
+Special thanks to these guys for their help on the project!
 
 - [DigitalOcean](http://www.digitalocean.com) has generously provided the hosting needed at no cost to us.
 - [GlobalSign](http://www.globalsign.com) helped us secure requests to the API with a free SSL certificate for a year.
+- [@arabek](http://www.github.com/arabek) setup and configured our SSL with the appropriate rewrite for non-SSL requests.
 - [@HaxxonHax](http://www.github.com/HaxxonHax) assisted with SSL installation and configuration.
 
 

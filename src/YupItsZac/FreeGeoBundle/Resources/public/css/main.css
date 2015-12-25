@@ -199,3 +199,15 @@ ul.nav a:hover { color: #fff !important; }
     color: #fff;
     padding: 10px;
 }
+
+#register_form {
+    margin-top: 80px;
+}
+
+.serviceOnline {
+    background-color: #00FF00;
+}
+
+.serviceOffline {
+    background-color: #FF3232;
+}
