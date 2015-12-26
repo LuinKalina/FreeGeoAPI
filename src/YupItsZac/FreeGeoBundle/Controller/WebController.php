@@ -9,7 +9,7 @@ use YupItsZac\FreeGeoBundle\Entity\Apps;
 use Symfony\Component\HttpFoundation\Response;
 use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
-use YupItsZac\FreeGeoBundle\Helpers\dataHelper;
+use YupItsZac\FreeGeoBundle\Helpers\DataHelper;
 
 
 class WebController extends Controller {
