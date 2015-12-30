@@ -117,6 +117,33 @@ $collection->add('free_geo_contribute', new Route('/contribute', array(
 )));
 
 
+//Developer account routes
+
+$collection->add('free_geo_developer_dashboard', new Route('/developer/dashboard', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:dashboard'
+)));
+
+//Login routes
+
+$collection->add('free_geo_developer_login', new Route('/login', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:login'
+)));
+
+$collection->add('login_check', new Route('/login_check', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:loginCheck'
+)));
+
+//Registration routes
+
+$collection->add('free_geo_developer_register', new Route('/register', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:register'
+)));
+
+$collection->add('free_geo_registration_completed', new Route('/registration/completed', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:complete'
+)));
+
+
 //API Routes
 
 $collection->add('api_auth', new Route('/api/authenticate/session', array(

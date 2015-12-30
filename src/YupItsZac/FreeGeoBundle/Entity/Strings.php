@@ -40,4 +40,7 @@ class Strings {
 
     const API_STATUS_FATAL = 'fatal';
     const API_STATUS_SUCCESS = 'success';
+
+    const REGISTRATION_EMAIL_MSG_WELCOME = 'Welcome to FreeGeo API!';
+    const REGISTRATION_EMAIL_SUBJECT_WELCOME = 'Your FreeGeo Developer Account';
 }

@@ -144,6 +144,7 @@ class DataHelper extends Controller {
             $sessionStatus['validSession'] = false;
         } else {
             $sessionStatus['validSession'] = true;
+            $sessionStatus['isBeta'] = $app->getIsbeta();
             $sessionStatus['sessionType'] = $this->getSessionType();
         }
 
