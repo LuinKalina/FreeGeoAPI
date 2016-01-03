@@ -114,6 +114,7 @@ form input[type="number"],
 form input[type="search"],
 form input[type="time"],
 form input[type="url"],
+form input[type="password"],
 form textarea,
 form select
 {
@@ -210,4 +211,23 @@ ul.nav a:hover { color: #fff !important; }
 
 .serviceOffline {
     background-color: #FF3232;
+}
+
+.margin-top-spacing {
+    margin-top: 10%;
+}
+
+.hiText {
+    font-size: 28px;
+}
+
+.noApps {
+    font-size: 28px;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.spaceRight {
+    margin-right: 20px;
 }

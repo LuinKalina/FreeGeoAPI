@@ -15,27 +15,6 @@ class Apps
     /**
      * @var string
      *
-     * @ORM\Column(name="FirstName", type="string", length=255, nullable=false)
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="LastName", type="string", length=255, nullable=false)
-     */
-    private $lastname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=500, nullable=false)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="AppTitle", type="string", length=255, nullable=false)
      */
     private $apptitle;
@@ -78,6 +57,20 @@ class Apps
     /**
      * @var integer
      *
+     * @ORM\Column(name="Beta", type="integer", nullable=true)
+     */
+    private $beta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Assoc", type="integer", nullable=true)
+     */
+    private $assoc;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -85,78 +78,6 @@ class Apps
     private $id;
 
 
-
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     *
-     * @return Apps
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return Apps
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Apps
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
     /**
      * Set apptitle
@@ -303,6 +224,54 @@ class Apps
     }
 
     /**
+     * Set beta
+     *
+     * @param integer $beta
+     *
+     * @return Apps
+     */
+    public function setBeta($beta)
+    {
+        $this->beta = $beta;
+
+        return $this;
+    }
+
+    /**
+     * Get beta
+     *
+     * @return integer
+     */
+    public function getBeta()
+    {
+        return $this->beta;
+    }
+
+    /**
+     * Set assoc
+     *
+     * @param integer $assoc
+     *
+     * @return Apps
+     */
+    public function setAssoc($assoc)
+    {
+        $this->assoc = $assoc;
+
+        return $this;
+    }
+
+    /**
+     * Get assoc
+     *
+     * @return integer
+     */
+    public function getAssoc()
+    {
+        return $this->assoc;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -311,4 +280,5 @@ class Apps
     {
         return $this->id;
     }
+
 }

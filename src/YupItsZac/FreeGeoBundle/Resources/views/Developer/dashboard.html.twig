@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row mbot">
+
+    {% if notifySuccess is defined %}
+        <div class="alert alert-success">{{ notifySuccess }}</div>
+    {% endif %}
+
+    <div class="content col-md-8 col-md-offset-2">
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="hiText">Hi, {{ userObject['firstName'] }} :)</p>
+            </div>
+
+            <div class="col-md-6">
+                <a class="btn btn-primary pull-right"><span class="glyphicon glyphicon-cog"></span> Settings</a> <a class="btn btn-primary pull-right spaceRight" href="{{ url('free_geo_developer_app_register') }}"><span class="glyphicon glyphicon-plus"></span> New App</a>
+            </div>
+        </div>
+
+
+        <hr/>
+
+        {% if appList is defined %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Public Key</th>
+                        <th>Private Key</th>
+                        <th>Beta</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key,value in appList %}
+                        <tr><td>{{ value.AppTitle }}</td><td>{{ value.PublicKey }}</td><td>{{ value.SecretKey }}</td><td>{{ value.Beta }}</td><td><a class="btn btn-primary" href="{{ url('free_geo_developer_dashboard') }}"><span class="glyphicon glyphicon-cog"></span></a></td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+       {% else %}
+           <p class="noApps">You don't have any apps registered :(</p>
+        {% endif %}
+
+
+    </div>
+
+
+    {% endblock %}

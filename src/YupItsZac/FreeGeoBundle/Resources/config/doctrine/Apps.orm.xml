@@ -4,21 +4,6 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="firstname" type="string" column="FirstName" length="255" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="lastname" type="string" column="LastName" length="255" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
-    <field name="email" type="string" column="Email" length="500" nullable="false">
-      <options>
-        <option name="fixed"/>
-      </options>
-    </field>
     <field name="apptitle" type="string" column="AppTitle" length="255" nullable="false">
       <options>
         <option name="fixed"/>
@@ -47,6 +32,16 @@
     <field name="status" type="string" column="Status" length="10" nullable="false">
       <options>
         <option name="fixed"/>
+      </options>
+    </field>
+    <field name="beta" type="integer" column="Beta" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="assoc" type="integer" column="Assoc" nullable="true">
+      <options>
+        <option name="unsigned"/>
       </options>
     </field>
   </entity>

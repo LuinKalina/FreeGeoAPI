@@ -268,7 +268,7 @@ class Users implements UserInterface
      */
     public function setRoles($roles)
     {
-        $this->roles = $roles;
+       $this->roles = $roles;
 
         return $this;
     }
@@ -280,7 +280,7 @@ class Users implements UserInterface
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array($this->roles);
     }
 
     /**
@@ -317,23 +317,50 @@ class Users implements UserInterface
         return $this->id;
     }
 
-    public function getPlainPassword()
-    {
+    /**
+     * Get plain pass
+     * @author zbrown
+     *
+     * @return mixed
+     */
+    public function getPlainPassword() {
         return $this->plainPassword;
     }
 
-    public function setPlainPassword($password)
-    {
+    /**
+     * Set plain pass
+     * @author zbrown
+     *
+     * @param $password
+     */
+    public function setPlainPassword($password) {
         $this->plainPassword = $password;
     }
 
+    /**
+     * Get username (email)
+     * @author zbrown
+     *
+     * @return string
+     */
     public function getUsername() {
 
         return $this->email;
     }
 
-    public function eraseCredentials()
-    {
+    public function setUsername($username) {
+
+        $this->email = $username;
+
+        return $this;
+    }
+
+    /**
+     * eraseCreds
+     * @author zbrown
+     *
+     */
+    public function eraseCredentials() {
         // TODO: Implement eraseCredentials() method.
     }
 }

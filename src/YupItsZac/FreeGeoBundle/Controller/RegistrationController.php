@@ -31,6 +31,8 @@ class RegistrationController extends Controller {
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+            $user->setStatus(1);
+            $user->setRoles('ROLE_USER');
 
             $emailConstraint = new Assert\Email();
             $emailConstraint->message = 'Invalid email address';

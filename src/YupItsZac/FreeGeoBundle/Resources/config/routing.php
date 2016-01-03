@@ -123,6 +123,10 @@ $collection->add('free_geo_developer_dashboard', new Route('/developer/dashboard
 	'_controller' => 'YupItsZacFreeGeoBundle:Developer:dashboard'
 )));
 
+$collection->add('free_geo_developer_app_register', new Route('/developer/app/register', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appRegister'
+)));
+
 //Login routes
 
 $collection->add('free_geo_developer_login', new Route('/login', array(
@@ -131,6 +135,10 @@ $collection->add('free_geo_developer_login', new Route('/login', array(
 
 $collection->add('login_check', new Route('/login_check', array(
 	'_controller' => 'YupItsZacFreeGeoBundle:Security:loginCheck'
+)));
+
+$collection->add('free_geo_developer_logout', new Route('/logout', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:logout'
 )));
 
 //Registration routes

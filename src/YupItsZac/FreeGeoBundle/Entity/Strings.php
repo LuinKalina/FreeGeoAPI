@@ -11,7 +11,7 @@ namespace YupItsZac\FreeGeoBundle\Entity;
 
 class Strings {
 
-    const APP_REGISTER_EMAIL_SUBJECT = 'Your FreeGeo API Keys';
+    const APP_REGISTER_EMAIL_SUBJECT = 'New App Registration - FreeGeo API';
     const TWITTER_URL = 'http://twitter.com/FreeGeoAPI';
     const TWITTER_USER = '@FreeGeoAPI';
 

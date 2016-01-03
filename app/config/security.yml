@@ -34,9 +34,22 @@ security:
                 login_path: /login
                 check_path: /login_check
 
+            logout:
+                csrf_parameter:       _csrf_token
+                csrf_token_id:        logout
+                path:                 /logout
+                target:               /
+                success_handler:      ~
+                invalidate_session:   true
+                delete_cookies:
+                    name:
+                        path:                 null
+                        domain:               null
+                handlers:             []
+
     access_control:
-        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/developer, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
