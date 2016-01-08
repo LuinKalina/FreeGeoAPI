@@ -127,6 +127,10 @@ $collection->add('free_geo_developer_app_register', new Route('/developer/app/re
 	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appRegister'
 )));
 
+$collection->add('free_geo_developer_app_settings', new Route('/developer/app/settings/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings'
+)));
+
 //Login routes
 
 $collection->add('free_geo_developer_login', new Route('/login', array(

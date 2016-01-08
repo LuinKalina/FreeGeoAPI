@@ -87,6 +87,7 @@ class DeveloperController extends Controller {
             $app->setPublickey($pub);
             $app->setSecretkey($private);
             $app->setAssoc($userArray['userId']);
+            $app->setHash(md5(time()));
 
             $em = $this->getDoctrine()->getEntityManager();
 
@@ -123,6 +124,11 @@ class DeveloperController extends Controller {
         return $this->render('YupItsZacFreeGeoBundle:Developer:appregister.html.twig', array(
             'form' => $form->createView()
         ));
+    }
+
+    public function appSettingsAction($appHash) {
+
+        echo $appId;
     }
 
 }

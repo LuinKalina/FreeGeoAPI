@@ -36,7 +36,7 @@
                 </thead>
                 <tbody>
                     {% for key,value in appList %}
-                        <tr><td>{{ value.AppTitle }}</td><td>{{ value.PublicKey }}</td><td>{{ value.SecretKey }}</td><td>{{ value.Beta }}</td><td><a class="btn btn-primary" href="{{ url('free_geo_developer_dashboard') }}"><span class="glyphicon glyphicon-cog"></span></a></td></tr>
+                        <tr><td>{{ value.AppTitle }}</td><td>{{ value.PublicKey }}</td><td>{{ value.SecretKey }}</td><td>{% if value.Beta is empty %}<span class="glyphicon glyphicon-remove"></span>{% else %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td><td><a class="btn btn-primary" href="{{ url('free_geo_developer_app_settings', {'appHash': value.Hash}) }}"><span class="glyphicon glyphicon-cog"></span></a></td></tr>
                     {% endfor %}
                 </tbody>
             </table>

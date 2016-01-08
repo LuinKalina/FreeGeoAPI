@@ -69,6 +69,13 @@ class Apps
     private $assoc;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Hash", type="string", length=255, nullable=true)
+     */
+    private $hash;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -272,6 +279,30 @@ class Apps
     }
 
     /**
+     * Set hash
+     *
+     * @param string $hash
+     *
+     * @return Apps
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -280,5 +311,4 @@ class Apps
     {
         return $this->id;
     }
-
 }
