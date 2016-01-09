@@ -26,7 +26,15 @@ class DeveloperController extends Controller {
         $this->dataHelper = new DataHelper();
     }
 
-    public function dashboardAction() {
+    public function dashboardAction($notifySuccess = null) {
+
+        $params = $this->getDashboardContent();
+        $params['notifySuccess'] = $notifySuccess;
+
+        return $this->render('YupItsZacFreeGeoBundle:Developer:dashboard.html.twig', $params);
+    }
+
+    private function getDashboardContent() {
 
         $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
 
@@ -50,7 +58,7 @@ class DeveloperController extends Controller {
             );
         }
 
-        return $this->render('YupItsZacFreeGeoBundle:Developer:dashboard.html.twig', $params);
+        return $params;
     }
 
     public function appRegisterAction(Request $request) {
@@ -126,9 +134,91 @@ class DeveloperController extends Controller {
         ));
     }
 
-    public function appSettingsAction($appHash) {
+    public function appSettingsAction(Request $request, $appHash, $actionType, $notifySuccess = null) {
 
-        echo $appId;
+        $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
+
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('hash' => $appHash));
+
+        if($app->getAssoc() != $userArray['userId']) {
+            $this->redirectToRoute('free_geo_developer_dashboard');
+        }
+
+        if($actionType == 'refresh') {
+            $publicKey = md5(time().$app->getId().time());
+            $privateKey = md5(time().$app->getApptitle().time());
+
+            $app->setPublickey($publicKey);
+            $app->setSecretkey($privateKey);
+
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $em->persist($app);
+            $em->flush();
+
+            $notifySuccess = Strings::UI_MSG_APP_KEYS_RESET;
+
+        } else {
+
+            $publicKey = $app->getPublickey();
+            $privateKey = $app->getSecretkey();
+        }
+
+        $form = $this->createFormBuilder($app)
+            ->add('apptitle', 'text', array('label' => 'App Title'))
+            ->add('appwebsite', 'url', array('label' => 'App Website'))
+            ->add('appdescription', 'textarea', array('label' => 'App Description'))
+            ->add('hash', 'hidden')
+            ->add('save', 'submit', array('label' => 'Save'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+
+            $title = $form['apptitle']->getData();
+            $website = $form['appwebsite']->getData();
+            $description = $form['appdescription']->getData();
+            $hash = $form['hash']->getData();
+
+            $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('hash' => $appHash));
+
+            $app->setApptitle($title);
+            $app->setAppwebsite($website);
+            $app->setAppdescription($description);
+
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $em->persist($app);
+            $em->flush();
+
+            $notifySuccess = Strings::UI_MSG_APP_UPDATED;
+
+        }
+
+        return $this->render('YupItsZacFreeGeoBundle:Developer:app.settings.html.twig', array(
+            'form' => $form->createView(),
+            'privateKey' => $privateKey,
+            'publicKey' => $publicKey,
+            'notifySuccess' => $notifySuccess,
+            'appHash' => $appHash
+        ));
+    }
+
+    public function deleteAppAction($appHash) {
+
+        $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
+
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('hash' => $appHash));
+
+        if($app->getAssoc() != $userArray['userId']) {
+            $this->redirectToRoute('free_geo_developer_dashboard');
+        }
+
+        $this->dataHelper->deleteAppByHash($appHash);
+
+        return $this->redirectToRoute('free_geo_developer_dashboard');
+
     }
 
 }

@@ -43,4 +43,7 @@ class Strings {
 
     const REGISTRATION_EMAIL_MSG_WELCOME = 'Welcome to FreeGeo API!';
     const REGISTRATION_EMAIL_SUBJECT_WELCOME = 'Your FreeGeo Developer Account';
+
+    const UI_MSG_APP_UPDATED = 'Your app has been successfully updated!';
+    const UI_MSG_APP_KEYS_RESET = 'Your app keyset has been refreshed!';
 }

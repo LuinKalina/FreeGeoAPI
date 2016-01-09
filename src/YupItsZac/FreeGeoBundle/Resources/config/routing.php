@@ -128,8 +128,19 @@ $collection->add('free_geo_developer_app_register', new Route('/developer/app/re
 )));
 
 $collection->add('free_geo_developer_app_settings', new Route('/developer/app/settings/{appHash}', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings'
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings',
+	'actionType' => 'settings'
 )));
+
+$collection->add('free_geo_developer_app_keyset_refresh', new Route('/developer/app/keyset/refresh/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings',
+	'actionType' => 'refresh'
+)));
+
+$collection->add('free_geo_developer_app_delete', new Route('/developer/app/delete/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:deleteApp'
+)));
+
 
 //Login routes
 

@@ -29,7 +29,7 @@ class DataHelper extends Controller {
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
 
-        $q = $this->dbConnection->prepare('SELECT name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM ports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $q = $qb->prepare('SELECT name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM ports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
 
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
@@ -201,6 +201,20 @@ class DataHelper extends Controller {
     public function fetchAppByPublicKey($publicKey) {
 
         $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('public' => $publicKey));
+
+        return $app;
+    }
+
+    /**
+     * Select app information by hash
+     * @author zbrown
+     *
+     * @param $appHash
+     * @return object
+     */
+    public function fetchAppByHash($appHash) {
+
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('hash' => $appHash));
 
         return $app;
     }
@@ -472,6 +486,16 @@ class DataHelper extends Controller {
         $appList = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findBy(array('Assoc' => $userId));
 
         return $appList;
+    }
+
+    public function deleteAppByHash($appHash) {
+
+        $app = $this->fetchAppByHash($appHash);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($app);
+        $em->flush();
+
     }
 
 }
