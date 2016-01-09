@@ -49,7 +49,8 @@ class DataHelper extends Controller {
      */
     public function timeZone($lat, $lon) {
 
-        $q = $this->dbConnection->prepare('SELECT name, offset, places, dst_places, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM time_zones HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name, offset, places, dst_places, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM time_zones HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
 
@@ -67,7 +68,8 @@ class DataHelper extends Controller {
      */
     public function detectCountry($lat, $lon) {
 
-        $q = $this->dbConnection->prepare('SELECT name AS country, sovereign, formal, economy_level AS economy, income_level AS income, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM countries HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name AS country, sovereign, formal, economy_level AS economy, income_level AS income, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM countries HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
 
@@ -87,7 +89,8 @@ class DataHelper extends Controller {
      */
     public function findNearAirport($lat, $lon, $limit, $max) {
 
-        $q = $this->dbConnection->prepare('SELECT name, type, icao_code, iata_code, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM airports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name, type, icao_code, iata_code, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM airports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
 
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
@@ -109,7 +112,8 @@ class DataHelper extends Controller {
      */
     public function findNearCity($lat, $lon, $limit, $max) {
 
-        $q = $this->dbConnection->prepare('SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM cities HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM cities HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
 
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
@@ -131,7 +135,8 @@ class DataHelper extends Controller {
      */
     public function findNearLake($lat, $lon, $limit, $max) {
 
-        $q = $this->dbConnection->prepare('SELECT name, name_alt, dam_name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM lakes HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name, name_alt, dam_name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM lakes HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
 
         $q->bindValue('lat', $lat);
         $q->bindValue('lon', $lon);
@@ -152,7 +157,8 @@ class DataHelper extends Controller {
      */
     public function resetKeys($publicKey, $privateKey, $appId) {
 
-        $q = $this->dbConnection->prepare('UPDATE Apps SET PublicKey=:publicKey, SecretKey=:privateKey WHERE id=:appId');
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('UPDATE Apps SET PublicKey=:publicKey, SecretKey=:privateKey WHERE id=:appId');
         $q->bindValue('publicKey', $publicKey);
         $q->bindValue('privateKey', $privateKey);
         $q->bindvalue('appId', $appId);
@@ -330,8 +336,8 @@ class DataHelper extends Controller {
         $session->setAppid($appId);
         $now = new DateTime('now');
         $session->setTimestamp($now);
-        $this->entityManager->persist($session);
-        $this->entityManager->flush();
+        $this->getDoctrine()->getEntityManager()->persist($session);
+        $this->getDoctrine()->getEntityManager()->flush();
 
     }
 
@@ -486,16 +492,6 @@ class DataHelper extends Controller {
         $appList = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findBy(array('Assoc' => $userId));
 
         return $appList;
-    }
-
-    public function deleteAppByHash($appHash) {
-
-        $app = $this->fetchAppByHash($appHash);
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->remove($app);
-        $em->flush();
-
     }
 
 }

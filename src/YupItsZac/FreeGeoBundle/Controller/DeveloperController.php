@@ -215,7 +215,9 @@ class DeveloperController extends Controller {
             $this->redirectToRoute('free_geo_developer_dashboard');
         }
 
-        $this->dataHelper->deleteAppByHash($appHash);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($app);
+        $em->flush();
 
         return $this->redirectToRoute('free_geo_developer_dashboard');
 
