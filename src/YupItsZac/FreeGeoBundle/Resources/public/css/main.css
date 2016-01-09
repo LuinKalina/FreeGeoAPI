@@ -115,6 +115,7 @@ form input[type="number"],
 form input[type="search"],
 form input[type="time"],
 form input[type="url"],
+form input[type="password"],
 form textarea,
 form select
 {
@@ -157,8 +158,8 @@ form input[type="button"], button{
     -moz-box-sizing: border-box;
     width: 100%;
     padding: 3%;
-    background: #43D1AF;
-    border-bottom: 2px solid #30C29E;
+    background: #337ab7;
+    border-bottom: 2px solid #2e6da4;
     border-top-style: none;
     border-right-style: none;
     border-left-style: none;   
@@ -218,7 +219,30 @@ ul.nav a:hover { color: #fff !important; }
     font-size: 14px;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     border: none;
     box-shadow: none;
+}
+
+.redBackground {
+    background-color: #FF3232;
+}
+
+.margin-top-spacing {
+    margin-top: 10%;
+}
+
+.hiText {
+    font-size: 28px;
+}
+
+.noApps {
+    font-size: 28px;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.spaceRight {
+    margin-right: 20px;
 }

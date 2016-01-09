@@ -117,6 +117,56 @@ $collection->add('free_geo_contribute', new Route('/contribute', array(
 )));
 
 
+//Developer account routes
+
+$collection->add('free_geo_developer_dashboard', new Route('/developer/dashboard', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:dashboard'
+)));
+
+$collection->add('free_geo_developer_app_register', new Route('/developer/app/register', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appRegister'
+)));
+
+$collection->add('free_geo_developer_app_settings', new Route('/developer/app/settings/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings',
+	'actionType' => 'settings'
+)));
+
+$collection->add('free_geo_developer_app_keyset_refresh', new Route('/developer/app/keyset/refresh/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings',
+	'actionType' => 'refresh'
+)));
+
+$collection->add('free_geo_developer_app_delete', new Route('/developer/app/delete/{appHash}', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:deleteApp'
+)));
+
+
+//Login routes
+
+$collection->add('free_geo_developer_login', new Route('/login', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:login'
+)));
+
+$collection->add('login_check', new Route('/login_check', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:loginCheck'
+)));
+
+$collection->add('free_geo_developer_logout', new Route('/logout', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:logout'
+)));
+
+//Registration routes
+
+$collection->add('free_geo_developer_register', new Route('/register', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:register'
+)));
+
+$collection->add('free_geo_registration_completed', new Route('/registration/completed', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:complete'
+)));
+
+
 //API Routes
 
 $collection->add('api_auth', new Route('/api/authenticate/session', array(

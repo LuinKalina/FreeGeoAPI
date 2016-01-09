@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row mbot">
+        <div class="content col-md-8 col-md-offset-2">
+
+            <h3>Registration Successful</h3>
+
+            <p>Welcome to the FreeGeo API! Your developer account have been created and you're all set to start adding geo-abilities to your app.</p>
+
+            <p>We've sent you an email, with some helpful link.</p>
+
+            <h3>Next Steps</h3>
+
+            <p>Now that you're registered, login to your <a href="{{ url('free_geo_developer_dashboard') }}">Developer Dashboard</a> to register your first app.</p>
+
+            <p>Also, don't forget to help by <a href="http://github.com/YupItsZac/FreeGeoAPI">contributing on Github</a>! Give us a star while you're there. :)</p>
+
+            <hr/>
+
+            <a class="btn btn-primary center-block pull-right" href="{{ url('free_geo_developer_dashboard') }}">Developer Dashboard</a>
+        </div>
+
+{% endblock %}

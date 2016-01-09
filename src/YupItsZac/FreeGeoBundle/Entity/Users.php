@@ -3,15 +3,18 @@
 namespace YupItsZac\FreeGeoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
  *
- * @ORM\Table(name="Users")
+ * @ORM\Table(name="Users", uniqueConstraints={@ORM\UniqueConstraint(name="Email", columns={"Email"})})
  * @ORM\Entity
  */
-class Users {
-
+class Users implements UserInterface
+{
     /**
      * @var string
      *
@@ -29,7 +32,7 @@ class Users {
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=500, nullable=true)
+     * @ORM\Column(name="Email", type="string", length=50, nullable=true)
      */
     private $email;
 
@@ -57,9 +60,23 @@ class Users {
     /**
      * @var integer
      *
-     * @ORM\Column(name="Admin", type="integer", nullable=true)
+     * @ORM\Column(name="isActive", type="integer", nullable=true)
      */
-    private $admin;
+    private $isactive;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Roles", type="string", length=60, nullable=true)
+     */
+    private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Salt", type="string", length=500, nullable=true)
+     */
+    private $salt;
 
     /**
      * @var integer
@@ -69,6 +86,8 @@ class Users {
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    private $plainPassword;
 
 
 
@@ -153,7 +172,6 @@ class Users {
      */
     public function setPassword($password)
     {
-
         $this->password = $password;
 
         return $this;
@@ -218,27 +236,75 @@ class Users {
     }
 
     /**
-     * Set admin
+     * Set isactive
      *
-     * @param integer $admin
+     * @param integer $isactive
      *
      * @return Users
      */
-    public function setAdmin($admin)
+    public function setIsactive($isactive)
     {
-        $this->admin = $admin;
+        $this->isactive = $isactive;
 
         return $this;
     }
 
     /**
-     * Get admin
+     * Get isactive
      *
      * @return integer
      */
-    public function getAdmin()
+    public function getIsactive()
     {
-        return $this->admin;
+        return $this->isactive;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param string $roles
+     *
+     * @return Users
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return string
+     */
+    public function getRoles()
+    {
+        return array($this->roles);
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return Users
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
@@ -249,5 +315,52 @@ class Users {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get plain pass
+     * @author zbrown
+     *
+     * @return mixed
+     */
+    public function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set plain pass
+     * @author zbrown
+     *
+     * @param $password
+     */
+    public function setPlainPassword($password) {
+        $this->plainPassword = $password;
+    }
+
+    /**
+     * Get username (email)
+     * @author zbrown
+     *
+     * @return string
+     */
+    public function getUsername() {
+
+        return $this->email;
+    }
+
+    public function setUsername($username) {
+
+        $this->email = $username;
+
+        return $this;
+    }
+
+    /**
+     * eraseCreds
+     * @author zbrown
+     *
+     */
+    public function eraseCredentials() {
+        // TODO: Implement eraseCredentials() method.
     }
 }

@@ -1,17 +1,17 @@
 FreeGeo API
 ===
 
-[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v0.0.1-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
 
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API is absolutely free to use, and completely open source.
 
 This project is generously hosted by [DigitalOcean](http://www.digitalocean.com) at [https://freegeoapi.org](https://freegeoapi.org). You can find API docs, usage examples and details on contributing to the project there.
 
-**Current Version:** 0.0.1
+**Current Version:** 1.0.0
 
 **Release Date:** November 1, 2015
 
-**Next Release:** 31 December, 2015 - Version 1.0.0
+**Next Release:** 14 January, 2016 - Version 1.1.0
 
 Things To Do
 ===
@@ -76,6 +76,8 @@ Don't want to help out in one of the areas above? No worries! The beauty of open
 Fork the repo! That way you can play around with whatever changes you want to make without affecting this repo. After your changes have been made, tested and reviewed, submit a pull request to the staging branch. 
 
 Your new code will be reviewed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release.
+
+Happy coding! :)
 
 Local Dev
 ===

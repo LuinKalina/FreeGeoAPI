@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="margin-top-spacing">
+
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        {% if error %}
+            <div class="alert alert-danger">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form action="{{ path('login_check') }}" method="post">
+            <label for="username">Email:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+
+            <input type="hidden" name="_target_path" value="/developer/dashboard" />
+
+            <button type="submit">login</button>
+            <hr/>
+            <p><a href="{{ url('free_geo_developer_register') }}">Not Registered</a> 
+        </form>
+
+    </div>
+
+    <div class="col-md-4"></div>
+
+</div>
+
+{% endblock %}

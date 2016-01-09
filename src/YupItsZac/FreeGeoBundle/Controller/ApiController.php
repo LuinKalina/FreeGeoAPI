@@ -218,7 +218,7 @@ class ApiController extends Controller {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if($this->dataHelper->verifyAppSession($session)['validSession'] === false) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 

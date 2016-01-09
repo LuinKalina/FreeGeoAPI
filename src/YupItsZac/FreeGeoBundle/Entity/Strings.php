@@ -11,7 +11,7 @@ namespace YupItsZac\FreeGeoBundle\Entity;
 
 class Strings {
 
-    const APP_REGISTER_EMAIL_SUBJECT = 'Your FreeGeo API Keys';
+    const APP_REGISTER_EMAIL_SUBJECT = 'New App Registration - FreeGeo API';
     const TWITTER_URL = 'http://twitter.com/FreeGeoAPI';
     const TWITTER_USER = '@FreeGeoAPI';
 
@@ -40,4 +40,10 @@ class Strings {
 
     const API_STATUS_FATAL = 'fatal';
     const API_STATUS_SUCCESS = 'success';
+
+    const REGISTRATION_EMAIL_MSG_WELCOME = 'Welcome to FreeGeo API!';
+    const REGISTRATION_EMAIL_SUBJECT_WELCOME = 'Your FreeGeo Developer Account';
+
+    const UI_MSG_APP_UPDATED = 'Your app has been successfully updated!';
+    const UI_MSG_APP_KEYS_RESET = 'Your app keyset has been refreshed!';
 }
