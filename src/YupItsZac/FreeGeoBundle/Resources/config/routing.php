@@ -141,6 +141,9 @@ $collection->add('free_geo_developer_app_delete', new Route('/developer/app/dele
 	'_controller' => 'YupItsZacFreeGeoBundle:Developer:deleteApp'
 )));
 
+$collection->add('free_geo_developer_app_converter', new Route('/developer/tool/app/converter', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:convertApp'
+)));
 
 //Login routes
 

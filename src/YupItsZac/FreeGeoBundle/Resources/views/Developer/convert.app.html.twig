@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="mbot">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+
+            {% if errorNotify is not empty %}
+                <div class="alert alert-danger">{{ errorNotify }}</div>
+            {% endif %}
+
+            <h1>Application Converter</h1>
+
+            <p></p>
+
+            {#<div class="col-md-6">#}
+
+            {{ form(form) }}
+
+            {#</div>#}
+        </div>
+
+        <div class="col-md-4"></div>
+    </div>
+
+{% endblock %}
