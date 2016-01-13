@@ -223,4 +223,53 @@ class DeveloperController extends Controller {
 
     }
 
+    public function convertAppAction(Request $request, $errorNotify = null) {
+
+        $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
+
+        $app = new Apps();
+
+
+        $form = $this->createFormBuilder($app)
+            ->add('secretkey', 'text', array('label' => 'Private Key'))
+            ->add('save', 'submit', array('label' => 'Convert'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+
+            $privateKey = $form['secretkey']->getData();
+
+            $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
+
+            $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('secretkey' => $privateKey));
+
+            if($app === null) {
+                return $this->render('YupItsZacFreeGeoBundle:Developer:convert.app.html.twig', array(
+                    'form' => $form->createView(),
+                    'errorNotify' => Strings::UI_MSG_INVALID_PRIVATE_KEY
+                ));
+            }
+
+            $app->setAssoc($userArray['userId']);
+            $app->setHash(md5(time().time()));
+
+            $em = $this->getDoctrine()->getEntityManager();
+
+            $em->persist($app);
+            $em->flush();
+
+            return $this->redirectToRoute('free_geo_developer_dashboard');
+
+        }
+
+        return $this->render('YupItsZacFreeGeoBundle:Developer:convert.app.html.twig', array(
+            'form' => $form->createView(),
+            'errorNotify' => $errorNotify
+        ));
+
+
+    }
+
 }

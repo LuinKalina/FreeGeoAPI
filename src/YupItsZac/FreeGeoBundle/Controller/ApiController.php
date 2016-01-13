@@ -45,6 +45,10 @@ class ApiController extends Controller {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
         }
 
+        if($app->getAssoc() === null) {
+            return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_APP_CONVERSION, Strings::API_MSG_APP_CONVERSION_REQUIRED);
+        }
+
         $appId = $app->getId();
         $appTitle = $app->getApptitle();
         $appStatus = $app->getStatus();
