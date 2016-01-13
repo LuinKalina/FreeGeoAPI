@@ -116,6 +116,12 @@ $collection->add('free_geo_contribute', new Route('/contribute', array(
     'dir' => 'Contribute'
 )));
 
+$collection->add('free_geo_app_conversion', new Route('/conversion/apps', array(
+		'_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+		'action' => 'convert.app',
+		'dir' => 'Docs'
+)));
+
 
 //Developer account routes
 

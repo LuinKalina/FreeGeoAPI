@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="row mbot">
+    <div class="content col-md-8 col-md-offset-2">
+
+        <h1>FreeGeo API: App Conversion</h1>
+
+        <p>When the FreeGeo API was first launche, we didn't have a dashboard to help developers manage their apps and API credentials. In the Version 2 release, we added lots of new features including a fully functional portal that enables you to create new apps, edit or delete apps, refresh API keys and more!</p>
+
+        <p>One of the changes we made was the way apps are created, and stored in the DB. There were several schema changes, one of which removed the personal information (name, email address, etc) from the apps table. Due to this change, all previously existing apps must be converted to work with the developer dashboard before they can authenticate a session.</p>
+
+        <h3>How To Convert</h3>
+
+        <ul>
+            <li><a href="{{ url('free_geo_developer_register') }}">Register</a> for a free developer account, if you haven't already done so. </li>
+            <li><a href="{{ url('free_geo_developer_login') }}">Login</a> to the dashboard and click the 'Convert' button.</li>
+            <li>In the box, enter the <b>private key</b> (or <b>secret key</b>) that you use to authenticate your app with the API.</li>
+        </ul>
+
+        <p>That's it! You should now see your app in the dashboard! If you have any questions, or trouble, with this process feel free to shoot us a tweet <a href="http://twitter.com/FreeGeoAPI" target="_blank">@FreeGeoAPI</a> or leave a comment below.</p>
+
+        <hr/>
+
+        <div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+    </div>
+
+
+    {% endblock %}
