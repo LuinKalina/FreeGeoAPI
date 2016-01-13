@@ -4,6 +4,7 @@ body {
     color: #141823;
     background-color: #e9eaed;
     position: relative;
+    outline: none;
 }
 
 h1 {
@@ -171,7 +172,6 @@ form input[type="button"]:hover{
 
 .navbar-default {
     background-color: #4e4d4a;
-    border-color: #4e4d4a;
     color: #fff;
 }
 
@@ -211,6 +211,17 @@ ul.nav a:hover { color: #fff !important; }
 
 .serviceOffline {
     background-color: #FF3232;
+}
+
+.navbar-github{
+    vertical-align: initial;
+    display: inline-table;
+    font-size: 14px;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: none;
 }
 
 .redBackground {
