@@ -3,9 +3,15 @@
 security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
+    encoders:
+        YupItsZac\FreeGeoBundle\Entity\Users:
+            algorithm: bcrypt
     providers:
-        in_memory:
-            memory: ~
+          main:
+            entity:
+                class: YupItsZac\FreeGeoBundle\Entity\Users
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -22,3 +28,28 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+
+            form_login:
+                login_path: /login
+                check_path: /login_check
+
+            logout:
+                csrf_parameter:       _csrf_token
+                csrf_token_id:        logout
+                path:                 /logout
+                target:               /
+                success_handler:      ~
+                invalidate_session:   true
+                delete_cookies:
+                    name:
+                        path:                 null
+                        domain:               null
+                handlers:             []
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/developer, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+

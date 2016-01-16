@@ -11,7 +11,7 @@ namespace YupItsZac\FreeGeoBundle\Entity;
 
 class Strings {
 
-    const APP_REGISTER_EMAIL_SUBJECT = 'Your FreeGeo API Keys';
+    const APP_REGISTER_EMAIL_SUBJECT = 'New App Registration - FreeGeo API';
     const TWITTER_URL = 'http://twitter.com/FreeGeoAPI';
     const TWITTER_USER = '@FreeGeoAPI';
 
@@ -32,12 +32,21 @@ class Strings {
     const API_MSG_STATUS_ONLINE = 'Online';
     const API_MSG_SOME_SERVICES_OFFLINE = 'One or more FreeGEO API services are currently offline. :(';
     const API_MSG_ALL_SERVICES_ONLINE = 'All FreeGeo API services are online and operating normally. :)';
+    const API_MSG_APP_CONVERSION_REQUIRED = 'App conversion required to authenticate. https://freegeoapi.org/conversion/apps for more information.';
 
     const API_REASON_INVALID_SESSION = 'Invalid session.';
     const API_REASON_SUCCESS = 'completed action';
     const API_REASON_FORBIDDEN = 'Unauthorized.';
     const API_REASON_DB_ERROR = 'db-error';
+    const API_REASON_APP_CONVERSION = 'Invalid App State';
 
     const API_STATUS_FATAL = 'fatal';
     const API_STATUS_SUCCESS = 'success';
+
+    const REGISTRATION_EMAIL_MSG_WELCOME = 'Welcome to FreeGeo API!';
+    const REGISTRATION_EMAIL_SUBJECT_WELCOME = 'Your FreeGeo Developer Account';
+
+    const UI_MSG_APP_UPDATED = 'Your app has been successfully updated!';
+    const UI_MSG_APP_KEYS_RESET = 'Your app keyset has been refreshed!';
+    const UI_MSG_INVALID_PRIVATE_KEY = 'Invalid private key.';
 }

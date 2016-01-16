@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="YupItsZac\FreeGeoBundle\Entity\Users" table="Users">
+    <unique-constraints>
+      <unique-constraint name="Email" columns="Email"/>
+    </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -14,7 +17,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="email" type="string" column="Email" length="500" nullable="true">
+    <field name="email" type="string" column="Email" length="50" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
@@ -34,9 +37,19 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="admin" type="integer" column="Admin" nullable="true">
+    <field name="isactive" type="integer" column="isActive" nullable="true">
       <options>
         <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="roles" type="string" column="Roles" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="salt" type="string" column="Salt" length="500" nullable="true">
+      <options>
+        <option name="fixed"/>
       </options>
     </field>
   </entity>

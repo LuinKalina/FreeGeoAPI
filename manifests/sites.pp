@@ -22,7 +22,7 @@ service { 'mysql':
   require => Package['mysql-server'],
 }
 
-package { ["php5-common", "libapache2-mod-php5", "php5-cli", "php-apc", "php5-mysql"]:
+package { ["php56w", "libapache2-mod-php5", "php5-cli", "php-apc", "php5-mysql"]:
   ensure => installed,
   notify => Service["apache2"],
   require => [Exec["apt-get update"], Package['mysql-client'], Package['apache2']],
