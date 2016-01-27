@@ -21,14 +21,14 @@ class WebController extends Controller {
         $this->dataHelper = new dataHelper();
     }
 
-    public function staticRenderAction($dir, $action) {
+    public function staticRenderAction($dir, $action, $pageTitle) {
 
-        return $this->render('YupItsZacFreeGeoBundle:'.$dir.':'.$action.'.html.twig');
+        return $this->render('YupItsZacFreeGeoBundle:'.$dir.':'.$action.'.html.twig', array('title' => $pageTitle));
     }
 
     public function indexAction() {
 
-        return $this->render('YupItsZacFreeGeoBundle:Web:index.html.twig');
+        return $this->render('YupItsZacFreeGeoBundle:Web:index.html.twig', array('title' => 'Home'));
     }
 
     public function statusCheckAction() {

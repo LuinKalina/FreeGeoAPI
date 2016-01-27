@@ -20,6 +20,13 @@ $collection->add('free_geo_app_register', new Route('/apps/register', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:appRegister'
 )));
 
+$collection->add('free_geo_documentation', new Route('/docs', array(
+	'_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
+	'action' => 'index.docs',
+	'dir' => 'Docs',
+	'pageTitle' => 'Documentation'
+)));
+
 $collection->add('free_geo_authenticate', new Route('/docs/authenticate', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'authenticate',

@@ -2,67 +2,112 @@
 {% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
 
-	<div class="container-fluid bannerRegion">
+	<div class="container-fluid bannerRegion whitefont">
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2"></div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="whitefont">FreeGeo API</h2>
+							<div class="mtop30"></div>
+							<h2 class="whitefont">Easy. Reliable. Free. Open Source.</h2>
 
-							The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.
+							<p class="font32">The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.</p>
+
+							<p>
+								<a href="http://github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right outline"><span class="fa fa-github"></span> Github</a></p>
+								<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right outline">Register</a></p>
+
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-4">
-					right
-				</div>
-				<div class="col-md-2"></div>
+				<div class="col-md-6"></div>
 			</div>
 		</div>
 
 	</div>
    
-   <div class="row mbot">
-		<div class="content col-md-8 col-md-offset-2">
+   	<div class="container">
+		<div class="mtop30"></div>
+		<div class="row">
 
-			<img src="{{ asset('bundles/yupitszacfreegeo/images/banner.jpg') }}" class="img-responsive geobanner">
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<img src="{{ asset('bundles/yupitszacfreegeo/images/accurate.png') }}" class="img-responsive hidden-xs graphicHome">
+			</div>
 
-	    	<h1>FreeGeo API</h1>
+			<div class="col-md-6">
 
-	    	<p>The FreeGeo API is a completely free and totally open sourced API that enables developers to add geo-abilities to their applications at no cost to them. The geospatial data that FreeGeo manipulates is based off the work over at the <a href="https://github.com/delight-im/FreeGeoDB">FreeGeoDB</a> Github project.</p>
+				<h2>Accurate Location Data</h2>
 
+				<p>The FreeGeo API stores geospatial data collected from around the world! This data is processed and updated almost daily, providing developers with the most updated datasets possible.</p>
 
-	    	<div class="col-md-6">
+				<p>Utilize our Find Near API to locate points of interest near your user (based on GPS coordinates). </p>
 
-		    	<h3>Authenticate</h3>
+				<hr>
 
-		    	<p>An overview of the methods used to authenticate your app against the FreeGeo API. Example code included.</p>
+				<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right btn-custom">Register</a>
+				<a href="http://www.github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right btn-custom"><span class="fa fa-github"></span> Contribute</a>
 
-		    	<h3>Making Requests</h3>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
 
-		    	<p>Learn how to make requests and consume data from the FreeGeo API using your app API keys.</p>
+		<div class="mtop30"></div>
+		<div class="row">
 
-	    	</div>
+			<div class="col-md-6">
 
-	    	<div class="col-md-6">
+				<h2>Clear Docs and Usage Snippets</h2>
 
-		    	<h3>Contribute</h3>
+				<p>The best APIs and other utilities are shipped with clear and concise technical documentation to help developers get started and learn how to leverage the full service to the fullest extent.</p>
 
-		    	<p>The FreeGeo API is totally free, and totally open source. We need help is many areas to keep this API available.<br><a href="https://github.com/YupItsZac/FreeGeoAPI" target="_blank">Contribute on Github</a></p>
+				<p>The FreeGeo API features detailed documentation with usage examples in PHP and Python. More coming soon!</p>
 
-		    	<h3>SDK Development</h3>
+				<hr>
 
-		    	<p>We are currently working on various SDKs for PHP, Python and Javascript to interact with the FreeGeo API. </p>
+				<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right btn-custom">Register</a>
+				<a href="http://www.github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right btn-custom"><span class="fa fa-github"></span> Contribute</a>
 
-	    	</div>
-	   </div>
+			</div>
 
-    </div>
+			<div class="col-md-4">
+				<img src="{{ asset('bundles/yupitszacfreegeo/images/docs.png') }}" class="img-responsive hidden-xs homeGraphic">
+			</div>
+
+			<div class="col-md-2"></div>
+		</div>
+
+		<div class="mtop30"></div>
+		<div class="row">
+
+			<div class="col-md-4">
+				<img src="{{ asset('bundles/yupitszacfreegeo/images/collaborative.png') }}" class="img-responsive hidden-xs homeGraphic">
+			</div>
+
+			<div class="col-md-6">
+
+				<h2>Collaborative and Open</h2>
+
+				<p>We believe that if you have one guy working on a project, it's a good project. If you have several hundred guys working on a project, that project becomes several hundred times better.</p>
+
+				<p>The FreeGeo API is 100% open source and always looking for brilliant contributors to help expand and scale the project.</p>
+
+				<hr>
+
+				<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right btn-custom">Register</a>
+				<a href="http://www.github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right btn-custom"><span class="fa fa-github"></span> Contribute</a>
+
+			</div>
+
+			<div class="col-md-2"></div>
+
+			<div class="mtop30"></div>
+		</div>
+
+	</div>
 
 
 {% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
