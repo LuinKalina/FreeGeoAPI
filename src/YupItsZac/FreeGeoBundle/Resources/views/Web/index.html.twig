@@ -1,6 +1,31 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
+
+	<div class="container-fluid bannerRegion">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-4">
+
+					<div class="row">
+						<div class="col-md-12">
+							<h2 class="whitefont">FreeGeo API</h2>
+
+							The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					right
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+
+	</div>
    
    <div class="row mbot">
 		<div class="content col-md-8 col-md-offset-2">
@@ -40,4 +65,5 @@
     </div>
 
 
-{% endblock %}
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
+
