@@ -13,6 +13,7 @@ use YupItsZac\FreeGeoBundle\Entity\Strings;
 use \DateTime;
 use YupItsZac\FreeGeoBundle\Helpers\ResponseHelper;
 use YupItsZac\FreeGeoBundle\Helpers\DataHelper;
+use YupItsZac\FreeGeoBundle\Entity\ApiRequestObject;
 
 class ApiController extends Controller {
 
@@ -23,12 +24,23 @@ class ApiController extends Controller {
         $this->dataHelper = new DataHelper();
     }
 
+    /**
+     * Authenticate app session
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function authAction(Request $request) {
 
+        $postData  = $this->get('request')->request->all();
 
-    	if($request->request->has('public') === false || $request->request->has('secret') === false) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
 
-            if($this->dataHelper->getSessionType(null, $request->request->get('public')) == 1) {
+    	if(is_null($apiRequest->getPublicKey()) || is_null($apiRequest->getPrivateKey())) {
+
+            if($this->dataHelper->getSessionType($apiRequest) == 1) {
                 //This is just a status check
                 return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
             } else {
@@ -36,10 +48,7 @@ class ApiController extends Controller {
             }
         }
 
-        $publicKey = $request->request->get('public');
-        $privateKey = $request->request->get('secret');
-
-        $app = $this->dataHelper->fetchAppByPublicKey($publicKey);
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $apiRequest->getPublicKey()));
 
         if($app === null) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_MISSING_CREDENTIALS);
@@ -50,7 +59,6 @@ class ApiController extends Controller {
         }
 
         $appId = $app->getId();
-        $appTitle = $app->getApptitle();
         $appStatus = $app->getStatus();
         
         if($appStatus != 'Active') {
@@ -58,7 +66,7 @@ class ApiController extends Controller {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_FORBIDDEN, Strings::API_MSG_REVOKED_CREDENTIALS);
         }
 
-        $sessionToken = $this->dataHelper->persistNewSession($publicKey, $privateKey, $appId);
+        $sessionToken = $this->persistNewAppSession($apiRequest, $appId);
 
         $payload = array('session' => $sessionToken);
 
@@ -67,186 +75,233 @@ class ApiController extends Controller {
 
     }
 
+    /**
+     * Find airports near given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function findNearAirportAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
-        $limit = $request->request->get('limit');
-        $max = $request->request->get('max');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $dataAirports = $this->dataHelper->findNearAirport($lat, $lon, $limit, $max);
+        $dataAirports = $this->findNearAirport($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataAirports);
 
     }
 
+    /**
+     * Find cities near given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function findNearCityAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
-        $limit = $request->request->get('limit');
-        $max = $request->request->get('max');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $dataCities = $this->dataHelper->findNearCity($lat, $lon, $limit, $max);
+        $dataCities = $this->dataHelper->findNearCity($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataCities);
 
     }
 
+    /**
+     * Find lakes near given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function findNearLakeAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
-        $limit = $request->request->get('limit');
-        $max = $request->request->get('max');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $dataLakes = $this->dataHelper->findNearLake($lat, $lon, $limit, $max);
+        $dataLakes = $this->dataHelper->findNearLake($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataLakes);
 
     }
 
+    /**
+     * Find ports near given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function findNearPortAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
-        $limit = $request->request->get('limit');
-        $max = $request->request->get('max');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $dataPorts = $this->dataHelper->findNearPort($lat, $lon, $limit, $max);
+        $dataPorts = $this->dataHelper->findNearPort($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataPorts);
 
     }
 
+    /**
+     * Find timezone of given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function timeZoneAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $con = $em->getConnection();
-
-        $dataTimeZone = $this->dataHelper->timeZone($lat, $lon);
+        $dataTimeZone = $this->dataHelper->timeZone($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataTimeZone);
     }
 
+    /**
+     * Detect country of given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function detectCountryAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $lat = $request->request->get('lat');
-        $lon = $request->request->get('lon');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $dataCountry = $this->dataHelper->detectCountry($lat, $lon);
+        $dataCountry = $this->dataHelper->detectCountry($apiRequest);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataCountry);
 
     }
 
+    /**
+     * Calculate distance between given coords
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function calculateDistanceAction(Request $request) {
 
-        $session = $request->request->get('session');
-        $latitudeFirst = $request->request->get('lata');
-        $longitudeFirst = $request->request->get('lona');
+        $postData  = $this->get('request')->request->all();
 
-        $latitudeSecond = $request->request->get('latb');
-        $longitudeSecond = $request->request->get('lonb');
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
 
-        $metric = $request->request->get('metric');
-
-        $round = $request->request->get('round');
-
-        if($this->dataHelper->getSessionType($session) == 1) {
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if($this->dataHelper->verifyAppSession($session)['validSession'] === false) {
+        if($this->dataHelper->verifyAppSession($apiRequest)['validSession'] === false) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $calculation = $this->dataHelper->calculateDistance($longitudeFirst, $latitudeFirst, $longitudeSecond, $latitudeSecond, $metric, $round);
+        $calculation = $this->dataHelper->calculateDistance($apiRequest);
 
-        $payload = array('distance' => $calculation['distance'], 'metric' => strtoupper($metric), 'fullMetric' => $calculation['unitName']);
+        $payload = array('distance' => $calculation['distance'], 'metric' => strtoupper($apiRequest->getMetricUnit()), 'fullMetric' => $calculation['unitName']);
 
         return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $payload);
     }
 
+    /**
+     * Reset API keyset
+     * @author zbrown
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function resetKeysAction(Request $request) {
 
-        $session = $request->request->get('session');
+        $postData  = $this->get('request')->request->all();
 
-        if($this->dataHelper->getSessionType($session) == 1) {
+        $apiRequest = new ApiRequestObject();
+        $apiRequest->setAttributesByArray($postData);
+
+        if($this->dataHelper->getSessionType($apiRequest) == 1) {
             //This is just a status check
             return ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_STATUS_ONLINE);
         }
 
-        if(!$this->dataHelper->verifyAppSession($session)) {
+        if(!$this->dataHelper->verifyAppSession($apiRequest)) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_INVALID_SESSION);
         }
 
-        $appSession = $this->dataHelper->fetchAppSession($session);
+        $appSession = $this->dataHelper->fetchAppSession($apiRequest);
 
         if(!$appSession) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_INVALID_SESSION, Strings::API_MSG_ERROR_LOCATING_SESSION);
@@ -256,7 +311,7 @@ class ApiController extends Controller {
         $privateKey = md5(time().time().$appSession->getSecret().time());
         $appId = $appSession->getAppid();
 
-        if($this->dataHelper->resetKeys($publicKey, $privateKey, $appId) === false) {
+        if($this->dataHelper->resetKeys($apiRequest, $appId) === false) {
             return ResponseHelper::prepareResponse(Strings::API_STATUS_FATAL, Strings::API_REASON_DB_ERROR, Strings::API_MSG_KEY_RESET_FAILED_DB);
         }
 
@@ -274,6 +329,12 @@ class ApiController extends Controller {
 
     }
 
+    /**
+     * Send email with Mailgun
+     * @author zbrown
+     *
+     * @param $message
+     */
     private function sendEmailWithMailgun($message) {
 
         $ch = curl_init();
@@ -290,5 +351,62 @@ class ApiController extends Controller {
         $result = curl_exec($ch);
 
         curl_close($ch);
+    }
+
+    /**
+     * Persist app session to DB
+     * @author zbrown
+     *
+     * @param $publicKey
+     * @param $privateKey
+     * @param $appId
+     */
+    private function persistNewAppSession(ApiRequestObject $apiRequest, $appId) {
+
+        $publicKey = $apiRequest->getPublicKey();
+        $privateKey = $apiRequest->getPrivateKey();
+
+        $sessionToken = $this->dataHelper->generateSessionToken();
+
+        $session = new Session();
+        $session->setSession($sessionToken);
+        $session->setPublic($publicKey);
+        $session->setSecret($privateKey);
+        $session->setAppid($appId);
+        $now = new DateTime('now');
+        $session->setTimestamp($now);
+        $this->getDoctrine()->getEntityManager()->persist($session);
+        $this->getDoctrine()->getEntityManager()->flush();
+
+        return $sessionToken;
+
+    }
+
+    /**
+     * Select airport data within constraints
+     * @author zbrown
+     *
+     * @param $lat
+     * @param $lon
+     * @param $limit
+     * @param $max
+     * @return bool
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    private function findNearAirport(ApiRequestObject $apiRequest) {
+
+        $latitude = $apiRequest->getLatitude();
+        $longitude = $apiRequest->getLongitude();
+        $limit = $apiRequest->getLimit();
+        $max = $apiRequest->getMaximum();
+
+        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
+        $q = $qb->prepare('SELECT name, type, icao_code, iata_code, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM airports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+
+        $q->bindValue('lat', $latitude);
+        $q->bindValue('lon', $longitude);
+        $q->bindValue('max', $max);
+
+        return $q->execute();
     }
 }
