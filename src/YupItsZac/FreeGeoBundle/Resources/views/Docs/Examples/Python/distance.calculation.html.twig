@@ -1,0 +1,39 @@
+<p class="example-require">This Python snippet requires the <a href="http://docs.python-requests.org/en/latest/" target="_blank">requests</a> module.</p>
+
+<img src="{{ asset('bundles/yupitszacfreegeo/images/python.png') }}" class="techLogoExample">
+<pre>
+    <code class="python">
+
+        import requests
+
+        session = 'f10820d9fc0f8c7f3fb09b81c504f428'
+        lat = '-112.01363529772982'
+        lon = '33.43586076394977'
+
+        latb ='29.46786'
+        lonb = '-98.53506'
+
+        metric = 'm'
+        url = 'https://freegeoapi.org/api/calculate/distance'
+
+        postdata = {"session": session, "lata": lat, "lona": lon, "latb": latb, "lonb": lonb, "metric":metric, "round": 2}
+        resp = requests.post(url, postdata)
+
+        resp = resp.json()
+
+
+        if resp['status'] == 'success':
+        results = resp['payload']
+
+        distance = results['distance']
+        metric = results['metric']
+        fullMetric = results['fullMetric']
+
+        else:
+
+        status = resp['status']
+        reason = resp['reason']
+        message = resp['message']
+
+    </code>
+</pre>

@@ -1,0 +1,41 @@
+<img src="{{ asset('bundles/yupitszacfreegeo/images/php.png') }}" class="techLogoExample">
+
+<pre>
+  <code class="php">
+
+    $public = '62146385036f4f208f0550f7a88dad58';
+    $secret = 'ef9f0bc594926260c12052c46b0598b8';
+
+    $url = 'https://freegeoapi.org/api/authenticate/session';
+
+    $fields = array(
+      'public' => $public,
+      'secret' => $secret
+    );
+
+    foreach($fields as $key=>value) {
+      $fields_str .= $key.'='.$value.'&';
+    }
+
+    rtrim($fields_str, '&');
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, count($fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_str);
+
+    $result = json_decode(curl_exec($ch));
+
+    curl_close($ch);
+
+    if($result['status'] == 'success') {
+      $sessionKey = $result['payload']['session'];
+    } else {
+
+      $status = $result['status'];
+      $reason = $result['reason'];
+      $message = $result['message'];
+    }
+  </code>
+</pre>

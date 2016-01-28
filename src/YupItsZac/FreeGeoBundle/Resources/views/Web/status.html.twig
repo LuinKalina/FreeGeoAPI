@@ -1,9 +1,22 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
-   
-   <div class="row mbot">
-		<div class="content col-md-8 col-md-offset-2">
+
+<div class="container-fluid miniBar whitefont">
+
+	<div class="container">
+		<p>Service Status</p>
+	</div>
+
+</div>
+
+<div class="container">
+	<div class="mtop30"></div>
+	<div class="row">
+
+		<div class="col-md-1"></div>
+
+		<div class="col-md-10">
 
 			<h1>API Status Report</h1>
 
@@ -21,7 +34,7 @@
 
 				{% for key,value in servicesStatus %}
 
-					<tr class="{{ value.Class }}">
+					<tr class="{% if value.Class == 'serviceOnline' %}success{% else %}danger{% endif %}">
 						<td>{{ key }}</td>
 						<td>{{ value.Endpoint }}</td>
 						<td>{{ value.Status }}</td>
@@ -32,8 +45,11 @@
 			</table>
 
 		</div>
-
+		<div class="col-md-1"></div>
 	</div>
 
+</div>
 
-{% endblock %}
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
+

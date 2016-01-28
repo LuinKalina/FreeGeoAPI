@@ -1,0 +1,52 @@
+<img src="{{ asset('bundles/yupitszacfreegeo/images/php.png') }}" class="techLogoExample">
+
+<pre>
+  <code class="php">
+
+      $session = 'f10820d9fc0f8c7f3fb09b81c504f428';
+      $lat = '-112.01363529772982';
+      $lon = '33.43586076394977';
+      $max = 2500;
+      $limit = 2;
+      $fields_str = '';
+
+      $url = 'https://freegeoapi.org/api/location/near/city';
+
+      $fields = array(
+          'session' => $session,
+          'lat' => $lat,
+          'lon' => $lon,
+          'max' => $max,
+          'limit' => $limit
+      );
+
+      foreach($fields as $key=>$value) {
+        $fields_str .= $key.'='.$value.'&';
+      }
+
+      rtrim($fields_str, '&');
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POST, count($fields));
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_str);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      $result = json_decode(curl_exec($ch));
+
+      curl_close($ch);
+
+      if($result->status == 'success') {
+          foreach($result->payload as $key=>$value) {
+            echo $value->name.' - '.$value->latitude.', '.$value->longitude.' - '.$value->type.' - '.$value->icao_code.' - '.$value->iata_code.' - '.round($value->distance, 1).'<br>';
+          }
+      } else {
+
+          $status = $result['status'];
+          $reason = $result['reason'];
+          $message = $result['message'];
+
+      }
+  </code>
+</pre>

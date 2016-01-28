@@ -206,7 +206,7 @@ class DataHelper extends Controller {
      */
     public function fetchAppByPublicKey($publicKey) {
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('public' => $publicKey));
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $publicKey));
 
         return $app;
     }

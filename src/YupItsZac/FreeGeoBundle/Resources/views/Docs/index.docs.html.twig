@@ -1,0 +1,70 @@
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
+
+
+<div class="container-fluid miniBar whitefont">
+
+    <div class="container">
+        <p>Docs: Home</p>
+    </div>
+
+</div>
+
+<div class="mtop30"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            {% include 'YupItsZacFreeGeoBundle:Docs:sidebar.html.twig' %}
+        </div>
+
+        <div class="col-md-7">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h1>Documentation</h1>
+
+                    <p>The FreeGeo API is a collabortive effort to provide a free, open sourced geolocation API to developers.</p>
+
+                    <p>This documentation site exists to provide a detailed description and usage information for each endpoint provided by the FreeGeo API. Our goal is to make this documentation as accurate, and clear as possible, but we're only human. If you find a mistake or would like to help us improve the current docs, please head over to <a href="http://github.com/YupItsZac/FreeGeoAPI/issues" target="_blank">github</a> and let us know.</p>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h3>Register Your App</h3>
+
+                    <p>The first step to take advantage of the functionality the FreeGeo API has to offer is to register your app! The registration process provides an API keyset that your app will use to authenticate each session. Registration is simple and can be done from the developer dashboard.</p>
+
+                    <a href="{{ url('free_geo_developer_dashboard') }}" class="btn btn-primary btn-custom btn-block">Developer Dashboard</a>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Authenticate</h3>
+
+                    <p>In order to make requests to the various endpoints offered by the FreeGeo API, you first need to authenticate your application session to receive a session token. This token will be sent with every request to the API so we know that your app is authorized to make requests.</p>
+
+                    <a href="{{ url('free_geo_authenticate') }}" class="btn btn-primary btn-custom btn-block">Authentication Docs</a>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="fb-comments hidden-xs" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+        </div>
+
+        <div class="col-md-2"></div>
+
+    </div>
+
+</div>
+
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
+

@@ -1,35 +1,52 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
 
-<div class="row mbot">
+<div class="container-fluid miniBar whitefont">
 
-    {% if notifySuccess is not empty %}
-        <div class="alert alert-success"> <span class="glyphicon glyphicon-ok"></span> {{ notifySuccess }}</div>
-    {% endif %}
+    <div class="container">
+        <p>App Registration</p>
+    </div>
 
-    <div class="content col-md-8 col-md-offset-2">
+</div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <p class="hiText">Application Settings</p>
-            </div>
+<div class="mtop30"></div>
 
-            <div class="col-md-6">
-                <a href="{{ url('free_geo_developer_app_delete', {'appHash': appHash}) }}" class="btn btn-primary btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Delete</a> <a class="btn btn-primary pull-right spaceRight" href="{{ url('free_geo_developer_app_keyset_refresh', {'appHash': appHash}) }}"><span class="glyphicon glyphicon-refresh"></span> Refresh Keys</a> <a class="btn btn-primary pull-right spaceRight" href="{{ url('free_geo_developer_dashboard') }}"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
-            </div>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            {% include 'YupItsZacFreeGeoBundle:Developer:sidebar.html.twig' %}
         </div>
 
+        <div class="col-md-7">
 
-        <hr/>
+            {% if notifySuccess is not empty %}
+                <div class="alert alert-success"> <span class="glyphicon glyphicon-ok"></span> {{ notifySuccess }}</div>
+            {% endif %}
 
-        <div class="row">
 
-            <div class="col-md-6">
-                {{ form(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="hiText">Application Settings</p>
+                </div>
+
+                <div class="col-md-6">
+                    <a href="{{ url('free_geo_developer_app_delete', {'appHash': appHash}) }}" class="btn btn-primary btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Delete</a> <a class="btn btn-primary pull-right spaceRight" href="{{ url('free_geo_developer_app_keyset_refresh', {'appHash': appHash}) }}"><span class="glyphicon glyphicon-refresh"></span> Refresh Keys</a>
+                </div>
             </div>
 
-            <div class="col-md-6">
+
+            <hr/>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    {{ form(form) }}
+                </div>
+
+                <div class="col-md-6">
 
                     <h2>Private Key</h2>
 
@@ -39,11 +56,18 @@
 
                     {{ publicKey }}
 
+                </div>
+
             </div>
 
         </div>
 
+        <div class="col-md-2"></div>
+
     </div>
 
+</div>
 
-{% endblock %}
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
+

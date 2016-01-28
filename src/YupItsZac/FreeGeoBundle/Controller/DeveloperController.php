@@ -26,10 +26,11 @@ class DeveloperController extends Controller {
         $this->dataHelper = new DataHelper();
     }
 
-    public function dashboardAction($notifySuccess = null) {
+    public function dashboardAction($pageTitle, $notifySuccess = null) {
 
         $params = $this->getDashboardContent();
         $params['notifySuccess'] = $notifySuccess;
+        $params['title'] = $pageTitle;
 
         return $this->render('YupItsZacFreeGeoBundle:Developer:dashboard.html.twig', $params);
     }
@@ -61,7 +62,7 @@ class DeveloperController extends Controller {
         return $params;
     }
 
-    public function appRegisterAction(Request $request) {
+    public function appRegisterAction(Request $request, $pageTitle) {
 
         $app = new Apps();
 
@@ -124,17 +125,18 @@ class DeveloperController extends Controller {
 
             curl_close($ch);
 
-            return $this->render('YupItsZacFreeGeoBundle:Developer:appregistered.html.twig', array('appName' => $title));
+            return $this->render('YupItsZacFreeGeoBundle:Developer:appregistered.html.twig', array('appName' => $title, 'title' => $pageTitle));
 
 
         }
 
         return $this->render('YupItsZacFreeGeoBundle:Developer:appregister.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title' => $pageTitle
         ));
     }
 
-    public function appSettingsAction(Request $request, $appHash, $actionType, $notifySuccess = null) {
+    public function appSettingsAction(Request $request, $appHash, $actionType, $pageTitle = 'Developer Overview', $notifySuccess = null) {
 
         $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
 
@@ -201,7 +203,8 @@ class DeveloperController extends Controller {
             'privateKey' => $privateKey,
             'publicKey' => $publicKey,
             'notifySuccess' => $notifySuccess,
-            'appHash' => $appHash
+            'appHash' => $appHash,
+            'title' => $pageTitle
         ));
     }
 
@@ -223,7 +226,7 @@ class DeveloperController extends Controller {
 
     }
 
-    public function convertAppAction(Request $request, $errorNotify = null) {
+    public function convertAppAction(Request $request, $pageTitle, $errorNotify = null) {
 
         $userArray = $this->dataHelper->getUserObjectAsArray($this->get('security.token_storage')->getToken()->getUser());
 
@@ -266,7 +269,8 @@ class DeveloperController extends Controller {
 
         return $this->render('YupItsZacFreeGeoBundle:Developer:convert.app.html.twig', array(
             'form' => $form->createView(),
-            'errorNotify' => $errorNotify
+            'errorNotify' => $errorNotify,
+            'title' => $pageTitle
         ));
 
 

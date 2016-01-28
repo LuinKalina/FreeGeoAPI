@@ -1,28 +1,49 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
 
-    <div class="mbot">
-        <div class="col-md-4"></div>
+<div class="container-fluid miniBar whitefont">
 
-        <div class="col-md-4">
+    <div class="container">
+        <p>App Conversion Tool</p>
+    </div>
 
-            {% if errorNotify is not empty %}
-                <div class="alert alert-danger">{{ errorNotify }}</div>
+</div>
+
+<div class="mtop30"></div>
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            {% include 'YupItsZacFreeGeoBundle:Developer:sidebar.html.twig' %}
+        </div>
+
+        <div class="col-md-7">
+
+            {% if errorNotify %}
+                <div class="alert alert-danger">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{ errorNotify }}
+                </div>
             {% endif %}
 
-            <h1>Application Converter</h1>
+            <h1>App Conversion Tool</h1>
 
-            <p></p>
+            <p>Apps that were registered prior to January 8th, 2016 must be converted to work with the Developer Dashboard system. Please use your application's <b>Private Key</b> (also known as the Secret Key) to convert your app below.</p>
 
-            {#<div class="col-md-6">#}
+            <hr>
 
             {{ form(form) }}
 
-            {#</div>#}
         </div>
 
-        <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
+
     </div>
 
-{% endblock %}
+</div>
+
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
