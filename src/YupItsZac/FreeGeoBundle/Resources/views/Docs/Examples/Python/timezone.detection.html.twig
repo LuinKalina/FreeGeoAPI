@@ -1,0 +1,30 @@
+<p class="example-require">This Python snippet requires the <a href="http://docs.python-requests.org/en/latest/" target="_blank">requests</a> module.</p>
+
+<img src="{{ asset('bundles/yupitszacfreegeo/images/python.png') }}" class="techLogoExample">
+<pre>
+    <code class="python">
+
+        import requests
+
+        session = 'f10820d9fc0f8c7f3fb09b81c504f428'
+        lat = '-112.01363529772982'
+        lon = '33.43586076394977'
+
+        url = 'https://freegeoapi.org/api/detect/timezone'
+
+        postdata = {"session": session, "lat": lat, "lon": lon}
+        resp = requests.post(url, postdata)
+
+        resp = resp.json()
+
+        if resp['status'] == 'success':
+            results = resp['payload']
+
+        else:
+
+            status = resp['status']
+            reason = resp['reason']
+            message = resp['message']
+
+    </code>
+</pre>

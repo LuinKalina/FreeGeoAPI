@@ -15,20 +15,21 @@ use Symfony\Component\Security\Core\User\User;
 
 class AuthenticateController extends Controller {
 
-    public function loginAction() {
+    public function loginAction($pageTitle) {
 
         return $this->render('YupItsZacFreeGeoBundle:Authenticate:login.html.twig', array(
-            'projectName' => Config::PROJECT_NAME
+            'projectName' => Config::PROJECT_NAME,
+            'title' => $pageTitle
         ));
     }
 
-    public function registerAction() {
+    public function registerAction($pageTitle) {
 
         $registration = new Users();
 
         $form = $this->createForm(new RegistrationType(), $registration, ['action' => $this->generateUrl('free_geo_user_register_process'), 'method' => 'POST']);
 
-        return $this->render('YupItsZacFreeGeoBundle:Authenticate:register.html.twig', ['form' => $form->createView(), 'projectName' => Config::PROJECT_NAME]);
+        return $this->render('YupItsZacFreeGeoBundle:Authenticate:register.html.twig', ['form' => $form->createView(), 'projectName' => Config::PROJECT_NAME, 'title' => $pageTitle]);
 
     }
 

@@ -1,0 +1,28 @@
+<p class="example-require">This Python snippet requires the <a href="http://docs.python-requests.org/en/latest/" target="_blank">requests</a> module.</p>
+
+<img src="{{ asset('bundles/yupitszacfreegeo/images/python.png') }}" class="techLogoExample">
+<pre>
+    <code class="python">
+
+        import requests
+
+        public = '62146385036f4f208f0550f7a88dad58'
+        secret = 'ef9f0bc594926260c12052c46b0598b8'
+        url = 'https://freegeoapi.org/api/authenticate/session'
+
+        postdata = {"public": public, "secret": secret}
+        resp = requests.post(url, postdata)
+
+        resp = resp.json()
+
+        if resp['status'] == 'success':
+            sessionKey = resp['payload']['session']
+
+        else:
+
+            status = resp['status']
+            reason = resp['reason']
+            message = resp['message']
+
+    </code>
+</pre>

@@ -1,24 +1,42 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
 
-	<div class="mbot">
-		<div class="col-md-4"></div>
+<div class="container-fluid miniBar whitefont">
 
-		<div class="col-md-4">
-
-	    	<h1>Register An App :)</h1>
-
-	    	<p></p>
-
-	    	{#<div class="col-md-6">#}
-
-		    	{{ form(form) }}
-
-	    	{#</div>#}
-	   </div>
-
-	   <div class="col-md-4"></div>
+	<div class="container">
+		<p>App Registration</p>
 	</div>
 
-{% endblock %}
+</div>
+
+<div class="mtop30"></div>
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-md-3">
+			{% include 'YupItsZacFreeGeoBundle:Developer:sidebar.html.twig' %}
+		</div>
+
+		<div class="col-md-7">
+
+			<h1>App Registration</h1>
+
+			<p>Register your app below to start using the FreeGeo API!</p>
+
+			<hr>
+
+			{{ form(form) }}
+
+		</div>
+
+		<div class="col-md-2"></div>
+
+	</div>
+
+</div>
+
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}

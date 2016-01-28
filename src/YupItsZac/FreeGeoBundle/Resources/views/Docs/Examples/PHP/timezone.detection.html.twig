@@ -1,0 +1,51 @@
+<img src="{{ asset('bundles/yupitszacfreegeo/images/php.png') }}" class="techLogoExample">
+
+<pre>
+  <code class="php">
+
+      $session = 'f10820d9fc0f8c7f3fb09b81c504f428';
+      $lat = '83.07676458579506';
+      $lon = '42.3043599446728';
+
+      $fields_str = '';
+
+      $url = 'https://freegeoapi.org/api/detect/timezone';
+
+      $fields = array(
+          'session' => $session,
+          'lat' => $lat,
+          'lon' => $lon,
+      );
+
+      foreach($fields as $key=>$value) {
+        $fields_str .= $key.'='.$value.'&';
+      }
+
+      rtrim($fields_str, '&');
+
+      $ch = curl_init();
+
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POST, count($fields));
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_str);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      $result = json_decode(curl_exec($ch));
+
+      curl_close($ch);
+
+      if($result->status == 'success') {
+          foreach($result->payload as $key=>$value) {
+          $name = $value->name;
+          $places = $value->places;
+          $dstplaces = $value->dst_places;
+
+      } else {
+
+          $status = $result['status'];
+          $reason = $result['reason'];
+          $message = $result['message'];
+
+      }
+  </code>
+</pre>

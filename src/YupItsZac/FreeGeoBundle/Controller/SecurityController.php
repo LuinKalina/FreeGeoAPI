@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class SecurityController extends Controller {
 
-    public function loginAction(Request $request) {
+    public function loginAction(Request $request, $pageTitle) {
 
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -29,6 +29,7 @@ class SecurityController extends Controller {
             array(
                 'last_username' => $lastUsername,
                 'error'         => $error,
+                'title' => $pageTitle
             )
         );
 
