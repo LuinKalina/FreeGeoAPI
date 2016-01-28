@@ -1,63 +1,88 @@
-{% extends 'base.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:head.html.twig' %}
+{% include 'YupItsZacFreeGeoBundle:Web:header.html.twig' %}
 
-{% block body %}
-   
-   <div class="row mbot">
-		<div class="content col-md-8 col-md-offset-2">
+<div class="container-fluid miniBar whitefont">
 
-		<h1>FreeGeo API: Making Requests -> Calculate Distance</h1>
+    <div class="container">
+        <p>Docs: Distance Calculation</p>
+    </div>
 
-		<p>The Calculate Distance endpoint of the FreeGeo API enables developers to easily calculate the distance in miles, kilometers, or nautical miles between two sets of geographical coordinates. This document assumes you've already authenticated your app and received a session token.</p>
+</div>
 
-		<p><b>Method:</b> POST | <b>Response:</b> JSON | Endpoint: <b><i>/api/calculate/distance</i></b></p>
+<div class="mtop30"></div>
 
-		<h4>Parameters</h4>
+<div class="container">
 
-		<p>The following parameters are <b><i>required</i></b> to make a successful request.</p>
+    <div class="row">
 
-		<p>
-			<ul>
-				<li><b>session</b> - The session token generated when your app was authenticated.</li>
-				<li><b>lata</b> - The lattitude coord of the first given point.</li>
-				<li><b>lona</b> - The longitude coord of the first given point.</li>
-				<li><b>latb</b> - The lattitude coord of the second given point.</li>
-				<li><b>lonb</b> - The longitude coord of the second given point.</li>
-				<li><b>metric</b> - The metric for distance. m = miles, n = nautical miles, k = kilometers.</li>
-				<li><b>round</b> - *optional: Specify how many decimals to round the distance result to. If not specified, distance will be raw.</li>
-			</ul>
-		</p>
+        <div class="col-md-3">
+            {% include 'YupItsZacFreeGeoBundle:Docs:sidebar.html.twig' %}
+        </div>
 
-		<hr/>
+        <div class="col-md-7">
 
-		<h4>Find Near Ports - Example</h4>
+            <div class="row">
 
-		<div id="tabs-container">
-		    <ul class="tabs-menu">
-		        <li class="current"><a href="#php">PHP</a></li>
-		        <li><a href="#python">Python</a></li>
-		        <li><a href="#response">Response</a></li>
-		    </ul>
-		    <div class="tab">
-		        <div id="php" class="tab-content">
-		            <script src="https://gist.github.com/YupItsZac/046ce77e0cbe141bcd8e.js"></script>
-		        </div>
-		        <div id="python" class="tab-content">
-		            <script src="https://gist.github.com/YupItsZac/1b1693e0b674985d521d.js"></script>
-		        
-		        </div>
+                <div class="col-md-12">
 
-		        <div id="response" class="tab-content">
-		        	<script src="https://gist.github.com/YupItsZac/72f9873bd3f677fae138.js"></script>
-		        </div>
-		        
-		    </div>
-		</div>
+                    <div class="row">
 
-		<hr/>
+                        <h1>Distance Calculation</h1>
 
-		<div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+                        <p>The Distance Calculation endpoint of the FreeGeo API enables developers to easily calculate the distance in miles, kilometers, or nautical miles between two sets of geographical coordinates. This document assumes you've already authenticated your app and received a session token.</p>
 
-	</div>
+                        <p><b>Method:</b> POST | <b>Response:</b> JSON | Endpoint: <b><i>/api/calculate/distance</i></b></p>
 
+                        <h4>Parameters</h4>
 
-{% endblock %}
+                        <p>The following parameters are <b><i>required</i></b> to make a successful request.</p>
+
+                        <p>
+                            <ul>
+                                <li><b>session</b> - The session token generated when your app was authenticated.</li>
+                                <li><b>lata</b> - The lattitude coord of the first given point.</li>
+                                <li><b>lona</b> - The longitude coord of the first given point.</li>
+                                <li><b>latb</b> - The lattitude coord of the second given point.</li>
+                                <li><b>lonb</b> - The longitude coord of the second given point.</li>
+                                <li><b>metric</b> - The metric for distance. m = miles, n = nautical miles, k = kilometers.</li>
+                                <li><b>round</b> - *optional: Specify how many decimals to round the distance result to. If not specified, distance will be raw.</li>
+                            </ul>
+                        </p>
+
+                    </div>
+
+                    <div class="row">
+                        <h4>Distance Calculation - Example</h4>
+
+                        <button data-target="php-example" class="tab btn btn-primary btn-custom btn-sm snippet-btn">PHP Snippet</button>
+                        <button data-target="python-example" class="tab btn btn-primary btn-custom btn-sm snippet-btn">Python Snippet</button>
+                    </div>
+
+                    <div class="row">
+                        <p class="muted">NOTE: The keyset used here will not work against the production API</p>
+
+                        <div id="php-example" class="example">
+                            {% include 'YupItsZacFreeGeoBundle:Docs/Examples/PHP:distance.calculation.html.twig' %}
+                        </div>
+
+                        <div id="python-example" class="example">
+                            {% include 'YupItsZacFreeGeoBundle:Docs/Examples/Python:distance.calculation.html.twig' %}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr/>
+
+                <div class="fb-comments" data-href="{{ app.request.getUriForPath(app.request.pathInfo) }}" data-width="100%" data-numposts="5"></div>
+
+                <div class="col-md-2"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}

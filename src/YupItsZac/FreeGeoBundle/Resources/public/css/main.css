@@ -82,7 +82,7 @@ h4 {
 }
 
 .tab-content {
-    width: 660px;
+    max-width: 900px;
     padding: 20px;
     display: none;
 }
@@ -300,4 +300,17 @@ form input[type="button"]:hover{
 
 .spaceRight {
     margin-right: 20px;
+}
+
+.example-require {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.techLogoExample {
+    position: absolute;
+    width: 70px;
+    max-height: 70px;
+    margin-top: 15px;
+    right: 20px;
 }

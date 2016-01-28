@@ -13,7 +13,8 @@ $collection->add('free_geo_homepage', new Route('/', array(
 )));
 
 $collection->add('free_geo_status', new Route('/status', array(
-    '_controller' => 'YupItsZacFreeGeoBundle:Web:statusCheck'
+    '_controller' => 'YupItsZacFreeGeoBundle:Web:statusCheck',
+	'pageTitle' => 'Service Status'
 )));
 
 $collection->add('free_geo_app_register', new Route('/apps/register', array(
@@ -30,13 +31,15 @@ $collection->add('free_geo_documentation', new Route('/docs', array(
 $collection->add('free_geo_authenticate', new Route('/docs/authenticate', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'authenticate',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Authenticate'
 )));
 
 $collection->add('free_geo_authenticate_session', new Route('/docs/authenticate/session', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'authenticate',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Authenticate'
 )));
 
 $collection->add('free_geo_reset', new Route('/docs/reset-api-keys', array(
@@ -54,49 +57,57 @@ $collection->add('free_geo_find_near', new Route('/docs/requests/find-near', arr
 $collection->add('free_geo_find_near_airports', new Route('/docs/requests/find-near/airports', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearairport',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Airports'
 )));
 
 $collection->add('free_geo_find_near_cities', new Route('/docs/requests/find-near/cities', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearcities',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Cities'
 )));
 
 $collection->add('free_geo_find_near_ports', new Route('/docs/requests/find-near/ports', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearports',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Ports'
 )));
 
 $collection->add('free_geo_find_near_lakes', new Route('/docs/requests/find-near/lakes', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearlakes',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Lakes'
 )));
 
 $collection->add('free_geo_find_near_roads', new Route('/docs/requests/find-near/roads', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearroads',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Roads'
 )));
 
 $collection->add('free_geo_find_near_railroads', new Route('/docs/requests/find-near/railroads', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'findnearrailroads',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Nearest Railroads'
 )));
 
 $collection->add('free_geo_detect_time_zone', new Route('/docs/requests/detect/timezone', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'detecttimezone',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Timezone Detection'
 )));
 
 $collection->add('free_geo_calculate_distance', new Route('/docs/requests/calculate/distance', array(
     '_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
     'action' => 'calculatedistance',
-    'dir' => 'Docs'
+    'dir' => 'Docs',
+	'pageTitle' => 'Docs - Distance Calculation'
 )));
 
 $collection->add('free_geo_todo_high', new Route('/to-do/priority-high', array(
@@ -126,23 +137,27 @@ $collection->add('free_geo_contribute', new Route('/contribute', array(
 $collection->add('free_geo_app_conversion', new Route('/conversion/apps', array(
 		'_controller' => 'YupItsZacFreeGeoBundle:Web:staticRender',
 		'action' => 'convert.app',
-		'dir' => 'Docs'
+		'dir' => 'Docs',
+		'pageTitle' => 'Docs - App Conversion'
 )));
 
 
 //Developer account routes
 
 $collection->add('free_geo_developer_dashboard', new Route('/developer/dashboard', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Developer:dashboard'
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:dashboard',
+	'pageTitle' => 'Developer Dashboard'
 )));
 
 $collection->add('free_geo_developer_app_register', new Route('/developer/app/register', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appRegister'
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appRegister',
+	'pageTitle' => 'Application Registration'
 )));
 
 $collection->add('free_geo_developer_app_settings', new Route('/developer/app/settings/{appHash}', array(
 	'_controller' => 'YupItsZacFreeGeoBundle:Developer:appSettings',
-	'actionType' => 'settings'
+	'actionType' => 'settings',
+	'pageTitle' => 'Application Settings'
 )));
 
 $collection->add('free_geo_developer_app_keyset_refresh', new Route('/developer/app/keyset/refresh/{appHash}', array(
@@ -155,13 +170,15 @@ $collection->add('free_geo_developer_app_delete', new Route('/developer/app/dele
 )));
 
 $collection->add('free_geo_developer_app_converter', new Route('/developer/tool/app/converter', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Developer:convertApp'
+	'_controller' => 'YupItsZacFreeGeoBundle:Developer:convertApp',
+	'pageTitle' => 'App Conversion Tool'
 )));
 
 //Login routes
 
 $collection->add('free_geo_developer_login', new Route('/login', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Security:login'
+	'_controller' => 'YupItsZacFreeGeoBundle:Security:login',
+	'pageTitle' => 'Developer Login'
 )));
 
 $collection->add('login_check', new Route('/login_check', array(
@@ -175,11 +192,13 @@ $collection->add('free_geo_developer_logout', new Route('/logout', array(
 //Registration routes
 
 $collection->add('free_geo_developer_register', new Route('/register', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Registration:register'
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:register',
+	'pageTitle' => 'Developer Registration'
 )));
 
 $collection->add('free_geo_registration_completed', new Route('/registration/completed', array(
-	'_controller' => 'YupItsZacFreeGeoBundle:Registration:complete'
+	'_controller' => 'YupItsZacFreeGeoBundle:Registration:complete',
+	'pageTitle' => 'Registration Completed'
 )));
 
 

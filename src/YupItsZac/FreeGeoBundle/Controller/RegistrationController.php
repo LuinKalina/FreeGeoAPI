@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class RegistrationController extends Controller {
 
-    public function registerAction(Request $request) {
+    public function registerAction(Request $request, $pageTitle) {
 
         $user = new Users();
         $form = $this->createForm(new UsersType(), $user);
@@ -61,15 +61,16 @@ class RegistrationController extends Controller {
         }
 
         return $this->render('YupItsZacFreeGeoBundle:Registration:register.html.twig', array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'title' => $pageTitle
             )
         );
 
     }
 
-    public function completeAction() {
+    public function completeAction($pageTitle) {
 
-        return $this->render('YupItsZacFreeGeoBundle:Registration:registration.completed.html.twig');
+        return $this->render('YupItsZacFreeGeoBundle:Registration:registration.completed.html.twig', array('title' => $pageTitle));
     }
 
     private function sendMailWithMailgun($messageArray) {

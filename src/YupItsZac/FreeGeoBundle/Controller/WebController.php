@@ -31,7 +31,7 @@ class WebController extends Controller {
         return $this->render('YupItsZacFreeGeoBundle:Web:index.html.twig', array('title' => 'Home'));
     }
 
-    public function statusCheckAction() {
+    public function statusCheckAction($pageTitle) {
 
         $serviceStatus = $this->dataHelper->checkStatusServices();
 
@@ -41,7 +41,7 @@ class WebController extends Controller {
             $serviceNote = Strings::API_MSG_ALL_SERVICES_ONLINE;
         }
 
-        return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig', array('servicesStatus' => $serviceStatus, 'serviceNote' => $serviceNote));
+        return $this->render('YupItsZacFreeGeoBundle:Web:status.html.twig', array('servicesStatus' => $serviceStatus, 'serviceNote' => $serviceNote, 'title' => $pageTitle));
 
     }
 }
