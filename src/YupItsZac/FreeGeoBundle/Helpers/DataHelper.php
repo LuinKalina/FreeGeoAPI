@@ -10,157 +10,135 @@ use Symfony\Component\HttpFoundation\Request;
 use YupItsZac\FreeGeoBundle\Entity\Session;
 use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
+use YupItsZac\FreeGeoBundle\Entity\ApiRequestObject;
 use \DateTime;
 
 class DataHelper extends Controller {
 
     /**
-     * Fetch all port data within constraints
+     * Find ports near given coordinate set
      * @author zbrown
      *
-     * @param $lat
-     * @param $lon
-     * @param $limit
-     * @param $max
+     * @param ApiRequestObject $apiRequest
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findNearPort($lat, $lon, $limit, $max) {
+    public function findNearPort(ApiRequestObject $apiRequest) {
+
+        $latitude = $apiRequest->getLatitude();
+        $longitude = $apiRequest->getLongitude();
+        $limit = $apiRequest->getLimit();
+        $maximum = $apiRequest->getMaximum();
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
 
         $q = $qb->prepare('SELECT name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM ports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
 
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
+        $q->bindValue('lat', $latitude);
+        $q->bindValue('lon', $longitude);
+        $q->bindValue('max', $maximum);
 
         return $q->execute();
     }
 
     /**
-     * Select timezone data that contains coords
+     * Detect timezone for given coordinate set
      * @author zbrown
      *
-     * @param $lat
-     * @param $lon
+     * @param ApiRequestObject $apiRequest
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function timeZone($lat, $lon) {
+    public function timeZone(ApiRequestObject $apiRequest) {
+
+        $latitude = $apiRequest->getLatitude();
+        $longitude = $apiRequest->getLongitude();
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
         $q = $qb->prepare('SELECT name, offset, places, dst_places, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM time_zones HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
+        $q->bindValue('lat', $latitude);
+        $q->bindValue('lon', $longitude);
 
         return $q->execute();
     }
 
     /**
-     * Select country data that contains coords
-     * @author zbrown
+     * Detect country of given coordinate set
+     * @auhtor zbrown
      *
-     * @param $lat
-     * @param $lon
+     * @param ApiRequestObject $apiRequest
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function detectCountry($lat, $lon) {
+    public function detectCountry(ApiRequestObject $apiRequest) {
+
+        $latitude = $apiRequest->getLatitude();
+        $longitude = $apiRequest->getLongitude();
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
         $q = $qb->prepare('SELECT name AS country, sovereign, formal, economy_level AS economy, income_level AS income, MBRContains(GeomFromText(coordinates_wkt), POINT(":lat", ":lon")) AS contain FROM countries HAVING contain > 0 ORDER BY contain DESC LIMIT 1');
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
+        $q->bindValue('lat', $latitude);
+        $q->bindValue('lon', $longitude);
 
         return $q->execute();
     }
 
+
     /**
-     * Select airport data within constraints
+     * Find cities near given coordiate set
      * @author zbrown
      *
-     * @param $lat
-     * @param $lon
-     * @param $limit
-     * @param $max
+     * @param ApiRequestObject $apiRequest
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findNearAirport($lat, $lon, $limit, $max) {
+    public function findNearCity(ApiRequestObject $apiRequest) {
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
-        $q = $qb->prepare('SELECT name, type, icao_code, iata_code, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM airports HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $q = $qb->prepare('SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM cities HAVING distance < :max ORDER BY distance ASC LIMIT '.$apiRequest->getLimit());
 
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
+        $q->bindValue('lat', $apiRequest->getLatitude());
+        $q->bindValue('lon', $apiRequest->getLongitude());
+        $q->bindValue('max', $apiRequest->getMaximum());
 
         return $q->execute();
     }
 
     /**
-     * Select city data thats within constrainst
-     * @auhtor zbrown
+     * Find lakes near given cordinate set
+     * @author zbrown
      *
-     * @param $lat
-     * @param $lon
-     * @param $limit
-     * @param $max
+     * @param ApiRequestObject $apiRequest
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findNearCity($lat, $lon, $limit, $max) {
+    public function findNearLake(ApiRequestObject $apiRequest) {
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
-        $q = $qb->prepare('SELECT name, name_alt, is_capital AS capital, region, time_zone, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM cities HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
+        $q = $qb->prepare('SELECT name, name_alt, dam_name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM lakes HAVING distance < :max ORDER BY distance ASC LIMIT '.$apiRequest->getLimit());
 
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
+        $q->bindValue('lat', $apiRequest->getLatitude());
+        $q->bindValue('lon', $apiRequest->getLongitude());
+        $q->bindValue('max', $apiRequest->getMaximum());
 
         return $q->execute();
     }
 
     /**
-     * Select lake data that meets constraints
+     * Reset application API keyset
      * @author zbrown
      *
-     * @param $lat
-     * @param $lon
-     * @param $limit
-     * @param $max
-     * @return bool
-     * @throws \Doctrine\DBAL\DBALException
-     */
-    public function findNearLake($lat, $lon, $limit, $max) {
-
-        $qb = $this->getDoctrine()->getEntityManager()->getConnection();
-        $q = $qb->prepare('SELECT name, name_alt, dam_name, X(GeomFromText(coordinates_wkt)) AS latitude, Y(GeomFromText(coordinates_wkt)) AS longitude, SQRT( POW(69.1 * (X(GeomFromText(coordinates_wkt)) - :lat), 2) + POW(69.1 * (:lon - Y(GeomFromText(coordinates_wkt))) * COS(X(GeomFromText(coordinates_wkt)) / 57.3), 2)) AS distance FROM lakes HAVING distance < :max ORDER BY distance ASC LIMIT '.$limit);
-
-        $q->bindValue('lat', $lat);
-        $q->bindValue('lon', $lon);
-        $q->bindValue('max', $max);
-
-        return $q->execute();
-    }
-
-    /**
-     * Reset app credentials
-     * @author zbrown
-     *
-     * @param $publicKey
-     * @param $privateKey
+     * @param ApiRequestObject $apiRequest
      * @param $appId
      * @return bool
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function resetKeys($publicKey, $privateKey, $appId) {
+    public function resetKeys(ApiRequestObject $apiRequest, $appId) {
 
         $qb = $this->getDoctrine()->getEntityManager()->getConnection();
         $q = $qb->prepare('UPDATE Apps SET PublicKey=:publicKey, SecretKey=:privateKey WHERE id=:appId');
-        $q->bindValue('publicKey', $publicKey);
-        $q->bindValue('privateKey', $privateKey);
+        $q->bindValue('publicKey', $apiRequest->getPublicKey());
+        $q->bindValue('privateKey', $apiRequest->getPrivateKey());
         $q->bindvalue('appId', $appId);
 
         $q->execute();
@@ -169,15 +147,15 @@ class DataHelper extends Controller {
     }
 
     /**
-     * Get current API session
+     * Get application session data
      * @author zbrown
      *
-     * @param $session
+     * @param ApiRequestObject $apiRequest
      * @return object
      */
-    public function fetchAppSession($session) {
+    public function fetchAppSession(ApiRequestObject $apiRequest) {
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $session));
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $apiRequest->getSessionToken()));
 
         return $app;
 
@@ -198,15 +176,15 @@ class DataHelper extends Controller {
     }
 
     /**
-     * Select app information by public key
-     * @auhtor zbrown
+     * Fetch application info by public key
+     * @author zbrown
      *
-     * @param $publicKey
+     * @param ApiRequestObject $apiRequest
      * @return object
      */
-    public function fetchAppByPublicKey($publicKey) {
+    public function fetchAppByPublicKey(ApiRequestObject $apiRequest) {
 
-        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $publicKey));
+        $app = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $apiRequest->getPublicKey()));
 
         return $app;
     }
@@ -248,15 +226,16 @@ class DataHelper extends Controller {
     }
 
     /**
-     * Verify an app session by session key
+     * Verify an application by its session token
      * @author zbrown
      *
-     * @param $session
+     * @param ApiRequestObject $apiRequest
      * @return array
      */
-    public function verifyAppSession($session) {
 
-        $app = $this->fetchAppSession($session);
+    public function verifyAppSession(ApiRequestObject $apiRequest) {
+
+        $app = $this->fetchAppSession($apiRequest->getSessionToken());
 
         $sessionStatus = array();
 
@@ -265,34 +244,37 @@ class DataHelper extends Controller {
         } else {
             $sessionStatus['validSession'] = true;
             $sessionStatus['isBeta'] = $app->getIsbeta();
-            $sessionStatus['sessionType'] = $this->getSessionType();
+            $sessionStatus['sessionType'] = $this->getSessionType($apiRequest);
         }
 
         return $sessionStatus;
     }
 
     /**
-     * Calculate distance between two coord points
+     * Calculate distance between two coordinate sets
      * @author zbrown
      *
-     * @param $longitudeFirst
-     * @param $latitudeFirst
-     * @param $longitudeSecond
-     * @param $latitudeSecond
-     * @param $unit
-     * @param $round
+     * @param ApiRequestObject $apiRequest
      * @return array
      */
-    public function calculateDistance($longitudeFirst, $latitudeFirst, $longitudeSecond, $latitudeSecond, $unit, $round) {
+    public function calculateDistance(ApiRequestObject $apiRequest) {
+
+        $primaryLatitude = $apiRequest->getLatitude();
+        $primaryLongitude = $apiRequest->getLongitude();
+
+        $secondaryLatitude = $apiRequest->getSecondaryLatitude();
+        $secondaryLongitude = $apiRequest->getSecondaryLongitude();
+
+        $metricUnit = $apiRequest->getMetricUnit();
+        $roundMath = $apiRequest->getMetricUnit();
 
         $payload = array();
-
-        $theta = $longitudeFirst - $longitudeSecond;
-        $dist = sin(deg2rad($latitudeFirst)) * sin(deg2rad($latitudeSecond)) +  cos(deg2rad($latitudeFirst)) * cos(deg2rad($latitudeSecond)) * cos(deg2rad($theta));
+        $theta = $primaryLongitude - $secondaryLongitude;
+        $dist = sin(deg2rad($primaryLatitude)) * sin(deg2rad($secondaryLatitude)) +  cos(deg2rad($primaryLatitude)) * cos(deg2rad($secondaryLatitude)) * cos(deg2rad($theta));
         $dist = acos($dist);
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
-        $unit = strtolower($unit);
+        $unit = strtolower($metricUnit);
 
         if($unit == 'k') {
             $distance = $miles * 1.609344;
@@ -305,8 +287,8 @@ class DataHelper extends Controller {
             $payload['unitName'] = 'miles';
         }
 
-        if(!empty($round)) {
-            $final = round($distance, $round);
+        if(!empty($roundMath)) {
+            $final = round($distance, $roundMath);
         } else {
             $final = $distance;
         }
@@ -397,15 +379,14 @@ class DataHelper extends Controller {
      * Determine session type
      * @author zbrown
      *
-     * @param $sessionToken
-     * @param null $publicKey
+     * @param ApiRequestObject $apiRequest
      * @return string
      */
-    public function getSessionType($sessionToken, $publicKey = null) {
+    public function getSessionType(ApiRequestObject $apiRequest) {
 
         //2 = Normal API requests, 1 = API Status Check
 
-        if($sessionToken == Config::API_STATUS_CHECK_SESSION_TOKEN || $publicKey == Config::API_STATUS_CHECK_PUBLIC_KEY) {
+        if($apiRequest->getSessionToken() == Config::API_STATUS_CHECK_SESSION_TOKEN || $apiRequest->getPublicKey() == Config::API_STATUS_CHECK_PUBLIC_KEY) {
             return '1';
         } else {
             return '2';
