@@ -256,6 +256,10 @@ form input[type="button"]:hover{
     padding: 10px;
 }
 
+.footer-fixed{
+    position: fixed;
+}
+
 #register_form {
     margin-top: 80px;
 }
