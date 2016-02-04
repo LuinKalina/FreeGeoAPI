@@ -16,8 +16,7 @@ h1 {
 }
 
 .content {
-    background-color: #fff;
-    padding: 32px;
+    margin-bottom: 80px;
 }
 
 h3 {
@@ -211,12 +210,19 @@ form input[type="button"]:hover{
     border: solid #fff 2px;
 }
 
+.font14 {
+    font-size: 14px;
+}
 .font32 {
     font-size: 20px;
 }
 
 .mtop30 {
     margin-top: 60px;
+}
+
+.mtop20 {
+    margin-top: 20px;
 }
 
 .row {
@@ -254,6 +260,7 @@ form input[type="button"]:hover{
     width: 100%;
     color: #fff;
     padding: 10px;
+    z-index: 103;
 }
 
 .footer-fixed{
