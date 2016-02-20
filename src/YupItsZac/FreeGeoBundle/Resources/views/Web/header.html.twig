@@ -1,47 +1,51 @@
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=226733024007675";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
+<body class="site">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="{{ url('free_geo_homepage') }}" class="navbar-brand hidden-xs"><img class="freelogo" src="{{ asset('bundles/yupitszacfreegeo/images/freegeologo.png') }}" alt="FreeGeo API by YupItsZac"></a>
-            <a href="{{ url('free_geo_homepage') }}" class="navbar-brand visible-xs">FreeGeo API</a>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=226733024007675";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ url('free_geo_homepage') }}" class="navbar-brand hidden-xs"><img class="freelogo" src="{{ asset('bundles/yupitszacfreegeo/images/freegeologo.png') }}" alt="FreeGeo API by YupItsZac"></a>
+                <a href="{{ url('free_geo_homepage') }}" class="navbar-brand visible-xs">FreeGeo API</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('free_geo_homepage') }}">Home</a></li>
+                    <li><a href="{{ url('free_geo_status') }}">Status</a></li>
+                    <li><a href="{{ url('free_geo_developer_register') }}">Register</a></li>
+                    <li><a href="{{ url('free_geo_documentation') }}">Documentation</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li><a class="link" href="{{ path('free_geo_developer_logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a class="link" href="{{ path('free_geo_developer_login') }}">Login/Register</a></li>
+                    {% endif %}
+
+                    <li><a href="https://github.com/YupItsZac/FreeGeoAPI" target="_blank">
+                            <span class="fa fa-github" class="navbar-github"></span>
+                            Git Repo
+                        </a></li>
+                </ul>
+
+            </div><!--/.nav-collapse -->
         </div>
-        <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url('free_geo_homepage') }}">Home</a></li>
-                <li><a href="{{ url('free_geo_status') }}">Status</a></li>
-                <li><a href="{{ url('free_geo_developer_register') }}">Register</a></li>
-                <li><a href="{{ url('free_geo_documentation') }}">Documentation</a></li>
-            </ul>
+    </nav>
 
-            <ul class="nav navbar-nav navbar-right">
-
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li><a class="link" href="{{ path('free_geo_developer_logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a class="link" href="{{ path('free_geo_developer_login') }}">Login/Register</a></li>
-                {% endif %}
-
-                <li><a href="https://github.com/YupItsZac/FreeGeoAPI" target="_blank">
-                        <span class="fa fa-github" class="navbar-github"></span>
-                        Git Repo
-                    </a></li>
-            </ul>
-
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+    <div class="site-content">

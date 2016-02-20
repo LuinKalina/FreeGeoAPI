@@ -24,6 +24,7 @@ class FindNearController extends Controller {
      * @author zbrown
      *
      * @param Request $requestObject
+     * @return JsonResponse
      */
     public function airportsAction(Request $requestObject) {
 

@@ -152,7 +152,7 @@ form select:focus
 }
 
 form input[type="submit"],
-form input[type="button"], button{
+form input[type="button"]:not('.navbar-toggle'), button{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -222,6 +222,17 @@ form input[type="button"]:hover{
 .row {
     margin: 0px;
 }
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
 
 .do {
     max-width: 200px;
