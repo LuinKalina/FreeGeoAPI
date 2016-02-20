@@ -1,3 +1,7 @@
+free_geo_api:
+    resource: "@FreeGeoApiBundle/Resources/config/routing.php"
+    prefix:   /
+
 yup_its_zac_free_geo:
     resource: "@YupItsZacFreeGeoBundle/Resources/config/routing.php"
     prefix:   /

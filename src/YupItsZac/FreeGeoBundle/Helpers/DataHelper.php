@@ -295,6 +295,9 @@ class DataHelper extends Controller {
 
         $payload['distance'] = $final;
 
+        $payload = array('distance' => $calculation['distance'], 'metric' => strtoupper($apiRequest->getMetricUnit()), 'fullMetric' => $calculation['unitName']);
+
+
         return $payload;
 
     }

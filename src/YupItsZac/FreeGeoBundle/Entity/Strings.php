@@ -33,12 +33,14 @@ class Strings {
     const API_MSG_SOME_SERVICES_OFFLINE = 'One or more FreeGEO API services are currently offline. :(';
     const API_MSG_ALL_SERVICES_ONLINE = 'All FreeGeo API services are online and operating normally. :)';
     const API_MSG_APP_CONVERSION_REQUIRED = 'App conversion required to authenticate. https://freegeoapi.org/conversion/apps for more information.';
+    const API_MSG_MISSING_PARAMS = 'Some of the required parameters are missing. Please refer to the FreeGeo docs for help.';
 
     const API_REASON_INVALID_SESSION = 'Invalid session.';
     const API_REASON_SUCCESS = 'completed action';
     const API_REASON_FORBIDDEN = 'Unauthorized.';
     const API_REASON_DB_ERROR = 'db-error';
     const API_REASON_APP_CONVERSION = 'Invalid App State';
+    const API_REASON_MISSING_PARAMS = 'Required parameters missing.';
 
     const API_STATUS_FATAL = 'fatal';
     const API_STATUS_SUCCESS = 'success';
