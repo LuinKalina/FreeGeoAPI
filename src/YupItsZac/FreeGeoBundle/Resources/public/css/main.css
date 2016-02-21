@@ -329,3 +329,16 @@ form input[type="button"]:hover{
     margin-top: 15px;
     right: 20px;
 }
+
+#topnavbar {
+    margin: 0;
+}
+#topnavbar.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#dialog-message {
+    width: 500px;
+}
