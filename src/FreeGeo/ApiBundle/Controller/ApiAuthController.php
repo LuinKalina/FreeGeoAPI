@@ -25,7 +25,7 @@ class ApiAuthController extends Controller {
         $apiRequest = $authModel->prepareRequestData($requestObject, 'authenticate');
 
         if(!$apiRequest instanceof ApiRequestObject) {
-            return new JsonResponse(ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg'], 'test'));
+            return new JsonResponse(ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']));
         }
 
         $applicationObject = $authModel->getApplicationObject($apiRequest);
