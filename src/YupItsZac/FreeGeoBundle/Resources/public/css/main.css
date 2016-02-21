@@ -152,7 +152,7 @@ form select:focus
 }
 
 form input[type="submit"],
-form input[type="button"]:not('.navbar-toggle'), button{
+form input[type="button"], .site-content form button {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
