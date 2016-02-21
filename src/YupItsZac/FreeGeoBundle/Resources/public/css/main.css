@@ -16,8 +16,7 @@ h1 {
 }
 
 .content {
-    background-color: #fff;
-    padding: 32px;
+    margin-bottom: 80px;
 }
 
 h3 {
@@ -152,7 +151,7 @@ form select:focus
 }
 
 form input[type="submit"],
-form input[type="button"], button{
+form input[type="button"], .site-content form button {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -211,6 +210,9 @@ form input[type="button"]:hover{
     border: solid #fff 2px;
 }
 
+.font14 {
+    font-size: 14px;
+}
 .font32 {
     font-size: 20px;
 }
@@ -219,9 +221,24 @@ form input[type="button"]:hover{
     margin-top: 60px;
 }
 
+.mtop20 {
+    margin-top: 20px;
+}
+
 .row {
     margin: 0px;
 }
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
 
 .do {
     max-width: 200px;
@@ -254,6 +271,7 @@ form input[type="button"]:hover{
     width: 100%;
     color: #fff;
     padding: 10px;
+    z-index: 103;
 }
 
 .footer-fixed{
@@ -317,4 +335,17 @@ form input[type="button"]:hover{
     max-height: 70px;
     margin-top: 15px;
     right: 20px;
+}
+
+#topnavbar {
+    margin: 0;
+}
+#topnavbar.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#dialog-message {
+    width: 500px;
 }

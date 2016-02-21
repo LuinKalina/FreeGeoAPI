@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use YupItsZac\FreeGeoBundle\Entity\Config;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
 use YupItsZac\FreeGeoBundle\Helpers\DataHelper;
+use Symfony\Component\Yaml\Yaml;
 
 
 class WebController extends Controller {

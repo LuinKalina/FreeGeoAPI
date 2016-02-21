@@ -1,0 +1,51 @@
+required:
+    api:
+       authenticate:
+           PrivateKey: true
+           PublicKey: true
+
+       findNearAirports:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+           Limit: true
+           Maximum: false
+
+       findNearPorts:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+           Limit: true
+           Maximum: false
+
+       findNearCities:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+           Limit: true
+           Maximum: false
+
+       findNearLakes:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+           Limit: true
+           Maximum: false
+
+       detectTimezone:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+
+       detectCountry:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+
+       calculateDistance:
+           SessionToken: true
+           Latitude: true
+           Longitude: true
+           SecondaryLatitude: true
+           SecondaryLongitude: true
+           MetricUnit: true

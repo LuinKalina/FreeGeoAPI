@@ -16,13 +16,13 @@ class ResponseHelper extends Controller {
 
     static public function prepareResponse($status, $reason, $msg = null, $payload = null) {
 
-        $resp = array(
+        $response = array(
             'status' => $status,
             'reason' => $reason,
             'message' => $msg,
             'payload' => $payload
         );
 
-        return new JsonResponse($resp);
+        return $response;
     }
 }

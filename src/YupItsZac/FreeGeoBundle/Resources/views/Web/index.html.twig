@@ -11,14 +11,27 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mtop30"></div>
-							<h2 class="whitefont">Easy. Reliable. Free. Open Source.</h2>
+							<div class="row">
 
-							<p class="font32">The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.</p>
+								<h2 class="whitefont"><span class="hidden-xs">Easy. Reliable. </span>Free. Open Source.</h2>
 
-							<p>
-								<a href="http://github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right outline"><span class="fa fa-github"></span> Github</a></p>
-								<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right outline">Register</a></p>
+								<p class="font32 hidden-xs">The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.</p>
+								<p class="font14 visible-xs">The FreeGeo API is a free, and open soure geospatial API that let's developers easily add geo-abilities to their applications.</p>
 
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-10">
+									<a href="http://github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary pull-right outline hidden-xs"><span class="fa fa-github"></span> Github</a>
+									<a href="http://github.com/YupItsZac/FreeGeoAPI" target="_blank" class="btn btn-primary btn-block outline visible-xs"><span class="fa fa-github"></span> Github</a>
+								</div>
+
+								<div class="col-md-2">
+									<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary pull-right hidden-xs outline">Register</a>
+									<a href="{{ url('free_geo_developer_register') }}" class="btn btn-primary btn-block outline visible-xs mtop20">Register</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -109,6 +122,21 @@
 
 	</div>
 
+
+<div id="dialog-message" title="Help Support FreeGeo">
+	<p>
+		<b>We need your help!</b> <span class="hidden-xs">The FreeGeo API is expensive to maintain and keep online. We pay for bandwidth, disk space, transfers, IPs, etc. The Services provided by the API are completely free, so it's difficult to keep funding for the project.<br><br></span>If each developer or visitor to the site donated just <b>€5 (approx $5.56)</b>, we could afford to keep the API and associated services online for another 6 months!
+	</p>
+	<p>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="C4QH55VNC4EYG">
+		<input type="image" src="https://www.paypalobjects.com/en_US/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+	</form>
+
+	</p>
+</div>
 
 {% include 'YupItsZacFreeGeoBundle:Web:footer.html.twig' %}
 
