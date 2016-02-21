@@ -14,4 +14,16 @@ $(document).ready(function() {
 
     hljs.initHighlightingOnLoad();
 
+    $( "#dialog-message" ).dialog({
+        modal: true,
+        minWidth: 500,
+        resizable: false,
+        draggable: false,
+        buttons: {
+            'Not Now': function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+
 });

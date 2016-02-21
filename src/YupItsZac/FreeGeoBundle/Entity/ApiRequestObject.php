@@ -54,15 +54,12 @@ class ApiRequestObject
      *
      * @param array $postData
      */
-    public function setAttributesByArray(array $postData)
+    public function setAttributesByArray(Request $postData)
     {
 
-        foreach ($postData as $key => $value) {
-            error_log(print_r('Key: '.$key, true), 0);
+        foreach ($postData->request->all() as $key => $value) {
             if (isset($this->_attributesMap[$key])) {
                 $mapItem = $this->_attributesMap[$key];
-                error_log(print_r('Map: '.$mapItem, true), 0);
-                error_log(print_r('Value: '.$value, true), 0);
                 $this->$mapItem = $value;
             }
         }

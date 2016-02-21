@@ -151,7 +151,7 @@ form select:focus
 }
 
 form input[type="submit"],
-form input[type="button"], button{
+form input[type="button"], .site-content form button {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -228,6 +228,17 @@ form input[type="button"]:hover{
 .row {
     margin: 0px;
 }
+
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.site-content {
+    flex: 1;
+}
+
 
 .do {
     max-width: 200px;
@@ -324,4 +335,17 @@ form input[type="button"]:hover{
     max-height: 70px;
     margin-top: 15px;
     right: 20px;
+}
+
+#topnavbar {
+    margin: 0;
+}
+#topnavbar.affix {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#dialog-message {
+    width: 500px;
 }
