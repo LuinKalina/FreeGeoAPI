@@ -68,10 +68,8 @@ class ApiAuthModel extends Controller {
     }
 
     public function getApplicationObject(ApiRequestObject $apiRequest) {
-
-        error_log('Getting app session');
+        
         return $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Apps')->findOneBy(array('publickey' => $apiRequest->getPublicKey()));
-
     }
 
 
@@ -131,7 +129,7 @@ class ApiAuthModel extends Controller {
         $validRequest = true;
         foreach($requiredParameters as $key => $value) {
 
-            if ($value == 1) {
+            if ($value === true) {
                 $action = 'get'.$key;
                 $res = $apiRequest->{$action}();
 
@@ -142,12 +140,18 @@ class ApiAuthModel extends Controller {
             }
         }
 
-        $session = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $apiRequest->getSessionToken()));
-
-        return (is_null($session)) ? false : true;
-
+        return true;
     }
 
+    /**
+     * Prepare request data for use
+     * @author zbrown
+     * TODO: Move into service for all controllers
+     *
+     * @param Request $requestObject
+     * @param $endpoint
+     * @return array|ApiRequestObject
+     */
     public function prepareRequestData(Request $requestObject, $endpoint)
     {
 
