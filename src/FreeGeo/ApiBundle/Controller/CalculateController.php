@@ -8,6 +8,7 @@ use YupItsZac\FreeGeoBundle\Api\Model\CalculateModel;
 use YupItsZac\FreeGeoBundle\Entity\Strings;
 use YupItsZac\FreeGeoBundle\Helpers\ResponseHelper;
 use YupItsZac\FreeGeoBundle\Entity\ApiRequestObject;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CalculateController extends Controller {
 
@@ -23,12 +24,12 @@ class CalculateController extends Controller {
         $apiRequest = $calculateModel->prepareRequestData($requestObject, 'detectTimezone');
 
         if(!$apiRequest instanceOf ApiRequestObject) {
-            ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']);
+            new JsonResponse(ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']));
         }
 
         $dataTimezone = $calculateModel->calculateDistance($apiRequest);
 
-        ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataTimezone);
+        new JsonResponse(ResponseHelper::prepareResponse(Strings::API_STATUS_SUCCESS, Strings::API_REASON_SUCCESS, Strings::API_MSG_SUCCESS, $dataTimezone));
 
     }
 

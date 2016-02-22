@@ -99,19 +99,15 @@ class CalculateModel extends Controller {
     }
 
     public function prepareRequestData(Request $requestObject, $endpoint) {
-        $postData  = $requestObject->get('request')->request->all();
 
         $apiRequest = new ApiRequestObject();
-        $apiRequest->setAttributesByArray($postData);
-
-        $postData  = $this->get('request')->request->all();
-
-        $apiRequest = new ApiRequestObject();
-        $apiRequest->setAttributesByArray($postData);
+        $apiRequest->setAttributesByArray($requestObject);
 
         $requestValidation = $this->validateRequest($apiRequest, $endpoint);
 
-        if($requestValidation == false) {
+        if($requestValidation === true) {
+            return $apiRequest;
+        } elseif($requestValidation == false) {
             return [
                 'status' => Strings::API_STATUS_FATAL,
                 'reason' => Strings::API_REASON_INVALID_SESSION,
@@ -132,8 +128,6 @@ class CalculateModel extends Controller {
                 'msg' => Strings::API_MSG_MISSING_PARAMS
             ];
 
-        } else {
-            return $apiRequest;
         }
     }
 

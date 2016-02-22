@@ -98,7 +98,7 @@ class FindNearController extends Controller {
         $apiRequest = $findNearModel->prepareRequestData($requestObject, 'findNearPorts');
 
         if(!$apiRequest instanceOf ApiRequestObject) {
-            ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']);
+            new JsonResponse(ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']));
         }
 
         $dataPorts = $findNearModel->getNearbyPorts($apiRequest);
