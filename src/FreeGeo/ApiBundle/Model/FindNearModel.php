@@ -161,7 +161,7 @@ class FindNearModel extends Controller {
     public function validateRequest(ApiRequestObject $apiRequest, $endpoint)
     {
 
-        if ($apiRequest->getSessionToken() == Config::API_STATUS_CHECK_SESSION_TOKEN) {
+        if ($apiRequest->getSessionToken() == Config::API_STATUS_CHECK_SESSION_TOKEN || $apiRequest->getPublicKey() == Config::API_STATUS_CHECK_PUBLIC_KEY) {
             return 'status';
         }
 
