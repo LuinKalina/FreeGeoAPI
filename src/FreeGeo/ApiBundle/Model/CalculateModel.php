@@ -81,9 +81,13 @@ class CalculateModel extends Controller {
 
         foreach($requiredParameters as $key => $value) {
 
-            if($key[$value]) {
-                if(empty($apiRequest->{'get'.$key()})) {
+            if ($value === true) {
+                $action = 'get'.$key;
+                $res = $apiRequest->{$action}();
+
+                if (empty($res)) {
                     return 'invalid';
+                    break;
                 }
             }
         }

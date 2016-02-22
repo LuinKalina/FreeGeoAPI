@@ -172,7 +172,7 @@ class FindNearModel extends Controller {
         $validRequest = true;
         foreach($requiredParameters as $key => $value) {
 
-            if ($value == 1) {
+            if ($value === true) {
                 $action = 'get'.$key;
                 $res = $apiRequest->{$action}();
 
@@ -199,7 +199,7 @@ class FindNearModel extends Controller {
 
         if ($requestValidation === true) {
             return $apiRequest;
-        }elseif ($requestValidation === false) {
+        } elseif ($requestValidation === false) {
             return [
                 'status' => Strings::API_STATUS_FATAL,
                 'reason' => Strings::API_REASON_INVALID_SESSION,

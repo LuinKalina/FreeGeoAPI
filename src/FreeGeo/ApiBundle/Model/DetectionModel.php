@@ -105,7 +105,7 @@ class DetectionModel extends Controller {
         $validRequest = true;
         foreach($requiredParameters as $key => $value) {
 
-            if ($value == 1) {
+            if ($value === true) {
                 $action = 'get'.$key;
                 $res = $apiRequest->{$action}();
 
