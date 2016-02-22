@@ -54,7 +54,7 @@ class FindNearController extends Controller {
         $apiRequest = $findNearModel->prepareRequestData($requestObject, 'findNearCities');
 
         if(!$apiRequest instanceOf ApiRequestObject) {
-            ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']);
+            return new JsonResponse(ResponseHelper::prepareResponse($apiRequest['status'], $apiRequest['reason'], $apiRequest['msg']));
         }
 
         $dataCities = $findNearModel->getNearbyCities($apiRequest);
