@@ -7,11 +7,11 @@ The FreeGeo API is an open source geolocation API intended to help developers of
 
 This project is generously hosted by [DigitalOcean](http://www.digitalocean.com) at [https://freegeoapi.org](https://freegeoapi.org). You can find API docs, usage examples and details on contributing to the project there.
 
-**Current Version:** 3.0
+**Current Version:** 4.0
 
-**Release Date:** January 28, 2016
+**Release Date:** February 21, 2016
 
-**Next Release:** February 11, 2016 - Version 3.1
+**Next Release:** March 1, 2016 - Version 4.1
 
 Things To Do
 ===

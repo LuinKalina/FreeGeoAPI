@@ -111,7 +111,7 @@ class ApiAuthModel extends Controller {
     }
 
     /**
-     * Validate ApiRequest object
+     * Validate ApiRequest
      * @author zbrown
      *
      * @param ApiRequestObject $apiRequest
@@ -120,7 +120,7 @@ class ApiAuthModel extends Controller {
     public function validateRequest(ApiRequestObject $apiRequest, $endpoint)
     {
 
-        if ($apiRequest->getPublicKey() == Config::API_STATUS_CHECK_PUBLIC_KEY) {
+        if ($apiRequest->getSessionToken() == Config::API_STATUS_CHECK_SESSION_TOKEN) {
             return 'status';
         }
 
@@ -128,9 +128,10 @@ class ApiAuthModel extends Controller {
 
         $requiredParameters = $requiredParamsConfig['required']['api'][$endpoint];
 
-        foreach ($requiredParameters as $key => $value) {
+        $validRequest = true;
+        foreach($requiredParameters as $key => $value) {
 
-            if (isset($key[$value])) {
+            if ($value == 1) {
                 $action = 'get'.$key;
                 $res = $apiRequest->{$action}();
 
@@ -141,18 +142,12 @@ class ApiAuthModel extends Controller {
             }
         }
 
-        return true;
+        $session = $this->getDoctrine()->getRepository('YupItsZacFreeGeoBundle:Session')->findOneBy(array('session' => $apiRequest->getSessionToken()));
+
+        return (is_null($session)) ? false : true;
 
     }
 
-    /**
-     * Prepare/validate request object
-     * @author zbrown
-     *
-     * @param Request $requestObject
-     * @param $endpoint
-     * @return array|ApiRequestObject
-     */
     public function prepareRequestData(Request $requestObject, $endpoint)
     {
 
@@ -161,10 +156,9 @@ class ApiAuthModel extends Controller {
 
         $requestValidation = $this->validateRequest($apiRequest, $endpoint);
 
-
         if ($requestValidation === true) {
             return $apiRequest;
-        } elseif($requestValidation === false) {
+        }elseif ($requestValidation === false) {
             return [
                 'status' => Strings::API_STATUS_FATAL,
                 'reason' => Strings::API_REASON_INVALID_SESSION,
@@ -176,6 +170,13 @@ class ApiAuthModel extends Controller {
                 'status' => Strings::API_STATUS_SUCCESS,
                 'reason' => Strings::API_REASON_SUCCESS,
                 'msg' => Strings::API_MSG_STATUS_ONLINE
+            ];
+
+        } elseif ($requestValidation == 'invalid') {
+            return [
+                'status' => Strings::API_STATUS_FATAL,
+                'reason' => Strings::API_REASON_MISSING_PARAMS,
+                'msg' => Strings::API_MSG_MISSING_PARAMS
             ];
 
         }
