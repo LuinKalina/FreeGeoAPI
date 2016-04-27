@@ -276,4 +276,8 @@ class DeveloperController extends Controller {
 
     }
 
+    public function testFunction() {
+        return 'test';
+    }
+
 }
