@@ -6,3 +6,10 @@ parameters:
     database_user: travis
     database_password:
     server_version: 5.6
+
+    geo_database_host: localhost
+    geo_database_port: 5432
+    geo_database_name: freegeo
+    geo_database_user: travis
+    geo_database_password:
+    server_version: 5.6
