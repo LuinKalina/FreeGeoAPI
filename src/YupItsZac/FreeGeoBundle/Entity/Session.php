@@ -41,13 +41,6 @@ class Session
     private $appid;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
-     * @ORM\Version
-     * @var \DateTime
-     */
-    private $timestamp = null;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -154,29 +147,6 @@ class Session
         return $this->appid;
     }
 
-    /**
-     * Set timestamp
-     *
-     * @param \DateTime $timestamp
-     *
-     * @return Session
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->timestamp = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get timestamp
-     *
-     * @return \DateTime
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
 
     /**
      * Get id
@@ -188,12 +158,4 @@ class Session
         return $this->id;
     }
 
-    /**
-     * Session constructor.
-     *
-     */
-    public function __construct()
-    {
-        $this->created = new \DateTime();
-    }
 }
