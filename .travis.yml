@@ -5,11 +5,9 @@ php:
 script: phpunit -c app/
 
 before_script:
-  - cp app/config/parameters.yml.travis app/config/parameters.yml
-  - composer install
-  - php app/console doctrine:database:create --env=test
-  - php app/console doctrine:schema:create --env=test
-  - php app/console doctrine:fixtures:load -n --env=test
+  - wget http://getcomposer.org/composer.phar
+    - php composer.phar install
+    - phpunit
 
 
 notifications:
