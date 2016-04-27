@@ -41,11 +41,11 @@ class Session
     private $appid;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Version
      * @var \DateTime
-     *
-     * @ORM\Column(name="Timestamp", type="datetime", nullable=false)
      */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    private $timestamp = null;
 
     /**
      * @var integer
@@ -186,5 +186,14 @@ class Session
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Session constructor.
+     *
+     */
+    public function __construct()
+    {
+        $this->created = new \DateTime();
     }
 }
