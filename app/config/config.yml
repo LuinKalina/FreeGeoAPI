@@ -61,15 +61,17 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
+                server_version: 5.6
 
-#            geodb:
-#                driver:   pdo_pgsql
-#                host:     "%geo_database_host%"
-#                port:     "%geo_database_port%"
-#                dbname:   "%geo_database_name%"
-#                user:     "%geo_database_user%"
-#                password: "%geo_database_password%"
-#                charset:  UTF8
+            geodb:
+                driver:   pdo_pgsql
+                host:     "%geo_database_host%"
+                port:     "%geo_database_port%"
+                dbname:   "%geo_database_name%"
+                user:     "%geo_database_user%"
+                password: "%geo_database_password%"
+                charset:  UTF8
+                server_version: 5.6
 
     orm:
 #        auto_generate_proxy_classes: "%kernel.debug%"
@@ -82,10 +84,10 @@ doctrine:
                 connection: operations
                 mappings:
                     YupItsZacFreeGeoBundle: ~
-#            geo:
-#                connection: geodb
-#                mappings:
-#                    YupItsZacFreeGeoBundle: ~
+            geo:
+                connection: geodb
+                mappings:
+                    YupItsZacFreeGeoBundle: ~
 
 
 # Swiftmailer Configuration
