@@ -1,7 +1,7 @@
 FreeGeo API
 ===
 
-[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Github made-in](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](http://freegeoapi.org/version/current) [![Github made-in](https://img.shields.io/badge/Open_An-Issue-yellow.svg)](https://github.com/YupItsZac/FreeGeoAPI/issues)
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/YupItsZac/FreeGeoAPI.svg?branch=continuous-integration-setup)](https://travis-ci.org/YupItsZac/FreeGeoAPI)
 
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API is absolutely free to use, and completely open source.
 
