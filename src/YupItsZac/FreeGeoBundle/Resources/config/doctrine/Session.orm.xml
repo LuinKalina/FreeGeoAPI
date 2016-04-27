@@ -24,10 +24,5 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="timestamp" type="datetime" column="Timestamp" nullable="false">
-      <options>
-        <option name="default">CURRENT_TIMESTAMP</option>
-      </options>
-    </field>
   </entity>
 </doctrine-mapping>

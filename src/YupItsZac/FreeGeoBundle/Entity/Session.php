@@ -41,13 +41,6 @@ class Session
     private $appid;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="Timestamp", type="datetime", nullable=false)
-     */
-    private $timestamp = 'CURRENT_TIMESTAMP';
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -154,29 +147,6 @@ class Session
         return $this->appid;
     }
 
-    /**
-     * Set timestamp
-     *
-     * @param \DateTime $timestamp
-     *
-     * @return Session
-     */
-    public function setTimestamp($timestamp)
-    {
-        $this->timestamp = $timestamp;
-
-        return $this;
-    }
-
-    /**
-     * Get timestamp
-     *
-     * @return \DateTime
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
 
     /**
      * Get id
@@ -187,4 +157,5 @@ class Session
     {
         return $this->id;
     }
+
 }
