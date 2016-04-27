@@ -4,8 +4,12 @@ php:
 
 script: phpunit -c app/
 
+install:
+  - composer require satooshi/php-coveralls:~0.6@stable
+
 before_script:
   - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - mkdir -p build/logs
   - "mkdir -p ~/.composer"
   - cp .travis.composer.config.json ~/.composer/config.json
   - composer install
@@ -13,7 +17,11 @@ before_script:
   - php app/console doctrine:schema:create --env=test
   - php app/console doctrine:fixtures:load -n --env=test
 
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
 
+after_success:
+  - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then php vendor/bin/coveralls -v; fi;'
 notifications:
   email:
     -  me@yupitszac.com
