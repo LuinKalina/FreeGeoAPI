@@ -16,7 +16,7 @@ script:
   - phpunit -c app/phpunit.xml.dist
 
 after_script:
- - php vendor/satooshi/php-coveralls/bin/coveralls
+ - bash <(curl -s https://codecov.io/bash)
 
 
 notifications:
