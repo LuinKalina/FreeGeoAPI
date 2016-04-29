@@ -1,40 +1,11 @@
 FreeGeo API
 ===
 
-[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/YupItsZac/FreeGeoAPI.svg?branch=master)](https://travis-ci.org/YupItsZac/FreeGeoAPI) [![codecov](https://codecov.io/gh/YupItsZac/FreeGeoAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/YupItsZac/FreeGeoAPI)
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/YupItsZac/FreeGeoAPI.svg?branch=master)](https://travis-ci.org/YupItsZac/FreeGeoAPI) [![codecov](https://codecov.io/gh/YupItsZac/FreeGeoAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/YupItsZac/FreeGeoAPI) [![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg?maxAge=2592000)]() [![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?maxAge=2592000)]()
 
 The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API is absolutely free to use, and completely open source.
 
 This project is generously hosted by [DigitalOcean](http://www.digitalocean.com) at [https://freegeoapi.org](https://freegeoapi.org). You can find API docs, usage examples and details on contributing to the project there.
-
-**Current Version:** 4.0
-
-**Release Date:** February 21, 2016
-
-**Next Release:** March 1, 2016 - Version 4.1
-
-Things To Do
-===
-
-[![Github priority](https://img.shields.io/badge/Priority-HIGH-red.svg)](http://www.freegeoapi.org/to-do/priority-high)
-
-- Change DB from MySQL to something more suitable like MongoDB or PostgreSQL. Needs discussion.
-- Move logic for generating emails to separate controller. Also separate Mailgun creds.
-- Develop a dashboard for app creators to manage credentials, register new apps, etc.
-- Remove raw SQL and use Doctrine (or some other ORM) builder functionality.
-- Separate credentials/api keys from standard logic.
-
-[![Github priority](https://img.shields.io/badge/Priority-MEDIUM-orange.svg)](http://www.freegeoapi.org/to-do/priority-medium)
-
-- Translate the FreeGeo website and API responses to other languages.
-- Add usage examples for more development languages (Java, JS, etc).
-- Move all documentation to some type of storage, to get rid of each template file. This would include developing some logic to deliver that information when requested.
-- Add logic to check status of API services on /status page
-
-[![Github priority](https://img.shields.io/badge/Priority-LOW-green.svg)](http://www.freegeoapi.org/to-do/priority-low)
-
-- Develop some sort of caching mechanism to improve performance.
-- Figure out a better way to provide DB data other than .sql dumps.
 
 Contribute
 ===
