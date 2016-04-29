@@ -16,7 +16,7 @@ script:
   - phpunit -c app/phpunit.xml.dist
 
 after_script:
- - php php vendor/satooshi/php-coveralls/bin/coveralls -v
+ - php vendor/satooshi/php-coveralls/bin/coveralls -v
 
 
 notifications:
