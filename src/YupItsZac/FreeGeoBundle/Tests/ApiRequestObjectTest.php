@@ -18,6 +18,12 @@ class ApiRequestObjectTest extends \PHPUnit_Framework_TestCase
         $this->apiRequestObject->setLimit('testlimit');
         $this->apiRequestObject->setMaximum('testmaximum');
         $this->apiRequestObject->setMetricUnit('testmetric');
+        $this->apiRequestObject->setSessionToken('testtoken');
+        $this->apiRequestObject->setPrivateKey('testprivatekey');
+        $this->apiRequestObject->setPublicKey('testpublickey');
+        $this->apiRequestObject->setRoundMath('testround');
+        $this->apiRequestObject->setSecondaryLatitude('testsecondlat');
+        $this->apiRequestObject->setSecondaryLongitude('testsecondlon');
 
     }
 
@@ -43,6 +49,31 @@ class ApiRequestObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMetricUnit() {
         $this->assertEquals('testmetric', $this->apiRequestObject->getMetricUnit());
+    }
+
+    public function testGetSessionToken() {
+        $this->assertEquals('testtoken', $this->apiRequestObject->getSessionToken());
+    }
+
+    public function testGetPrivateKey() {
+        $this->assertEquals('testprivatekey', $this->apiRequestObject->getPrivateKey());
+    }
+
+    public function testGetPublicKey() {
+        $this->assertEquals('testpublickey', $this->apiRequestObject->getPublicKey());
+    }
+
+
+    public function testGetRoundMath() {
+        $this->assertEquals('testround', $this->apiRequestObject->getRoundMath());
+    }
+
+    public function testGetSecondaryLatitde() {
+        $this->assertEquals('testsecondlat', $this->apiRequestObject->getSecondaryLatitude());
+    }
+
+    public function testGetSecondaryLongitude() {
+        $this->assertEquals('testsecondlon', $this->apiRequestObject->getSecondaryLongitude());
     }
 
 
