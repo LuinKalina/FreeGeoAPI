@@ -3,7 +3,15 @@ FreeGeo API
 
 [![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/YupItsZac/FreeGeoAPI.svg?branch=master)](https://travis-ci.org/YupItsZac/FreeGeoAPI) [![Coverage Status](https://coveralls.io/repos/github/YupItsZac/FreeGeoAPI/badge.svg?branch=master)](https://coveralls.io/github/YupItsZac/FreeGeoAPI?branch=master)
 
-The FreeGeo API is an open source geolocation API intended to help developers of smaller applications utilizing geocoding, searches, boundaries and other geo related tasks. The API is absolutely free to use, and completely open source.
+The primary goals of the FreeGeo API are to:
+
+ - Promote learning, and the advancement of geospatial abilities
+ - Provide a completely free, and open source platform that lets developers add geo abilities to their applications
+
+ The FreeGeo API is completely free for use, and 100% open source. This project is governed by the MIT license.
+
+ > Note:
+ > The FreeGeo API is now part of the OpenGeoNet organization, but is still the same project with the same goals.
 
 This project is generously hosted by [DigitalOcean](http://www.digitalocean.com) at [https://freegeoapi.org](https://freegeoapi.org). You can find API docs, usage examples and details on contributing to the project there.
 
