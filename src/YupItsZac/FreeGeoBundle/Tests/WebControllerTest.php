@@ -95,6 +95,6 @@ class WebControllerTest extends WebTestCase {
         $crawler = $this->client->request('GET', '/login');
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $this->assertGreaterThan(0, $crawler->filter('html:contains("Developer Login")'));
+        $this->assertGreaterThan(0, $crawler->filter('html:contains("Developer Login")')->count());
     }
 }
