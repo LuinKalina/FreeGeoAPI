@@ -1,7 +1,7 @@
 FreeGeo API
 ===
 
-[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/YupItsZac/FreeGeoAPI.svg?branch=master)](https://travis-ci.org/YupItsZac/FreeGeoAPI) [![Coverage Status](https://coveralls.io/repos/github/YupItsZac/FreeGeoAPI/badge.svg?branch=master)](https://coveralls.io/github/YupItsZac/FreeGeoAPI?branch=master)
+[![Github made-in](https://img.shields.io/badge/Made_In-Berlin-green.svg)](#) [![Build Status](https://travis-ci.org/OpenGeoNet/FreeGeoAPI.svg?branch=master)](https://travis-ci.org/OpenGeoNet/FreeGeoAPI) [![Coverage Status](https://coveralls.io/repos/github/OpenGeoNet/FreeGeoAPI/badge.svg?branch=master)](https://coveralls.io/github/OpenGeoNet/FreeGeoAPI?branch=master)
 
 The primary goals of the FreeGeo API are to:
 
@@ -18,43 +18,7 @@ This project is generously hosted by [DigitalOcean](http://www.digitalocean.com)
 Contribute
 ===
 
-Like most projects, the FreeGeo API is never finished. We are constantly making changes and updates to enhance the functionality, performance and security of the API. It is strongly encouraged that interested developers from anywhere in the world contribute to the project. 
-
-######Areas of Interest
-
-There are three areas of primary interest on this project. Each area presents it's own unique challenges, and opportunities fr contribution. Experience with the Symfony2 framework is very useful, but not required. The entire API wa sbuilt as a tool for me (@YupItsZac) to learn the framework. 
-
-**Backend** 
-
-The API is built on the [Symfony2 framework](https://symfony.com/doc/current/index.html). This means that the bulk of the project is written in PHP. Interested in contributing on the backend? Great! We need your help. Experience with PHP, MVC structures, routing, etc would be ideal.
-
-**Frontend**
-
-For the FreeGEO API, we refer to the frontend as anything rendered in the browser. This means pages on the main website, emails the API delivers, etc. This area will utilize CSS, JS, and other frontend tools that might be added later on. 
-
-**Documentation**
-
-This is a HUGE area for the project. We need clear usage documentation so developers know how to use the API and can see which endpoints are available. This documentation would be rather technical, so it might be useful if you have a background in technical writing but that is not required. 
-
-**Usage Examples**
-
-Currently, usage examples are provided for each endpoint in PHP and Python. We would like to expand this to include more languages to make API access possible for most projects. 
-
-**Translations**
-
-Right now, the FreeGeo API is only available in English. I'd like to expand this offering to as many languages as possible, but I need help! [This website](http://freegeo.yupitszac.com) and the API responses would need translation. Interested in contributing here? Open an issue and we can discuss the best way to accomplish this.
-
-
-**Other Stuff**
-
-Don't want to help out in one of the areas above? No worries! The beauty of open source projects is that you can work on whatever your good at (or want to be good at). Think another area should be added? Let me know!
-
-
-######How to Contribute
-
-Fork the repo! That way you can play around with whatever changes you want to make without affecting this repo. After your changes have been made, tested and reviewed, submit a pull request to the staging branch. 
-
-Your new code will be reviewed again, tested again, then if it makes sense to move it to Master, it will be added to prod in the next release.
+The best way to start contributing to this (and any OpenGeoNet project) is to read the [OpenGeoNet Contributing Guidelines](https://github.com/OpenGeoNet/FreeGeoAPI/blob/master/CONTRIBUTING.md). After you've reviewed the guidelines, fork and code away!
 
 Happy coding! :)
 
